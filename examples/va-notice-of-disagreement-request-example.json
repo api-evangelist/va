@@ -1,0 +1,34 @@
+{
+  "data": {
+    "type": "noticeOfDisagreement",
+    "attributes": {
+      "veteran": {
+        "icn": "1012667145V762142",
+        "fileNumber": "987654321",
+        "firstName": "J\u00e4\u00f1e",
+        "lastName": "Doe",
+        "birthDate": "1969-12-31",
+        "homeless": true,
+        "phone": {
+          "phoneNumber": "8001111"
+        },
+        "email": "jdoe@example.com",
+        "timezone": "America/Chicago"
+      },
+      "boardReviewOption": "evidence_submission",
+      "requestingExtension": false,
+      "appealingVhaDenial": false
+    }
+  },
+  "included": [
+    {
+      "type": "appealableIssue",
+      "attributes": {
+        "issue": "tinnitus",
+        "decisionDate": "1900-01-01",
+        "decisionIssueId": 1,
+        "ratingIssueReferenceId": "2"
+      }
+    }
+  ]
+}

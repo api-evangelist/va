@@ -1,0 +1,45 @@
+{
+  "data": {
+    "type": "supplementalClaim",
+    "attributes": {
+      "benefitType": "fiduciary",
+      "claimantType": "veteran",
+      "veteran": {
+        "ssn": "123456789",
+        "icn": "1012667145V762142",
+        "firstName": "J\u00e4\u00f1e",
+        "middleInitial": "\u00f8",
+        "lastName": "Do\u00e9",
+        "birthDate": "1969-12-31",
+        "fileNumber": "987654321",
+        "insurancePolicyNumber": "987654321123456789",
+        "address": {
+          "addressLine1": "123 Main St",
+          "city": "New York",
+          "countryCodeIso3": "USA",
+          "zipCode5": "30012"
+        },
+        "phone": {
+          "areaCode": "555",
+          "phoneNumber": "8001111"
+        },
+        "email": "josie@example.com",
+        "timezone": "America/Chicago"
+      },
+      "evidenceSubmission": {
+        "evidenceType": [
+          "upload"
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "type": "appealableIssue",
+      "attributes": {
+        "issue": "right shoulder",
+        "decisionDate": "1900-01-06"
+      }
+    }
+  ]
+}

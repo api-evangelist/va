@@ -1,0 +1,491 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Legacy Appeals",
+    "version": "v0",
+    "contact": {
+      "name": "developer.va.gov"
+    },
+    "description": "The Legacy Appeals API returns a list of a claimant's active legacy appeals, which are not part of the Appeals Modernization Act (AMA) process. This list can be used to determine whether to opt in to the new decision review process. [Learn more about managing a legacy appeal](https://www.va.gov/decision-reviews/legacy-appeals/).\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Legacy Appeals API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Legacy Appeals API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/legacy-appeals/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/legacy-appeals/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/legacy_appeals_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n"
+  },
+  "tags": [
+    {
+      "name": "Legacy Appeals",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/legacy-appeals": {
+      "get": {
+        "summary": "Returns eligible appeals in the legacy process for a Veteran.",
+        "tags": [
+          "Legacy Appeals"
+        ],
+        "operationId": "getLegacyAppeals",
+        "security": [
+          {
+            "productionOauth": [
+              "veteran/LegacyAppeals.read",
+              "representative/LegacyAppeals.read",
+              "system/LegacyAppeals.read"
+            ]
+          },
+          {
+            "sandboxOauth": [
+              "veteran/LegacyAppeals.read",
+              "representative/LegacyAppeals.read",
+              "system/LegacyAppeals.read"
+            ]
+          },
+          {
+            "bearer_token": [
+
+            ]
+          }
+        ],
+        "description": "Returns eligible legacy appeals for a Veteran. A legacy appeal is eligible if a statement of the case (SOC)  or supplemental statement of the case (SSOC) has been declared, and if the date of declaration is within the last 60 days.",
+        "parameters": [
+          {
+            "name": "icn",
+            "description": "Veteran's Master Person Index (MPI) Integration Control Number (ICN). Optional when using a veteran-scoped token. Required when using a representative- or system-scoped token.",
+            "example": "1012832025V743496",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{10}V[0-9]{6}$",
+              "minLength": 17,
+              "maxLength": 17
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieve legacy appeals for the Veteran with the supplied ICN",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "with a veteran-scoped token (no 'icn' parameter necessary)": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "2760964",
+                          "type": "legacyAppeal",
+                          "attributes": {
+                            "issues": [
+                              {
+                                "summary": "Service connection, pancreatitis"
+                              }
+                            ],
+                            "veteranFullName": "Elda Z Quigley",
+                            "decisionDate": "2021-05-04T00:00:00.000Z",
+                            "latestSocSsocDate": "2021-06-12"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "with a representative-scoped token ('icn' parameter is necessary)": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "2760964",
+                          "type": "legacyAppeal",
+                          "attributes": {
+                            "issues": [
+                              {
+                                "summary": "Service connection, pancreatitis"
+                              }
+                            ],
+                            "veteranFullName": "Elda Z Quigley",
+                            "decisionDate": "2021-05-04T00:00:00.000Z",
+                            "latestSocSsocDate": "2021-06-12"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "with a system-scoped token ('icn' parameter is necessary)": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "2760964",
+                          "type": "legacyAppeal",
+                          "attributes": {
+                            "issues": [
+                              {
+                                "summary": "Service connection, pancreatitis"
+                              }
+                            ],
+                            "veteranFullName": "Elda Z Quigley",
+                            "decisionDate": "2021-05-04T00:00:00.000Z",
+                            "latestSocSsocDate": "2021-06-12"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/legacyAppeals"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing ICN parameter",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "with a representative-scoped token and no 'icn' parameter": {
+                    "value": {
+                      "errors": [
+                        {
+                          "title": "Missing parameter",
+                          "detail": "The 'icn' parameter is required with this request",
+                          "code": "108",
+                          "status": "400"
+                        }
+                      ]
+                    }
+                  },
+                  "with a system-scoped token and no 'icn' parameter": {
+                    "value": {
+                      "errors": [
+                        {
+                          "title": "Missing parameter",
+                          "detail": "The 'icn' parameter is required with this request",
+                          "code": "108",
+                          "status": "400"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "title": "Forbidden",
+                      "detail": "Invalid 'icn' parameter: Veterans may access only their own records",
+                      "code": "403",
+                      "status": "403"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Veteran record not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "title": "Resource not found",
+                      "detail": "A matching Veteran was not found in our systems",
+                      "code": "404",
+                      "status": "404"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid 'icn' parameter",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "when ICN is formatted incorrectly": {
+                    "value": {
+                      "errors": [
+                        {
+                          "title": "Unprocessable Entity",
+                          "detail": "'icn' parameter has an invalid format. Pattern: /^[0-9]{10}V[0-9]{6}$/",
+                          "code": "422",
+                          "status": "422"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "title": "Internal server error",
+                      "detail": "Internal server error",
+                      "code": "500",
+                      "status": "500"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Unknown upstream error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "title": "Bad Gateway",
+                      "detail": "Received an unusable response from Caseflow",
+                      "code": "502",
+                      "status": "502"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearer_token": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "productionOauth": {
+        "type": "oauth2",
+        "description": "The authentication model for the Legacy Appeals API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/legacy-appeals/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/legacy-appeals/client-credentials).",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://api.va.gov/oauth2/appeals/v1/authorization",
+            "tokenUrl": "https://api.va.gov/oauth2/appeals/v1/token",
+            "scopes": {
+              "veteran/LegacyAppeals.read": "Legacy appeals info",
+              "veteran/appeals.read": "Appeals info",
+              "representative/LegacyAppeals.read": "Legacy appeals info",
+              "representative/appeals.read": "Appeals info"
+            }
+          },
+          "clientCredentials": {
+            "tokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+            "scopes": {
+              "system/LegacyAppeals.read": "Legacy appeals info",
+              "system/appeals.read": "Appeals info"
+            }
+          }
+        }
+      },
+      "sandboxOauth": {
+        "type": "oauth2",
+        "description": "The authentication model for the Legacy Appeals API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/legacy-appeals/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/legacy-appeals/client-credentials).",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://sandbox-api.va.gov/oauth2/appeals/v1/authorization",
+            "tokenUrl": "https://sandbox-api.va.gov/oauth2/appeals/v1/token",
+            "scopes": {
+              "veteran/LegacyAppeals.read": "Legacy appeals info",
+              "veteran/appeals.read": "Appeals info",
+              "representative/LegacyAppeals.read": "Legacy appeals info",
+              "representative/appeals.read": "Appeals info"
+            }
+          },
+          "clientCredentials": {
+            "tokenUrl": "https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token",
+            "scopes": {
+              "system/LegacyAppeals.read": "Legacy appeals info",
+              "system/appeals.read": "Appeals info"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "errorModel": {
+        "required": [
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "additionalProperties": false,
+              "required": [
+                "title"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "HTTP error title"
+                },
+                "detail": {
+                  "type": "string",
+                  "description": "HTTP error detail"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "HTTP error code"
+                },
+                "source": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "description": "Source of error",
+                  "properties": {
+                    "pointer": {
+                      "type": "string",
+                      "description": "Pointer to source of error"
+                    },
+                    "parameter": {
+                      "type": "string",
+                      "description": "Invalid request parameter"
+                    },
+                    "header": {
+                      "type": "string",
+                      "description": "Invalid header"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "string",
+                  "description": "HTTP error code"
+                },
+                "meta": {
+                  "type": "object",
+                  "description": "Meta infomation",
+                  "properties": {
+                    "missing_fields": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of missing fields"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "icn": {
+        "type": "string",
+        "description": "Veteran's Master Person Index (MPI) Integration Control Number (ICN)",
+        "pattern": "^[0-9]{10}V[0-9]{6}$",
+        "minLength": 17,
+        "maxLength": 17,
+        "example": "1012832025V743496"
+      },
+      "legacyAppeal": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "legacyAppeal"
+          },
+          "id": {
+            "type": "string",
+            "description": "ID from VACOLS (Veteran Appeals Control and Locator Service)",
+            "example": "3085659"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "issues": {
+                "type": "array",
+                "description": "Issues on the Appeal.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "string",
+                      "description": "Summary of a single Issue.",
+                      "example": "Service connection, hearing loss"
+                    }
+                  }
+                }
+              },
+              "veteranFullName": {
+                "type": "string",
+                "example": "Junior L Fritsch"
+              },
+              "decisionDate": {
+                "type": "string",
+                "description": "Date of the Appeal's original decision.",
+                "example": "2018-09-28T00:00:00.000Z"
+              },
+              "latestSocSsocDate": {
+                "type": "string",
+                "description": "Date of the Appeal's most recent SOC/SSOC (Statement of Case/Supplemental Statement of Case)",
+                "example": "2018-12-29T00:00:00.000Z"
+              }
+            }
+          }
+        }
+      },
+      "legacyAppeals": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/legacyAppeal"
+            }
+          }
+        }
+      },
+      "nonBlankString": {
+        "type": "string",
+        "pattern": "[^ \\f\\n\\r\\t\\v\\u00a0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000\\ufeff]"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sandbox-api.va.gov/services/appeals/legacy-appeals/{version}",
+      "description": "VA.gov API sandbox environment",
+      "variables": {
+        "version": {
+          "default": "v0"
+        }
+      }
+    },
+    {
+      "url": "https://api.va.gov/services/appeals/legacy-appeals/{version}",
+      "description": "VA.gov API production environment",
+      "variables": {
+        "version": {
+          "default": "v0"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "va": "https://developer.va.gov/",
+    "fhir": "http://hl7.org/fhir/",
+    "openapi": "https://spec.openapis.org/oas/v3.0/",
+    "Organization": "https://schema.org/Organization",
+    "WebAPI": "https://schema.org/WebAPI",
+    "name": "https://schema.org/name",
+    "description": "https://schema.org/description",
+    "url": "https://schema.org/url",
+    "documentation": "https://schema.org/documentation",
+    "termsOfService": "https://schema.org/termsOfService",
+    "provider": "https://schema.org/provider",
+    "serviceType": "https://schema.org/serviceType",
+    "areaServed": "https://schema.org/areaServed",
+    "audience": "https://schema.org/audience",
+    "availableChannel": "https://schema.org/availableChannel",
+    "category": "https://schema.org/category",
+    "identifier": "https://schema.org/identifier",
+    "license": "https://schema.org/license",
+    "version": "https://schema.org/version"
+  },
+  "@type": "Organization",
+  "@id": "https://www.va.gov",
+  "name": "U.S. Department of Veterans Affairs",
+  "description": "The US Department of Veterans Affairs (VA) Lighthouse API platform provides a portfolio of public-facing REST APIs enabling third-party developers and partners to access veteran benefits data, health records (FHIR), appeals and decision review status, facilities information, forms, and service history verification.",
+  "url": "https://www.va.gov",
+  "sameAs": [
+    "https://github.com/department-of-veterans-affairs",
+    "https://developer.va.gov",
+    "https://x.com/deptvetaffairs",
+    "https://www.linkedin.com/company/department-of-veterans-affairs"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "VA Lighthouse API Platform",
+    "description": "Public-facing REST APIs for veteran benefits, health, appeals, facilities, forms, and verification",
+    "url": "https://developer.va.gov",
+    "itemListElement": [
+      {
+        "@type": "WebAPI",
+        "name": "Benefits Intake API",
+        "description": "Enables authorized third-party systems to upload documents for submission to the VA Central Mail Portal, routing them to the appropriate VA office for claims processing.",
+        "documentation": "https://developer.va.gov/explore/api/benefits-intake/docs",
+        "url": "https://api.va.gov/services/benefits-intake/v2",
+        "serviceType": "Benefits",
+        "category": ["Benefits", "Claims", "Documents"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "Patient Health API (FHIR)",
+        "description": "Allows Veterans and authorized third parties to access patient health data using the HL7 FHIR R4 standard, including records, medications, conditions, immunizations, and appointments from VA facilities.",
+        "documentation": "https://developer.va.gov/explore/api/patient-health/docs",
+        "url": "https://api.va.gov/services/fhir/v0/r4",
+        "serviceType": "Health",
+        "category": ["Health", "FHIR", "Medical Records", "R4"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "Health Care Costs and Coverage API (FHIR)",
+        "description": "Provides access to health care expense data for VA patients including medical charges, services received, and payments for health-related expenses using the FHIR standard.",
+        "documentation": "https://developer.va.gov/explore/api/health-care-costs-coverage",
+        "url": "https://api.va.gov/services/fhir/v0/r4",
+        "serviceType": "Health",
+        "category": ["Health", "FHIR", "Costs", "Coverage"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "Appeals Status API",
+        "description": "Enables authorized parties to request the status of a Veteran's benefits claim appeal, including the current step in the process, estimated decision dates, and hearing information.",
+        "documentation": "https://developer.va.gov/explore/api/appeals-status/docs",
+        "url": "https://api.va.gov/services/appeals/v1",
+        "serviceType": "Appeals",
+        "category": ["Appeals", "Benefits", "Claims"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "Decision Reviews API",
+        "description": "Allows accredited representatives and Veterans to interact with VA decision reviews (benefit appeals), including submitting Supplemental Claims, Higher-Level Reviews, and Board Appeals.",
+        "documentation": "https://developer.va.gov/explore/api/decision-reviews/docs",
+        "url": "https://api.va.gov/services/appeals/v2",
+        "serviceType": "Decision Reviews",
+        "category": ["Decision Reviews", "Appeals", "Benefits"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "VA Facilities API",
+        "description": "Provides location information and services data for VA facilities including VA Medical Centers, community-based outpatient clinics, Vet Centers, and benefits offices across the United States.",
+        "documentation": "https://developer.va.gov/explore/api/va-facilities/docs",
+        "url": "https://api.va.gov/services/va_facilities/v1",
+        "serviceType": "Facilities",
+        "category": ["Facilities", "Locations", "Healthcare"],
+        "areaServed": "United States",
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "VA Forms API",
+        "description": "Provides information about VA forms including metadata, current versions, and downloadable URLs for official VA forms used in benefits and healthcare applications.",
+        "documentation": "https://developer.va.gov/explore/api/va-forms/docs",
+        "url": "https://api.va.gov/services/va_forms/v0",
+        "serviceType": "Forms",
+        "category": ["Forms", "Documents", "Benefits"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "Veteran Verification API",
+        "description": "Allows authorized third parties to verify a Veteran's service history, Veteran status, discharge information, and disability rating using OAuth 2.0 authorization from the Veteran.",
+        "documentation": "https://developer.va.gov/explore/api/veteran-service-history-and-eligibility/docs",
+        "url": "https://api.va.gov/services/veteran_verification/v2",
+        "serviceType": "Verification",
+        "category": ["Verification", "Service History", "Disability", "Status"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "Direct Deposit Management API",
+        "description": "Enables accredited VSO representatives to view and update direct deposit information for Veterans receiving VA disability compensation and pension payments.",
+        "documentation": "https://developer.va.gov/explore/api/direct-deposit-management/docs",
+        "url": "https://api.va.gov/services/direct-deposit-management/v1",
+        "serviceType": "Financial",
+        "category": ["Direct Deposit", "Benefits", "Compensation"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "VA Letter Generator API",
+        "description": "Allows Veterans and authorized third parties to generate official VA letters confirming veteran status, service history, benefit summary, and other information required for housing, employment, and benefits purposes.",
+        "documentation": "https://developer.va.gov/explore/api/va-letter-generator/docs",
+        "url": "https://api.va.gov/services/letter-generator/v0",
+        "serviceType": "Letters",
+        "category": ["Letters", "Benefits", "Verification"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "Benefits Reference Data API",
+        "description": "Provides reference data used for VA benefits forms and applications, including lists of service branches, discharge types, disabilities, countries, and other standardized VA data sets.",
+        "documentation": "https://developer.va.gov/explore/api/benefits-reference-data/docs",
+        "url": "https://api.va.gov/services/benefits-reference-data/v1",
+        "serviceType": "Reference Data",
+        "category": ["Benefits", "Reference Data", "Forms"],
+        "provider": {
+          "@type": "Organization",
+          "name": "U.S. Department of Veterans Affairs",
+          "email": "api@va.gov"
+        }
+      }
+    ]
+  }
+}
