@@ -1,0 +1,66 @@
+name: VA Lighthouse API Plans and Access
+description: The VA Lighthouse API platform is a free, government-provided service.
+  There are no subscription fees or usage charges. Access is structured around two
+  environments (sandbox and production) with a credential-based access request process.
+url: https://developer.va.gov/onboarding/working-with-lighthouse-apis
+
+plans:
+  - name: Sandbox Access
+    description: Free sandbox environment available to all developers. Provides immediate
+      access to VA APIs using synthetic test data. No real Veteran data is accessible.
+      Sandbox API keys and OAuth credentials are issued upon application.
+    url: https://developer.va.gov/explore
+    type: free
+    rateLimits:
+      requests: 60
+      period: minute
+    features:
+      - Immediate access upon API key request approval
+      - Synthetic test data for all APIs
+      - Full API functionality for integration testing
+      - Access to all published VA Lighthouse APIs
+      - Support via developer portal and email (api@va.gov)
+      - OAuth 2.0 sandbox credentials for user-context APIs
+    authentication:
+      - type: API Key
+        description: HTTP header apikey for server-to-server APIs
+      - type: OAuth 2.0
+        description: OpenID Connect authorization code flow for user-context APIs
+
+  - name: Production Access
+    description: Production access to VA APIs requires an additional application and
+      review process beyond sandbox credentials. Access is granted based on use case,
+      security review, and VA approval. Production credentials provide access to real
+      Veteran data and must comply with VA data handling policies.
+    url: https://developer.va.gov/production-access/request-prod-access
+    type: free
+    rateLimits:
+      requests: 60
+      period: minute
+    features:
+      - Access to real Veteran data (with Veteran consent where required)
+      - Production-grade uptime and reliability
+      - API key or OAuth 2.0 credentials for production environment
+      - VA compliance and data handling requirements apply
+      - Dedicated support for production issues
+    authentication:
+      - type: API Key
+        description: HTTP header apikey for server-to-server production APIs
+      - type: OAuth 2.0
+        description: OpenID Connect with RSA public key JSON Web Key format for user-context APIs
+    requirements:
+      - Approved use case supporting Veterans or VA mission
+      - Security and compliance review by VA
+      - Agreement to VA API terms of service and data handling policies
+      - Production access application submitted via developer.va.gov
+
+notes: >
+  The VA does not charge for API access. All Lighthouse APIs are provided as a
+  public service of the US Department of Veterans Affairs. Developers must complete
+  an access request via the developer portal to receive credentials for both sandbox
+  and production environments. Access is not guaranteed and is subject to VA review
+  and approval.
+
+contact:
+  email: api@va.gov
+  url: https://developer.va.gov/support/contact-us

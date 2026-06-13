@@ -1,0 +1,59 @@
+name: VA Lighthouse API Financial Operations
+description: Financial operations profile for the US Department of Veterans Affairs
+  Lighthouse API platform. The VA is a federal government agency; its APIs are publicly
+  funded and provided free of charge to authorized developers and partners. There
+  is no cost to consume VA Lighthouse APIs.
+url: https://developer.va.gov
+
+funding:
+  type: Federal Government
+  description: The VA Lighthouse API platform is funded through the US Department
+    of Veterans Affairs budget as part of its digital transformation and open government
+    initiatives. All operational costs are borne by the federal government.
+  source: US Department of Veterans Affairs appropriations
+
+cost:
+  toConsumers: free
+  description: All VA Lighthouse APIs are provided at no cost to developers, Veterans,
+    healthcare providers, VSOs (Veterans Service Organizations), and accredited
+    representatives. There are no subscription fees, usage-based charges, or metered
+    billing of any kind.
+
+billing:
+  model: none
+  description: The VA does not bill API consumers. There are no invoices, credit card
+    requirements, or payment methods associated with VA Lighthouse API access.
+
+value:
+  description: >-
+    The VA Lighthouse APIs deliver significant public value by enabling
+    the veteran services ecosystem. Key areas of value creation include the following.
+  areas:
+    - name: Healthcare Access
+      description: FHIR-based health APIs enable Veterans to share records with
+        providers, reducing redundant testing and improving continuity of care.
+    - name: Benefits Processing
+      description: Benefits Intake and Decision Review APIs accelerate claims
+        processing and reduce administrative burden for VA and Veterans alike.
+    - name: Service History Verification
+      description: Veteran verification APIs reduce fraud and streamline eligibility
+        determination for government and private-sector benefit programs.
+    - name: Facility Access
+      description: Facilities API enables third-party apps to help Veterans find
+        the nearest VA care options, reducing barriers to accessing services.
+    - name: VSO Enablement
+      description: APIs for accredited representatives enable VSOs to better serve
+        Veterans through direct system integration with VA data.
+
+compliance:
+  description: Consumers of VA APIs must comply with federal data handling requirements.
+  requirements:
+    - VA API Terms of Service
+    - Federal privacy laws including the Privacy Act of 1974
+    - Health Insurance Portability and Accountability Act (HIPAA) where applicable
+    - VA security review and approval for production access
+    - Data use restrictions prohibiting sale or misuse of Veteran data
+
+contact:
+  email: api@va.gov
+  url: https://developer.va.gov/support/contact-us

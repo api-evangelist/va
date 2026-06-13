@@ -1,0 +1,53 @@
+name: VA Lighthouse API Rate Limits
+description: Rate limiting policies for the VA Lighthouse API platform, applicable
+  to all APIs hosted on api.va.gov. Limits apply per API key or OAuth token and are
+  enforced at the API gateway level.
+url: https://developer.va.gov/onboarding/working-with-lighthouse-apis
+
+limits:
+  - name: Standard Production Rate Limit
+    description: Default rate limit applied to all production API requests authenticated
+      with an API key or OAuth 2.0 access token. Applies across all VA Lighthouse
+      APIs including Benefits, Health (FHIR), Appeals, Facilities, Forms, and Verification.
+    environment: production
+    requests: 60
+    period: minute
+    scope: per API key or access token
+    enforcement: API gateway level
+
+  - name: Sandbox Rate Limit
+    description: Reduced rate limit applied in the sandbox (test) environment. Designed
+      to allow development and testing without consuming production-level capacity.
+    environment: sandbox
+    requests: 60
+    period: minute
+    scope: per API key or access token
+    enforcement: API gateway level
+    notes: Sandbox limits may be lower than production; contact api@va.gov for current sandbox limits.
+
+headers:
+  description: VA API gateway may return standard rate limit headers in HTTP responses.
+  headers:
+    - name: X-RateLimit-Limit
+      description: The maximum number of requests allowed in the current period
+    - name: X-RateLimit-Remaining
+      description: The number of requests remaining in the current period
+    - name: X-RateLimit-Reset
+      description: Unix timestamp indicating when the current rate limit window resets
+    - name: Retry-After
+      description: Seconds to wait before retrying after a 429 Too Many Requests response
+
+errors:
+  - status: 429
+    description: Too Many Requests - returned when the rate limit is exceeded. Clients
+      should implement exponential backoff and honor the Retry-After header.
+
+notes: >
+  Rate limits are subject to change. Check the VA developer portal for the most
+  current limits. Exceeding rate limits will result in HTTP 429 responses. For
+  use cases requiring higher throughput, contact the VA API platform team at
+  api@va.gov to discuss options.
+
+contact:
+  email: api@va.gov
+  url: https://developer.va.gov/support/contact-us
