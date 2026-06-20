@@ -6,7 +6,7 @@ description: The US Department of Veterans Affairs (VA) Lighthouse API platform 
   status, facilities information, forms, and service history verification. APIs support
   OAuth 2.0 with OpenID Connect and API key authentication and are available with
   sandbox and production environments.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/va/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -24,7 +24,7 @@ apis:
     description: Enables authorized third-party systems to upload documents for submission
       to the VA Central Mail Portal, routing them to the appropriate VA office for
       claims processing.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/benefits-intake
     baseURL: https://api.va.gov/services/benefits-intake/v2
     tags:
@@ -44,7 +44,7 @@ apis:
     description: Allows Veterans and authorized third parties to access patient health
       data using the HL7 FHIR R4 standard, including records, medications, conditions,
       immunizations, and appointments from VA facilities.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/patient-health
     baseURL: https://api.va.gov/services/fhir/v0/r4
     tags:
@@ -63,7 +63,7 @@ apis:
     description: Provides access to health care expense data for VA patients including
       medical charges, services received, and payments for health-related expenses
       using the FHIR standard.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/health-care-costs-coverage
     baseURL: https://api.va.gov/services/fhir/v0/r4
     tags:
@@ -82,7 +82,7 @@ apis:
     description: Enables authorized parties to request the status of a Veteran's
       benefits claim appeal, including the current step in the process, estimated
       decision dates, and hearing information.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/appeals-status
     baseURL: https://api.va.gov/services/appeals/v1
     tags:
@@ -100,7 +100,7 @@ apis:
     description: Allows accredited representatives and Veterans to interact with VA
       decision reviews (benefit appeals), including submitting Supplemental Claims,
       Higher-Level Reviews, and Board Appeals.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/decision-reviews
     baseURL: https://api.va.gov/services/appeals/v2
     tags:
@@ -118,7 +118,7 @@ apis:
     description: Provides location information and services data for VA facilities
       including VA Medical Centers, community-based outpatient clinics, Vet Centers,
       and benefits offices across the United States.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/va-facilities
     baseURL: https://api.va.gov/services/va_facilities/v1
     tags:
@@ -136,7 +136,7 @@ apis:
     description: Provides information about VA forms including metadata, current versions,
       and downloadable URLs for official VA forms used in benefits and healthcare
       applications.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/va-forms
     baseURL: https://api.va.gov/services/va_forms/v0
     tags:
@@ -154,7 +154,7 @@ apis:
     description: Allows authorized third parties to verify a Veteran's service history,
       Veteran status, discharge information, and disability rating using OAuth 2.0
       authorization from the Veteran.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/veteran-service-history-and-eligibility
     baseURL: https://api.va.gov/services/veteran_verification/v2
     tags:
@@ -173,7 +173,7 @@ apis:
     description: Enables accredited VSO representatives to view and update direct
       deposit information for Veterans receiving VA disability compensation and pension
       payments.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/direct-deposit-management
     baseURL: https://api.va.gov/services/direct-deposit-management/v1
     tags:
@@ -191,7 +191,7 @@ apis:
     description: Allows Veterans and authorized third parties to generate official
       VA letters confirming veteran status, service history, benefit summary, and
       other information required for housing, employment, and benefits purposes.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/va-letter-generator
     baseURL: https://api.va.gov/services/letter-generator/v0
     tags:
@@ -209,7 +209,7 @@ apis:
     description: Provides reference data used for VA benefits forms and applications,
       including lists of service branches, discharge types, disabilities, countries,
       and other standardized VA data sets.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.va.gov/explore/api/benefits-reference-data
     baseURL: https://api.va.gov/services/benefits-reference-data/v1
     tags:
