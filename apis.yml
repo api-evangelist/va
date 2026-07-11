@@ -224,6 +224,10 @@ apis:
         email: api@va.gov
 
 common:
+  - type: Authentication
+    url: authentication/va-authentication.yml
+  - type: OAuthScopes
+    url: scopes/va-scopes.yml
   - type: Website
     url: https://www.va.gov
   - type: Documentation

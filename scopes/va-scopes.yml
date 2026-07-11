@@ -1,0 +1,390 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/va-appealable-issues-openapi.json, openapi/va-appeals-status-openapi.json, openapi/va-claims-api-openapi.json,
+  openapi/va-higher-level-reviews-openapi.json, openapi/va-legacy-appeals-openapi.json, openapi/va-notice-of-disagreements-openapi.json,
+  openapi/va-supplemental-claims-openapi.json
+schemes:
+- name: productionOauth
+  source: openapi/va-appealable-issues-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: To get production access, you must either work for VA or have specific VA agreements
+      in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+  description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID
+    Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+- name: sandboxOauth
+  source: openapi/va-appealable-issues-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
+  description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID
+    Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+- name: productionOauth
+  source: openapi/va-appeals-status-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: To get production access, you must either work for VA or have specific VA agreements
+      in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+  description: 'The authentication model for the Appeals Status API uses OAuth 2.0/OpenID Connect.
+    The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appeals-status/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appeals-status/client-credentials).'
+- name: sandboxOauth
+  source: openapi/va-appeals-status-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
+  description: 'The authentication model for the Appeals Status API uses OAuth 2.0/OpenID Connect.
+    The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appeals-status/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appeals-status/client-credentials).'
+- name: productionOauth
+  source: openapi/va-claims-api-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.va.gov/oauth2/authorization
+    tokenUrl: https://api.va.gov/oauth2/token
+  description: This API uses OAuth 2 with the client credential grant flow. [More info](https://developer.va.gov/explore/api/benefits-claims/client-credentials)
+- name: sandboxOauth
+  source: openapi/va-claims-api-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://sandbox-api.va.gov/oauth2/authorization
+    tokenUrl: https://sandbox-api.va.gov/oauth2/token
+  description: This API uses OAuth 2 with the client credential grant flow. [More info](https://developer.va.gov/explore/api/benefits-claims/client-credentials)
+- name: productionOauth
+  source: openapi/va-higher-level-reviews-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: To get production access, you must either work for VA or have specific VA agreements
+      in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+  description: 'The authentication model for the Higher-Level Reviews API uses OAuth 2.0/OpenID
+    Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/higher-level-reviews/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/higher-level-reviews/client-credentials).'
+- name: sandboxOauth
+  source: openapi/va-higher-level-reviews-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
+  description: 'The authentication model for the Higher-Level Reviews API uses OAuth 2.0/OpenID
+    Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/higher-level-reviews/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/higher-level-reviews/client-credentials).'
+- name: productionOauth
+  source: openapi/va-legacy-appeals-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: To get production access, you must either work for VA or have specific VA agreements
+      in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+  description: 'The authentication model for the Legacy Appeals API uses OAuth 2.0/OpenID Connect.
+    The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/legacy-appeals/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/legacy-appeals/client-credentials).'
+- name: sandboxOauth
+  source: openapi/va-legacy-appeals-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
+  description: 'The authentication model for the Legacy Appeals API uses OAuth 2.0/OpenID Connect.
+    The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/legacy-appeals/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/legacy-appeals/client-credentials).'
+- name: productionOauth
+  source: openapi/va-notice-of-disagreements-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: To get production access, you must either work for VA or have specific VA agreements
+      in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+  description: 'The authentication model for the Notice of Disagreements API uses OAuth 2.0/OpenID
+    Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/notice-of-disagreements/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/notice-of-disagreements/client-credentials).'
+- name: sandboxOauth
+  source: openapi/va-notice-of-disagreements-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
+  description: 'The authentication model for the Notice of Disagreements API uses OAuth 2.0/OpenID
+    Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/notice-of-disagreements/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/notice-of-disagreements/client-credentials).'
+- name: productionOauth
+  source: openapi/va-supplemental-claims-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: To get production access, you must either work for VA or have specific VA agreements
+      in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+  description: 'The authentication model for the Supplemental Claims API uses OAuth 2.0/OpenID
+    Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/supplemental-claims/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/supplemental-claims/client-credentials).'
+- name: sandboxOauth
+  source: openapi/va-supplemental-claims-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
+  description: 'The authentication model for the Supplemental Claims API uses OAuth 2.0/OpenID
+    Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/supplemental-claims/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/supplemental-claims/client-credentials).'
+scopes:
+- scope: representative/AppealableIssues.read
+  description: Appealable issues info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-appealable-issues-openapi.json
+- scope: representative/AppealsStatus.read
+  description: Status of appeals and decision reviews
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-appeals-status-openapi.json
+- scope: representative/HigherLevelReviews.read
+  description: Higher-Level Reviews info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-higher-level-reviews-openapi.json
+- scope: representative/HigherLevelReviews.write
+  description: Ability to submit Higher-Level Reviews
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-higher-level-reviews-openapi.json
+- scope: representative/LegacyAppeals.read
+  description: Legacy appeals info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-legacy-appeals-openapi.json
+- scope: representative/NoticeOfDisagreements.read
+  description: Board Appeals info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-notice-of-disagreements-openapi.json
+- scope: representative/NoticeOfDisagreements.write
+  description: Ability to submit Board Appeals
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-notice-of-disagreements-openapi.json
+- scope: representative/SupplementalClaims.read
+  description: Supplemental Claims info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-supplemental-claims-openapi.json
+- scope: representative/SupplementalClaims.write
+  description: Ability to submit Supplemental Claims
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-supplemental-claims-openapi.json
+- scope: representative/appeals.read
+  description: Appeals info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-appealable-issues-openapi.json
+  - openapi/va-appeals-status-openapi.json
+  - openapi/va-higher-level-reviews-openapi.json
+  - openapi/va-legacy-appeals-openapi.json
+  - openapi/va-notice-of-disagreements-openapi.json
+  - openapi/va-supplemental-claims-openapi.json
+- scope: representative/appeals.write
+  description: Ability to submit appeals
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-higher-level-reviews-openapi.json
+  - openapi/va-notice-of-disagreements-openapi.json
+  - openapi/va-supplemental-claims-openapi.json
+- scope: system/AppealableIssues.read
+  description: Appealable issues info
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-appealable-issues-openapi.json
+- scope: system/AppealsStatus.read
+  description: Status of appeals and decision reviews
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-appeals-status-openapi.json
+- scope: system/HigherLevelReviews.read
+  description: Higher-Level Reviews info
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-higher-level-reviews-openapi.json
+- scope: system/HigherLevelReviews.write
+  description: Ability to submit Higher-Level Reviews
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-higher-level-reviews-openapi.json
+- scope: system/LegacyAppeals.read
+  description: Legacy appeals info
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-legacy-appeals-openapi.json
+- scope: system/NoticeOfDisagreements.read
+  description: Board Appeals info
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-notice-of-disagreements-openapi.json
+- scope: system/NoticeOfDisagreements.write
+  description: Ability to submit Board Appeals
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-notice-of-disagreements-openapi.json
+- scope: system/SupplementalClaims.read
+  description: Supplemental Claims info
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-supplemental-claims-openapi.json
+- scope: system/SupplementalClaims.write
+  description: Ability to submit Supplemental Claims
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-supplemental-claims-openapi.json
+- scope: system/appeals.read
+  description: Appeals info
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-appealable-issues-openapi.json
+  - openapi/va-appeals-status-openapi.json
+  - openapi/va-higher-level-reviews-openapi.json
+  - openapi/va-legacy-appeals-openapi.json
+  - openapi/va-notice-of-disagreements-openapi.json
+  - openapi/va-supplemental-claims-openapi.json
+- scope: system/appeals.write
+  description: Ability to submit appeals
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/va-higher-level-reviews-openapi.json
+  - openapi/va-notice-of-disagreements-openapi.json
+  - openapi/va-supplemental-claims-openapi.json
+- scope: system/claim.read
+  description: Retrieve claim data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-claims-api-openapi.json
+- scope: system/claim.write
+  description: Submit claim data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-claims-api-openapi.json
+- scope: veteran/AppealableIssues.read
+  description: Appealable issues info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-appealable-issues-openapi.json
+- scope: veteran/AppealsStatus.read
+  description: Status of appeals and decision reviews
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-appeals-status-openapi.json
+- scope: veteran/HigherLevelReviews.read
+  description: Higher-Level Reviews info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-higher-level-reviews-openapi.json
+- scope: veteran/HigherLevelReviews.write
+  description: Ability to submit Higher-Level Reviews
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-higher-level-reviews-openapi.json
+- scope: veteran/LegacyAppeals.read
+  description: Legacy appeals info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-legacy-appeals-openapi.json
+- scope: veteran/NoticeOfDisagreements.read
+  description: Board Appeals info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-notice-of-disagreements-openapi.json
+- scope: veteran/NoticeOfDisagreements.write
+  description: Ability to submit Board Appeals
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-notice-of-disagreements-openapi.json
+- scope: veteran/SupplementalClaims.read
+  description: Supplemental Claims info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-supplemental-claims-openapi.json
+- scope: veteran/SupplementalClaims.write
+  description: Ability to submit Supplemental Claims
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-supplemental-claims-openapi.json
+- scope: veteran/appeals.read
+  description: Appeals info
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-appealable-issues-openapi.json
+  - openapi/va-appeals-status-openapi.json
+  - openapi/va-higher-level-reviews-openapi.json
+  - openapi/va-legacy-appeals-openapi.json
+  - openapi/va-notice-of-disagreements-openapi.json
+  - openapi/va-supplemental-claims-openapi.json
+- scope: veteran/appeals.write
+  description: Ability to submit appeals
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/va-higher-level-reviews-openapi.json
+  - openapi/va-notice-of-disagreements-openapi.json
+  - openapi/va-supplemental-claims-openapi.json
