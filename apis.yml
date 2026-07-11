@@ -224,6 +224,10 @@ apis:
         email: api@va.gov
 
 common:
+  - type: VulnerabilityDisclosure
+    url: security/va-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/va-domain-security.yml
   - type: Authentication
     url: authentication/va-authentication.yml
   - type: OAuthScopes

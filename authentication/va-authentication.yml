@@ -1,0 +1,75 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/va-appealable-issues-openapi.json, openapi/va-appeals-status-openapi.json, openapi/va-claims-api-openapi.json,
+  openapi/va-decision-reviews-openapi.json, openapi/va-higher-level-reviews-openapi.json, openapi/va-legacy-appeals-openapi.json,
+  openapi/va-notice-of-disagreements-openapi.json, openapi/va-patient-health-openapi.yaml, openapi/va-supplemental-claims-openapi.json
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - cookie
+  - header
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: bearer_token
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/va-appealable-issues-openapi.json
+  - openapi/va-appeals-status-openapi.json
+  - openapi/va-claims-api-openapi.json
+  - openapi/va-higher-level-reviews-openapi.json
+  - openapi/va-legacy-appeals-openapi.json
+  - openapi/va-notice-of-disagreements-openapi.json
+  - openapi/va-supplemental-claims-openapi.json
+- name: productionOauth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+    tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+    scopes: 4
+  - flow: clientCredentials
+    tokenUrl: To get production access, you must either work for VA or have specific VA agreements
+      in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+    scopes: 2
+  description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID
+    Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)
+    and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+  sources:
+  - openapi/va-appealable-issues-openapi.json
+  - openapi/va-appeals-status-openapi.json
+  - openapi/va-higher-level-reviews-openapi.json
+  - openapi/va-legacy-appeals-openapi.json
+  - openapi/va-notice-of-disagreements-openapi.json
+  - openapi/va-supplemental-claims-openapi.json
+- name: productionOauth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.va.gov/oauth2/authorization
+    tokenUrl: https://api.va.gov/oauth2/token
+    scopes: 2
+  description: This API uses OAuth 2 with the client credential grant flow. [More info](https://developer.va.gov/explore/api/benefits-claims/client-credentials)
+  sources:
+  - openapi/va-claims-api-openapi.json
+- name: apikey
+  type: apiKey
+  in: header
+  parameter: apikey
+  sources:
+  - openapi/va-decision-reviews-openapi.json
+- name: CookieAuth
+  type: apiKey
+  in: cookie
+  parameter: api_session
+  description: An authenticated session is established using the Sessions Controller to initiate
+    federated authentication with an external credential provider, after which an API session
+    token is established in the api_session cookie.
+  sources:
+  - openapi/va-patient-health-openapi.yaml
