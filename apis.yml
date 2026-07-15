@@ -224,6 +224,8 @@ apis:
         email: api@va.gov
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/va-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/va-vulnerability-disclosure.yml
   - type: DomainSecurity
