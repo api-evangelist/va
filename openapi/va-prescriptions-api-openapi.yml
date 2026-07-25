@@ -1,0 +1,436 @@
+openapi: 3.0.0
+info:
+  title: Appealable Issues Prescriptions API
+  version: v0
+  contact:
+    name: developer.va.gov
+  description: "The Appealable Issues API lets you retrieve a list of a claimant’s appealable issues and any chains of preceding issues. Appealable issues are issues from claims about which VA has made a decision that may be eligible for appeal. Not all appealable issues are guaranteed to be eligible for appeal; for example, claimants may have another appeal in progress for an issue.\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Appealable Issues API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/appealable_issues_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n"
+servers:
+- url: https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}
+  description: VA.gov API sandbox environment
+  variables:
+    version:
+      default: v0
+- url: https://api.va.gov/services/appeals/appealable-issues/{version}
+  description: VA.gov API production environment
+  variables:
+    version:
+      default: v0
+tags:
+- name: Prescriptions
+paths:
+  /v1/prescriptions:
+    get:
+      description: List medications.
+      operationId: get_prescriptions
+      parameters:
+      - description: One refill status to filter on
+        in: query
+        name: refill_status
+        required: false
+        schema:
+          type: string
+      - description: The page number to get based on your page size
+        in: query
+        name: page
+        required: false
+        schema:
+          type: string
+      - description: The size of the pagination you want
+        in: query
+        name: per_page
+        required: false
+        schema:
+          type: string
+      - description: The attribute to sort on, negated for descending
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/V1PrescriptionList.yml
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions
+      tags:
+      - Prescriptions
+  /v1/prescriptions/{id}:
+    get:
+      description: Get prescription.
+      operationId: get_prescription
+      parameters:
+      - description: prescription id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Prescription.yml
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions/{id}
+      tags:
+      - Prescriptions
+  /v1/prescriptions/{id}/refill:
+    patch:
+      description: Refill the prescription
+      operationId: patch_refill_prescription
+      parameters:
+      - description: The id of the prescription
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        '204':
+          description: Success
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions/{id}/refill
+      tags:
+      - Prescriptions
+  /v1/prescriptions/list_refillable_prescriptions:
+    get:
+      description: List refillable medications.
+      operationId: get_list_refillable_prescriptions
+      parameters:
+      - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/V1PrescriptionList.yml
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions/list_refillable_prescriptions
+      tags:
+      - Prescriptions
+  /v1/prescriptions/refill_prescriptions:
+    patch:
+      description: Refill the prescriptions
+      operationId: patch_refill_prescription
+      parameters:
+      - description: Array of the prescription ids
+        in: query
+        name: ids
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        '204':
+          description: Success
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions/refill_prescriptions
+      tags:
+      - Prescriptions
+  /v2/prescriptions:
+    get:
+      description: 'List medications for the current user. This endpoint uses the Unified Health Data (Oracle Health) backend
+
+        and requires the `mhv_medications_cerner_pilot` feature flag to be enabled.
+
+
+        Supports filtering, sorting, and pagination. Results can be filtered by prescription status and sorted
+
+        by various attributes. Pending (PD) prescriptions are included based on the `mhv_medications_display_pending_meds`
+
+        feature flag.
+
+        '
+      operationId: get_v2_prescriptions
+      parameters:
+      - description: Filter prescriptions by disp_status (comma-separated for multiple values, e.g., "Active,Expired")
+        in: query
+        name: filter[disp_status][eq]
+        required: false
+        schema:
+          type: string
+          example: Active
+      - description: The page number for pagination
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          example: 1
+      - description: The number of items per page
+        in: query
+        name: per_page
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          example: 20
+      - description: 'The attribute to sort by. Prefix with "-" for descending order.
+
+          Supported values: "alphabetical-rx-name", "last-fill-date", or field names like "disp_status", "prescription_name", "dispensed_date"
+
+          '
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+          example: alphabetical-rx-name
+      - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/V2PrescriptionList.yml
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden - Feature not available or user not authorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Internal Server Error
+      summary: /v2/prescriptions
+      tags:
+      - Prescriptions
+  /v2/prescriptions/list_refillable_prescriptions:
+    get:
+      description: 'List refillable medications for the current user. This endpoint returns prescriptions that can be refilled,
+
+        including those marked as refillable or renewable (Active/Expired within 120 days).
+
+
+        Uses the Unified Health Data (Oracle Health) backend and requires the `mhv_medications_cerner_pilot` feature flag.
+
+        '
+      operationId: get_v2_list_refillable_prescriptions
+      parameters:
+      - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - meta
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: ./schemas/PrescriptionDetail.yml
+                  meta:
+                    type: object
+                    required:
+                    - recently_requested
+                    properties:
+                      recently_requested:
+                        type: array
+                        description: 'List of prescriptions with status "Active: Refill in Process" or "Active: Submitted"
+
+                          '
+                        items:
+                          type: object
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden - Feature not available or user not authorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Internal Server Error
+      summary: /v2/prescriptions/list_refillable_prescriptions
+      tags:
+      - Prescriptions
+  /v2/prescriptions/refill:
+    post:
+      description: "Refill one or more prescriptions in a batch operation. This endpoint accepts an array of prescription orders,\neach containing a station number and prescription ID. Returns detailed results for each refill attempt,\nincluding successful refills and any errors encountered.\n\nUses the Unified Health Data (Oracle Health) backend and requires the `mhv_medications_cerner_pilot` feature flag.\n\n<strong>NOTES:</strong>\n<ul>\n  <li>All orders are processed in a single batch operation</li>\n  <li>Partial failures are allowed - some prescriptions may succeed while others fail</li>\n  <li>Each order must include both stationNumber and id fields</li>\n  <li>At least one order must be provided</li>\n  <li>Results include separate lists for successful and failed refills</li>\n</ul>\n"
+      operationId: post_v2_refill_prescriptions
+      parameters:
+      - $ref: '#/components/parameters/InflectionHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/PrescriptionRefillRequest.yml
+        description: Array of prescription orders to refill
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/PrescriptionRefillResponse.yml
+          description: OK - Refill operation completed (may include partial failures)
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request - Invalid request format or missing required fields
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden - Feature not available or user not authorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Internal Server Error
+      summary: /v2/prescriptions/refill
+      tags:
+      - Prescriptions
+components:
+  parameters:
+    InflectionHeader:
+      in: header
+      name: X-Key-Inflection
+      required: false
+      schema:
+        type: string
+        enum:
+        - camel
+        - snake
+      description: Instructs the API to return camelCase keys rather than snake_case
+  securitySchemes:
+    bearer_token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    productionOauth:
+      type: oauth2
+      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+          tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+          scopes:
+            veteran/AppealableIssues.read: Appealable issues info
+            veteran/appeals.read: Appeals info
+            representative/AppealableIssues.read: Appealable issues info
+            representative/appeals.read: Appeals info
+        clientCredentials:
+          tokenUrl: To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+          scopes:
+            system/AppealableIssues.read: Appealable issues info
+            system/appeals.read: Appeals info
+    sandboxOauth:
+      type: oauth2
+      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
+          tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
+          scopes:
+            veteran/AppealableIssues.read: Appealable issues info
+            veteran/appeals.read: Appeals info
+            representative/AppealableIssues.read: Appealable issues info
+            representative/appeals.read: Appeals info
+        clientCredentials:
+          tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
+          scopes:
+            system/AppealableIssues.read: Appealable issues info
+            system/appeals.read: Appeals info

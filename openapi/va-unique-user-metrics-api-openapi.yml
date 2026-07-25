@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: Appealable Issues Unique User Metrics API
+  version: v0
+  contact:
+    name: developer.va.gov
+  description: "The Appealable Issues API lets you retrieve a list of a claimant’s appealable issues and any chains of preceding issues. Appealable issues are issues from claims about which VA has made a decision that may be eligible for appeal. Not all appealable issues are guaranteed to be eligible for appeal; for example, claimants may have another appeal in progress for an issue.\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Appealable Issues API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/appealable_issues_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n"
+servers:
+- url: https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}
+  description: VA.gov API sandbox environment
+  variables:
+    version:
+      default: v0
+- url: https://api.va.gov/services/appeals/appealable-issues/{version}
+  description: VA.gov API production environment
+  variables:
+    version:
+      default: v0
+tags:
+- name: Unique User Metrics
+paths:
+  /v1/unique_user_metrics:
+    post:
+      description: 'Log unique user metrics events for analytics tracking. Accepts multiple events in a single batch operation
+
+        and buffers them for asynchronous processing by a background job.
+
+
+        This endpoint is used for tracking unique user interactions with MHV Portal features to provide
+
+        opt-out-free analytics that are more accurate than Google Analytics.
+
+
+        <strong>Asynchronous Processing:</strong> Events are buffered and processed in batches by a background job.
+
+        The response indicates which events were accepted for processing, not whether they are new unique events.
+
+        Duplicate events (same user + event combination) are handled during background processing.
+
+
+        <strong>Valid Event Names:</strong> Event names must be from the approved registry of valid events.
+
+        See <a href=''https://github.com/department-of-veterans-affairs/vets-api/blob/master/lib/unique_user_events/event_registry.rb''>EventRegistry</a>
+
+        for the complete list. Invalid event names are silently filtered out.
+
+        '
+      operationId: log_unique_user_metrics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/UniqueUserMetricsRequest.yml
+        description: "Array of event names to log for the authenticated user.\n\n<strong>NOTES:</strong>\n<ul>\n  <li>Events are buffered for asynchronous batch processing</li>\n  <li>Event names must be from the approved registry - see <a href='https://github.com/department-of-veterans-affairs/vets-api/blob/master/lib/unique_user_events/event_registry.rb'>EventRegistry</a></li>\n  <li>Invalid event names are silently filtered out</li>\n  <li>Maximum 50 characters per event name</li>\n  <li>At least one event name must be provided</li>\n</ul>\n"
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/UniqueUserMetricsResponse.yml
+              example:
+                buffered_events: []
+          description: OK - No events were buffered (feature disabled or all events were invalid)
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/UniqueUserMetricsResponse.yml
+              example:
+                buffered_events:
+                - mhv_landing_page_accessed
+                - secure_messaging_accessed
+                - prescriptions_accessed
+          description: Accepted - Events were accepted and buffered for asynchronous processing
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request - Invalid request parameters (missing event_names, not an array, or empty array)
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+      summary: /v1/unique_user_metrics
+      tags:
+      - Unique User Metrics
+components:
+  securitySchemes:
+    bearer_token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    productionOauth:
+      type: oauth2
+      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+          tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+          scopes:
+            veteran/AppealableIssues.read: Appealable issues info
+            veteran/appeals.read: Appeals info
+            representative/AppealableIssues.read: Appealable issues info
+            representative/appeals.read: Appeals info
+        clientCredentials:
+          tokenUrl: To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+          scopes:
+            system/AppealableIssues.read: Appealable issues info
+            system/appeals.read: Appeals info
+    sandboxOauth:
+      type: oauth2
+      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
+          tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
+          scopes:
+            veteran/AppealableIssues.read: Appealable issues info
+            veteran/appeals.read: Appeals info
+            representative/AppealableIssues.read: Appealable issues info
+            representative/appeals.read: Appeals info
+        clientCredentials:
+          tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
+          scopes:
+            system/AppealableIssues.read: Appealable issues info
+            system/appeals.read: Appeals info

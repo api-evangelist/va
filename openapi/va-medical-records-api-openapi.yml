@@ -1,0 +1,1134 @@
+openapi: 3.0.0
+info:
+  title: Appealable Issues Medical Records API
+  version: v0
+  contact:
+    name: developer.va.gov
+  description: "The Appealable Issues API lets you retrieve a list of a claimant’s appealable issues and any chains of preceding issues. Appealable issues are issues from claims about which VA has made a decision that may be eligible for appeal. Not all appealable issues are guaranteed to be eligible for appeal; for example, claimants may have another appeal in progress for an issue.\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Appealable Issues API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/appealable_issues_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n"
+servers:
+- url: https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}
+  description: VA.gov API sandbox environment
+  variables:
+    version:
+      default: v0
+- url: https://api.va.gov/services/appeals/appealable-issues/{version}
+  description: VA.gov API production environment
+  variables:
+    version:
+      default: v0
+tags:
+- name: Medical Records
+paths:
+  /v1/medical_records/allergies:
+    get:
+      description: List patient allergies
+      operationId: list_allergies
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR Bundle containing AllergyIntolerance objects. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.allergyIntolerance.html''>Allergies</a>.
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/allergies
+      tags:
+      - Medical Records
+  /v1/medical_records/allergies/{id}:
+    get:
+      description: Get a patient allergy
+      operationId: get_allergy
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR AllergyIntolerance. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.allergyIntolerance.html''>Allergies</a>.
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/allergies/{id}
+      tags:
+      - Medical Records
+  /v1/medical_records/bbmi_notification/status:
+    get:
+      description: Show the current user's preference setting for BBMI email notifications.
+      operationId: bbmi_notification_status
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  flag:
+                    type: boolean
+                    description: Indicates whether the BBMI email preference is enabled (`true`) or disabled (`false`).
+                example:
+                  flag: true
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/bbmi_notification/status
+      tags:
+      - Medical Records
+  /v1/medical_records/ccd/generate:
+    get:
+      description: Generate a Continuity of Care Document for a patient to later download.
+      operationId: generate_ccd
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsCcdGenerateStatus.yml
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/ccd/generate
+      tags:
+      - Medical Records
+  /v1/medical_records/ccd/download.{format}:
+    get:
+      summary: Download Continuity of Care Document (CCD)
+      description: 'Download the Continuity of Care Document (CCD) specified by the `date` parameter.
+
+
+        The response format is indicated by the path extension — for example:
+
+        - `/v1/medical_records/ccd/download.xml`
+
+        - `/v1/medical_records/ccd/download.html`
+
+        - `/v1/medical_records/ccd/download.pdf`
+
+
+        If the format extension is not included, the default is XML.
+
+        '
+      operationId: download_ccd
+      parameters:
+      - name: date
+        in: query
+        required: true
+        description: 'Date of the desired CCD, as pulled verbatim from the `generate` endpoint response.
+
+          '
+        schema:
+          type: string
+          format: date
+      - name: format
+        in: path
+        description: 'The format of the returned CCD document. Can be `xml`, `html`, or `pdf`.
+
+          '
+        schema:
+          type: string
+          enum:
+          - xml
+          - html
+          - pdf
+          default: xml
+      responses:
+        '200':
+          description: Successful download
+          content:
+            application/xml:
+              schema:
+                type: string
+                description: 'XML-formatted Continuity of Care Document (CCD).
+
+                  '
+            text/html:
+              schema:
+                type: string
+                description: 'HTML-formatted Continuity of Care Document (CCD).
+
+                  '
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+                description: 'PDF-formatted Continuity of Care Document (CCD).
+
+                  '
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+      tags:
+      - Medical Records
+  /v1/medical_records/clinical_notes:
+    get:
+      description: List patient clinical notes
+      operationId: list_clinical_notes
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR Bundle containing DocumentReference objects. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.note.html''>Care Summaries and Notes</a>.
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/clinical_notes
+      tags:
+      - Medical Records
+  /v1/medical_records/clinical_notes/{id}:
+    get:
+      description: Get a clinical note
+      operationId: get_clinical_note
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR DocumentReference. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.note.html''>Care Summaries and Notes</a>.
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/clinical_notes/{id}
+      tags:
+      - Medical Records
+  /v1/medical_records/conditions:
+    get:
+      description: List patient health conditions
+      operationId: list_conditions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR Bundle containing Condition objects. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.condition.html''>Health Conditions</a>.
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/conditions
+      tags:
+      - Medical Records
+  /v1/medical_records/conditions/{id}:
+    get:
+      description: Get a patient health condition
+      operationId: get_condition
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR Condition. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.condition.html''>Health Conditions</a>.
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/conditions/{id}
+      tags:
+      - Medical Records
+  /v1/medical_records/imaging:
+    get:
+      description: Get a list of MHV radiology reports from CVIX for the current user. These results do not include VIA reports.
+      operationId: list_imaging_studies
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsImagingStudyList.yml
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/imaging
+      tags:
+      - Medical Records
+  /v1/medical_records/imaging/status:
+    get:
+      description: Get the statuses of all available CVIX study jobs for the current user.
+      operationId: list_study_job_statuses
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./schemas/MedicalRecordsStudyJobStatus.yml
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/imaging
+      tags:
+      - Medical Records
+  /v1/medical_records/imaging/{studyId}/dicom:
+    get:
+      description: Returns a ZIP file containing DICOM images for the specified study.
+      operationId: download_dicom
+      parameters:
+      - name: studyId
+        in: path
+        required: true
+        description: Unique identifier for the imaging study
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/imaging/{studyId}/dicom
+      tags:
+      - Medical Records
+  /v1/medical_records/imaging/{studyId}/images/{seriesId}/{imageId}:
+    get:
+      description: Returns a JPG image for the provided study, series, and image.
+      operationId: download_image
+      parameters:
+      - name: studyId
+        in: path
+        required: true
+        description: Unique identifier for the imaging study
+        schema:
+          type: string
+      - name: seriesId
+        in: path
+        required: true
+        description: Study-scoped identifier for the image series
+        schema:
+          type: string
+      - name: imageId
+        in: path
+        required: true
+        description: Study-scoped identifier for the image within the series
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/imaging/{studyId}/images/{seriesId}/{imageId}
+      tags:
+      - Medical Records
+  /v1/medical_records/imaging/{studyId}/request:
+    get:
+      description: Request that MHV download an imaging study from CVIX. This will initiate the transfer of the images into MHV for later retrieval from vets-api as DICOM or JPGs.
+      operationId: request_study
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsStudyJobStatus.yml
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not Found
+      summary: /v1/medical_records/imaging/{studyId}/request
+      tags:
+      - Medical Records
+  /v1/medical_records/imaging/{studyId}/images:
+    get:
+      description: Get a list of images for the provided CVIX radiology study
+      operationId: list_images
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  description: Filename representing an image in a specific series.
+                example:
+                - Series 01 - Image 01.jpg
+                - Series 02 - Image 01.jpg
+                - Series 03 - Image 01.jpg
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not Found
+      summary: /v1/medical_records/imaging/{studyId}/images
+      tags:
+      - Medical Records
+  /v1/medical_records/labs_and_tests:
+    get:
+      description: 'List patient labs and tests. This API call runs three separate backend calls, then merges the results. It returns results for the Chemistry/Hematology, EKG, Microbiology, Pathology, and Radiology domains.
+
+        '
+      operationId: list_labs_and_tests
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR Bundle containing DiagnosticReport and DocumentReference objects. The schemas can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.chReport.html''>Chemistry/Hematology</a>, <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.ecg.html''>EKG</a>, <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.labReport.html''>Microbiology and Pathology</a>, <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.imaging.html''>Radiology</a>
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/labs_and_tests
+      tags:
+      - Medical Records
+  /v1/medical_records/labs_and_tests/{id}:
+    get:
+      description: 'Get a patient labs and tests record of type DiagnosticReport.
+
+        '
+      operationId: get_labs_and_tests_diagrep
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR DiagnosticReport. The schemas can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.chReport.html''>Chemistry/Hematology</a>, <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.labReport.html''>Microbiology and Pathology</a> <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.ecg.html''>EKG</a>, <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.imaging.html''>Radiology</a>
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/labs_and_tests/{id}
+      tags:
+      - Medical Records
+  /v1/medical_records/military_service:
+    get:
+      description: Get the current user's military service
+      operationId: get_military_service
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+                description: A long string containing the user's military service report
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/military_service
+      tags:
+      - Medical Records
+  /v1/medical_records/patient:
+    get:
+      description: Get the current user's patient account information, including a list of treatment facilities.
+      operationId: get_patient
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'The returned object is a <a target="_blank" href=''https://github.com/department-of-veterans-affairs/mhv-np-common-api/blob/development/src/main/java/gov/va/med/mhv/common/api/dto/PatientDTO.java''>PatientDTO object</a>.
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/patient
+      tags:
+      - Medical Records
+  /v1/medical_records/patient/demographic:
+    get:
+      description: Get the current user's self-entered demographic information.
+      operationId: get_patient_demographic
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'The returned object is a <a target="_blank" href=''https://github.com/department-of-veterans-affairs/mhv-np-bluebutton-api/blob/development/mhv-bluebutton-portal-data-jpa/src/main/java/gov/va/med/mhv/bluebutton/model/phr/PhrDemographics.java''>PhrDemographics object</a>.
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/patient/demographic
+      tags:
+      - Medical Records
+  /v1/medical_records/radiology:
+    get:
+      description: Get the current user's non-FHIR-ized list of radiology reports from VIA (through MHV).
+      operationId: get_mhv_radiology
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsPhrRadiologyList.yml
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/radiology
+      tags:
+      - Medical Records
+  /v1/medical_records/self_entered:
+    get:
+      description: Get the current user's self-entered information.
+      operationId: get_patient
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responses:
+                    type: array
+                    description: 'A list of self-entered health information objects. Each object will be a self-entered type, such as:
+
+                      - <a target="_blank" href=''https://github.com/department-of-veterans-affairs/mhv-np-getcare-api/blob/development/mhv-getcare-portal-api/src/main/java/gov/va/med/mhv/getcare/common/dto/HealthInsuranceDTO.java''>HealthInsuranceDTO</a>
+
+                      - <a target="_blank" href=''https://github.com/department-of-veterans-affairs/mhv-np-health-history-api/blob/development/mhv-health-history-portal-api/src/main/java/gov/va/med/mhv/health/dto/MilitaryHistoryDTO.java''>MilitaryHistoryDTO</a>
+
+                      - <a target="_blank" href=''https://github.com/department-of-veterans-affairs/mhv-np-health-history-api/blob/development/mhv-health-history-portal-api/src/main/java/gov/va/med/mhv/health/dto/ImmunizationDTO.java''>ImmunizationDTO</a>
+
+                      '
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                        source_date:
+                          type: string
+                          format: date
+                        note:
+                          type: string
+                  errors:
+                    type: array
+                    description: 'An array of errors encountered while retrieving the records, if any.
+
+                      Each object may include a code and a human-readable message.
+
+                      '
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                required:
+                - responses
+                - errors
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/self_entered
+      tags:
+      - Medical Records
+  /v1/medical_records/session:
+    get:
+      description: Creates a session to the upstream MHV APIs. Note that any MR API call will do this as well. This endpoint ONLY creates a session.
+      operationId: post_session
+      responses:
+        '204':
+          description: No Content
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/session
+      tags:
+      - Medical Records
+  /v1/medical_records/session/status:
+    get:
+      description: Returns the PHR Refresh status for the current user.
+      operationId: get_session_status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsPatientExtractStatus.yml
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/session/status
+      tags:
+      - Medical Records
+  /v1/medical_records/vaccines:
+    get:
+      description: List patient vaccines
+      operationId: list_vaccines
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR Bundle containing Immunization objects. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.immunization.html''>Immunization</a>
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/vaccines
+      tags:
+      - Medical Records
+  /v1/medical_records/vaccines/{id}:
+    get:
+      description: Get a patient vaccine
+      operationId: get_vaccine
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR Immunization. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.immunization.html''>Immunization</a>
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/vaccines/{id}
+      tags:
+      - Medical Records
+  /v1/medical_records/vitals:
+    get:
+      description: List patient vital records
+      operationId: list_vitals
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR Bundle containing Observation objects. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.vitals.html''>Vitals</a>
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/vitals
+      tags:
+      - Medical Records
+  /v1/medical_records/vitals/{id}:
+    get:
+      description: Get a patient vital record
+      operationId: get_vitals
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'FHIR Observation. The schema can be found at <a href=''https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.vitals.html''>Vitals</a>
+
+                  '
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/vitals/{id}
+      tags:
+      - Medical Records
+  /v2/medical_records/clinical_notes:
+    get:
+      description: 'List clinical notes (care summaries and notes) for the current user within a specified date range.
+
+        Returns notes from both VistA and Oracle Health sources. Each note includes a `source` field
+
+        indicating which system the record originated from.
+
+        '
+      operationId: listClinicalNotesV2
+      parameters:
+      - name: start_date
+        in: query
+        description: Start date for clinical notes query (format YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        description: End date for clinical notes query (format YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+      - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        '200':
+          description: Clinical notes list response
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/ClinicalNotesResponse.yml
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request - Invalid date parameter format
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+        '502':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Gateway - upstream service error
+      summary: /v2/medical_records/clinical_notes
+      tags:
+      - Medical Records
+  /v2/medical_records/clinical_notes/{id}:
+    get:
+      description: 'Get a single clinical note by ID. The `source` query parameter is required and must be set
+
+        to `oracle-health` to retrieve the note directly from the Oracle Health source-specific endpoint.
+
+        Requests with `source=vista` or without a `source` parameter will receive a 404 response.
+
+        '
+      operationId: getClinicalNoteV2
+      parameters:
+      - name: id
+        in: path
+        description: Clinical note record ID
+        required: true
+        schema:
+          type: string
+      - name: source
+        in: query
+        description: 'The data source of the note. Must be `oracle-health` for direct retrieval from the Oracle Health endpoint. Requests with `vista` or without this parameter return 404.
+
+          '
+        required: true
+        schema:
+          type: string
+          enum:
+          - oracle-health
+      - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        '200':
+          description: Single clinical note response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ./schemas/ClinicalNotesResponse.yml#/definitions/ClinicalNote
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request - source parameter is missing, unsupported (e.g. vista), or invalid
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not Found - no note matching the given ID
+        '502':
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Gateway - upstream service error
+      summary: /v2/medical_records/clinical_notes/{id}
+      tags:
+      - Medical Records
+components:
+  parameters:
+    InflectionHeader:
+      in: header
+      name: X-Key-Inflection
+      required: false
+      schema:
+        type: string
+        enum:
+        - camel
+        - snake
+      description: Instructs the API to return camelCase keys rather than snake_case
+  securitySchemes:
+    bearer_token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    productionOauth:
+      type: oauth2
+      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
+          tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
+          scopes:
+            veteran/AppealableIssues.read: Appealable issues info
+            veteran/appeals.read: Appeals info
+            representative/AppealableIssues.read: Appealable issues info
+            representative/appeals.read: Appeals info
+        clientCredentials:
+          tokenUrl: To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
+          scopes:
+            system/AppealableIssues.read: Appealable issues info
+            system/appeals.read: Appeals info
+    sandboxOauth:
+      type: oauth2
+      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
+          tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
+          scopes:
+            veteran/AppealableIssues.read: Appealable issues info
+            veteran/appeals.read: Appeals info
+            representative/AppealableIssues.read: Appealable issues info
+            representative/appeals.read: Appeals info
+        clientCredentials:
+          tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
+          scopes:
+            system/AppealableIssues.read: Appealable issues info
+            system/appeals.read: Appeals info
