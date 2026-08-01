@@ -1,0 +1,45 @@
+{
+  "provider": "va",
+  "sources": [
+    "va-appealable-issues-api-openapi.yml",
+    "va-appeals-status-api-openapi.yml",
+    "va-contestable-issues-api-openapi.yml",
+    "va-higher-level-reviews-api-openapi.yml",
+    "va-labs-and-tests-api-openapi.yml",
+    "va-legacy-appeals-api-openapi.yml",
+    "va-medical-records-api-openapi.yml",
+    "va-messaging-api-openapi.yml",
+    "va-notice-of-disagreements-api-openapi.yml",
+    "va-other-accredited-representatives-api-openapi.yml",
+    "va-prescriptions-api-openapi.yml",
+    "va-supplemental-claims-api-openapi.yml",
+    "va-tooltips-api-openapi.yml",
+    "va-unique-user-metrics-api-openapi.yml",
+    "va-vso-accredited-representatives-api-openapi.yml"
+  ],
+  "outputs": [
+    "va-appealable-issues-api-openapi.yml",
+    "va-appeals-status-api-openapi.yml",
+    "va-contestable-issues-api-openapi.yml",
+    "va-higher-level-reviews-api-openapi.yml",
+    "va-labs-and-tests-api-openapi.yml",
+    "va-legacy-appeals-api-openapi.yml",
+    "va-medical-records-api-openapi.yml",
+    "va-messaging-api-openapi.yml",
+    "va-notice-of-disagreements-api-openapi.yml",
+    "va-other-accredited-representatives-api-openapi.yml",
+    "va-prescriptions-api-openapi.yml",
+    "va-supplemental-claims-api-openapi.yml",
+    "va-tooltips-api-openapi.yml",
+    "va-unique-user-metrics-api-openapi.yml",
+    "va-vso-accredited-representatives-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "va-other-accredited-representatives-api-openapi.yml: dangling $ref: #/components/schemas/BaseRepresentative",
+    "va-vso-accredited-representatives-api-openapi.yml: dangling $ref: #/components/schemas/BaseRepresentative"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,2544 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: VA My Health APIs
+  license:
+    name: CC0 1.0 Universal
+  description: >
+    The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
+servers:
+  - url: https://api.va.gov/my_health
+paths:
+  /v1/medical_records/allergies:
+    get:
+      description: List patient allergies
+      operationId: list_allergies
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR Bundle containing AllergyIntolerance objects. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.allergyIntolerance.html'>Allergies</a>.
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/allergies
+  /v1/medical_records/allergies/{id}:
+    get:
+      description: Get a patient allergy
+      operationId: get_allergy
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR AllergyIntolerance. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.allergyIntolerance.html'>Allergies</a>.
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/allergies/{id}
+  /v1/medical_records/bbmi_notification/status:
+    get:
+      description: Show the current user's preference setting for BBMI email notifications.
+      operationId: bbmi_notification_status
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  flag:
+                    type: boolean
+                    description: Indicates whether the BBMI email preference is enabled (`true`) or disabled (`false`).
+                example:
+                  flag: true
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/bbmi_notification/status
+  /v1/medical_records/ccd/generate:
+    get:
+      description: Generate a Continuity of Care Document for a patient to later download.
+      operationId: generate_ccd
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsCcdGenerateStatus.yml
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/ccd/generate
+  /v1/medical_records/ccd/download.{format}:
+    get:
+      summary: Download Continuity of Care Document (CCD)
+      description: |
+        Download the Continuity of Care Document (CCD) specified by the `date` parameter.
+
+        The response format is indicated by the path extension — for example:
+        - `/v1/medical_records/ccd/download.xml`
+        - `/v1/medical_records/ccd/download.html`
+        - `/v1/medical_records/ccd/download.pdf`
+
+        If the format extension is not included, the default is XML.
+      operationId: download_ccd
+      parameters:
+        - name: date
+          in: query
+          required: true
+          description: >
+            Date of the desired CCD, as pulled verbatim from the `generate` endpoint response.
+          schema:
+            type: string
+            format: date
+        - name: format
+          in: path
+          description: >
+            The format of the returned CCD document. Can be `xml`, `html`, or `pdf`.
+          schema:
+            type: string
+            enum: [xml, html, pdf]
+            default: xml
+      responses:
+        "200":
+          description: Successful download
+          content:
+            application/xml:
+              schema:
+                type: string
+                description: >
+                  XML-formatted Continuity of Care Document (CCD).
+            text/html:
+              schema:
+                type: string
+                description: >
+                  HTML-formatted Continuity of Care Document (CCD).
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+                description: >
+                  PDF-formatted Continuity of Care Document (CCD).
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+  /v1/medical_records/clinical_notes:
+    get:
+      description: List patient clinical notes
+      operationId: list_clinical_notes
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR Bundle containing DocumentReference objects. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.note.html'>Care Summaries and Notes</a>.
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/clinical_notes
+  /v1/medical_records/clinical_notes/{id}:
+    get:
+      description: Get a clinical note
+      operationId: get_clinical_note
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR DocumentReference. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.note.html'>Care Summaries and Notes</a>.
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/clinical_notes/{id}
+  /v1/medical_records/conditions:
+    get:
+      description: List patient health conditions
+      operationId: list_conditions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR Bundle containing Condition objects. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.condition.html'>Health Conditions</a>.
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/conditions
+  /v1/medical_records/conditions/{id}:
+    get:
+      description: Get a patient health condition
+      operationId: get_condition
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR Condition. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.condition.html'>Health Conditions</a>.
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/conditions/{id}
+  /v1/medical_records/imaging:
+    get:
+      description: Get a list of MHV radiology reports from CVIX for the current user. These results do not include VIA reports.
+      operationId: list_imaging_studies
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsImagingStudyList.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/imaging
+  /v1/medical_records/imaging/status:
+    get:
+      description: Get the statuses of all available CVIX study jobs for the current user.
+      operationId: list_study_job_statuses
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./schemas/MedicalRecordsStudyJobStatus.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/imaging
+  /v1/medical_records/imaging/{studyId}/dicom:
+    get:
+      description: Returns a ZIP file containing DICOM images for the specified study.
+      operationId: download_dicom
+      parameters:
+        - name: studyId
+          in: path
+          required: true
+          description: Unique identifier for the imaging study
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/imaging/{studyId}/dicom
+  /v1/medical_records/imaging/{studyId}/images/{seriesId}/{imageId}:
+    get:
+      description: Returns a JPG image for the provided study, series, and image.
+      operationId: download_image
+      parameters:
+        - name: studyId
+          in: path
+          required: true
+          description: Unique identifier for the imaging study
+          schema:
+            type: string
+        - name: seriesId
+          in: path
+          required: true
+          description: Study-scoped identifier for the image series
+          schema:
+            type: string
+        - name: imageId
+          in: path
+          required: true
+          description: Study-scoped identifier for the image within the series
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/imaging/{studyId}/images/{seriesId}/{imageId}
+  /v1/medical_records/imaging/{studyId}/request:
+    get:
+      description: Request that MHV download an imaging study from CVIX. This will initiate the transfer of the images into MHV for later retrieval from vets-api as DICOM or JPGs.
+      operationId: request_study
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsStudyJobStatus.yml
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not Found
+      summary: /v1/medical_records/imaging/{studyId}/request
+  /v1/medical_records/imaging/{studyId}/images:
+    get:
+      description: Get a list of images for the provided CVIX radiology study
+      operationId: list_images
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  description: Filename representing an image in a specific series.
+                example:
+                  - "Series 01 - Image 01.jpg"
+                  - "Series 02 - Image 01.jpg"
+                  - "Series 03 - Image 01.jpg"
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not Found
+      summary: /v1/medical_records/imaging/{studyId}/images
+  /v1/medical_records/labs_and_tests:
+    get:
+      description: >
+        List patient labs and tests. This API call runs three separate backend calls, then merges the results. It
+        returns results for the Chemistry/Hematology, EKG, Microbiology, Pathology, and Radiology domains.
+      operationId: list_labs_and_tests
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR Bundle containing DiagnosticReport and DocumentReference objects. The schemas can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.chReport.html'>Chemistry/Hematology</a>,
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.ecg.html'>EKG</a>,
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.labReport.html'>Microbiology and Pathology</a>,
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.imaging.html'>Radiology</a>
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/labs_and_tests
+  /v1/medical_records/labs_and_tests/{id}:
+    get:
+      description: |
+        Get a patient labs and tests record of type DiagnosticReport.
+      operationId: get_labs_and_tests_diagrep
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR DiagnosticReport. The schemas can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.chReport.html'>Chemistry/Hematology</a>,
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.labReport.html'>Microbiology and Pathology</a>
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.ecg.html'>EKG</a>,
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.imaging.html'>Radiology</a>
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/labs_and_tests/{id}
+  /v1/medical_records/military_service:
+    get:
+      description: Get the current user's military service
+      operationId: get_military_service
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+                description: A long string containing the user's military service report
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/military_service
+  /v1/medical_records/patient:
+    get:
+      description: Get the current user's patient account information, including a list of treatment facilities.
+      operationId: get_patient
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  The returned object is a
+                  <a target="_blank" href='https://github.com/department-of-veterans-affairs/mhv-np-common-api/blob/development/src/main/java/gov/va/med/mhv/common/api/dto/PatientDTO.java'>PatientDTO object</a>.
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/patient
+  /v1/medical_records/patient/demographic:
+    get:
+      description: Get the current user's self-entered demographic information.
+      operationId: get_patient_demographic
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  The returned object is a
+                  <a target="_blank" href='https://github.com/department-of-veterans-affairs/mhv-np-bluebutton-api/blob/development/mhv-bluebutton-portal-data-jpa/src/main/java/gov/va/med/mhv/bluebutton/model/phr/PhrDemographics.java'>PhrDemographics object</a>.
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/patient/demographic
+  /v1/medical_records/radiology:
+    get:
+      description: Get the current user's non-FHIR-ized list of radiology reports from VIA (through MHV).
+      operationId: get_mhv_radiology
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsPhrRadiologyList.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/radiology
+  /v1/medical_records/self_entered:
+    get:
+      description: Get the current user's self-entered information.
+      operationId: get_patient
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responses:
+                    type: array
+                    description: |
+                      A list of self-entered health information objects. Each object will be a self-entered type, such as:
+                      - <a target="_blank" href='https://github.com/department-of-veterans-affairs/mhv-np-getcare-api/blob/development/mhv-getcare-portal-api/src/main/java/gov/va/med/mhv/getcare/common/dto/HealthInsuranceDTO.java'>HealthInsuranceDTO</a>
+                      - <a target="_blank" href='https://github.com/department-of-veterans-affairs/mhv-np-health-history-api/blob/development/mhv-health-history-portal-api/src/main/java/gov/va/med/mhv/health/dto/MilitaryHistoryDTO.java'>MilitaryHistoryDTO</a>
+                      - <a target="_blank" href='https://github.com/department-of-veterans-affairs/mhv-np-health-history-api/blob/development/mhv-health-history-portal-api/src/main/java/gov/va/med/mhv/health/dto/ImmunizationDTO.java'>ImmunizationDTO</a>
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                        source_date:
+                          type: string
+                          format: date
+                        note:
+                          type: string
+                  errors:
+                    type: array
+                    description: |
+                      An array of errors encountered while retrieving the records, if any.
+                      Each object may include a code and a human-readable message.
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                required:
+                  - responses
+                  - errors
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/self_entered
+  /v1/medical_records/session:
+    get:
+      description: Creates a session to the upstream MHV APIs. Note that any MR API call will do this as well. This endpoint ONLY creates a session.
+      operationId: post_session
+      responses:
+        "204":
+          description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/session
+  /v1/medical_records/session/status:
+    get:
+      description: Returns the PHR Refresh status for the current user.
+      operationId: get_session_status
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/MedicalRecordsPatientExtractStatus.yml
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/session/status
+  /v1/medical_records/vaccines:
+    get:
+      description: List patient vaccines
+      operationId: list_vaccines
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR Bundle containing Immunization objects. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.immunization.html'>Immunization</a>
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/vaccines
+  /v1/medical_records/vaccines/{id}:
+    get:
+      description: Get a patient vaccine
+      operationId: get_vaccine
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR Immunization. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.immunization.html'>Immunization</a>
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/vaccines/{id}
+  /v1/medical_records/vitals:
+    get:
+      description: List patient vital records
+      operationId: list_vitals
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR Bundle containing Observation objects. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.vitals.html'>Vitals</a>
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/vitals
+  /v1/medical_records/vitals/{id}:
+    get:
+      description: Get a patient vital record
+      operationId: get_vitals
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                description: >
+                  FHIR Observation. The schema can be found at
+                  <a href='https://department-of-veterans-affairs.github.io/mhv-fhir-phr-mapping/StructureDefinition-VA.MHV.PHR.vitals.html'>Vitals</a>
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+      summary: /v1/medical_records/vitals/{id}
+
+  /v1/messaging/folders:
+    get:
+      description: List available secure messaging folders
+      operationId: get_folders
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessagingFolders.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/folders
+  /v1/messaging/folders/{id}:
+    get:
+      description: Get a secure messaging folder
+      operationId: get_folder
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessagingFolder.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/folders/{id}
+    put:
+      description: Rename an existing folder
+      operationId: post_rename_folder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                name: New Name for Folder
+              type: object
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessagingFolder.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/folders/{id}
+  /v1/messaging/folders/{id}/threads:
+    get:
+      description: List threads in a secure messaging folder.
+      operationId: get_folder_threads
+      parameters:
+        - description: The id of the folder that threads are being retrieved from
+          in: path
+          name: folderId
+          required: true
+          schema:
+            type: string
+        - description: The size of the pagination you want
+          in: query
+          name: pageSize,
+          required: true
+          schema:
+            type: string
+        - description: The page number to get based on your page size
+          in: query
+          name: pageNumber,
+          required: true
+          schema:
+            type: string
+        - description: The field to sort the results by
+          in: query
+          name: sortField,
+          required: true
+          schema:
+            type: string
+            enum: [SENDER_NAME, RECIPIENT_NAME, SENT_DATE, DRAFT_DATE]
+        - description: The order to sort the results by
+          in: query
+          name: sortOrder,
+          required: true
+          schema:
+            type: string
+            enum: [ASC, DESC]
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageThreadList.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/folders/{id}/threads
+  /v1/messaging/folders/{id}/search:
+    post:
+      description: |
+        Search messages in a secure messaging folder. If multiple search criteria are specified, each returned search
+        result will match ALL criteria. Pagination is supported and is handled by the upstream MHV server.
+
+        When listing messages, the response for each message will include most but not all of the message attributes.
+        Specifically, the message body and attachment information is not included. Those attributes can be obtained by
+        getting the specific message resource.
+      operationId: search_folder
+      parameters:
+        - description: The page of results to be returned (passed through to MHV API)
+          in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - description: The number of results per page (passed through to MHV API)
+          in: query
+          name: per_page,
+          required: false
+          schema:
+            type: integer
+            default: 250
+        - $ref: "#/components/parameters/InflectionHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/SecureMessageSearchRequest.yml
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageSearch.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/folders/{id}/search
+  /v1/messaging/message_drafts:
+    post:
+      description: Save a new draft message
+      operationId: post_create_message_draft
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/SecureMessageNewMessageRequest.yml
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageNewMessageRequest.yml
+          description: Created
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/message_drafts
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+  /v1/messaging/message_drafts/{id}:
+    put:
+      description: Update an existing draft message
+      operationId: post_create_message_draft
+      parameters:
+        - description: The id of the draft that is to be updated
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/InflectionHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                body: the updated message
+              type: object
+        required: true
+      responses:
+        "204":
+          description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/message_drafts/{id}
+  /v1/messaging/message_drafts/{reply_id}/replydraft:
+    post:
+      description: Save a new draft message as a reply to an existing message
+      operationId: post_create_message_draft_reply
+      parameters:
+        - description: The id of the message that will be replied to
+          in: path
+          name: reply_id
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/InflectionHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/SecureMessageNewMessageRequest.yml
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageNewMessageRequest.yml
+          description: Created
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/message_drafts/{reply_id}/replydraft
+  /v1/messaging/message_drafts/{reply_id}/replydraft/{draft_id}:
+    post:
+      description: Edit a draft message that was a reply to an existing message
+      operationId: post_create_message_draft_reply
+      parameters:
+        - description: The id of the message that will be replied to
+          in: path
+          name: reply_id
+          required: true
+          schema:
+            type: string
+        - description: The id of the draft that is to be updated
+          in: path
+          name: draft_id
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/InflectionHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                body: the updated message
+              type: object
+        required: true
+      responses:
+        "204":
+          description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/message_drafts/{reply_id}/replydraft/{draft_id}
+  /v1/messaging/messages:
+    post:
+      description: |
+        Send a new secure message. When `prescription_id` is included in the request body,
+        the message is routed to the upstream MHV `POST message/renewal` endpoint for
+        prescription renewal messages.
+      operationId: post_create_message
+      parameters:
+        - description: Indicates if this message is for an OH triage group (allows larger attachments)
+          in: query
+          name: is_oh_triage_group
+          required: false
+          schema:
+            type: boolean
+        - $ref: "#/components/parameters/InflectionHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/SecureMessageNewMessageRequest.yml
+          multipart/form-data:
+            schema:
+              properties:
+                message:
+                  description:
+                    Stringified JSON with same parameters as if this was
+                    an application/json request (e.g. '{"category":"OTHER","recipient_id":1763526,"body":"test
+                    message"}')
+                  type: string
+                uploads[]:
+                  description: |
+                    One or more message attachments.
+
+                    <strong>NOTES:</strong>
+                    <ul>
+                    <li>A single message may have a maximum of 4 attachments (10 for OH triage groups).</li>
+                    <li>A single attachment cannot exceed 6 MB (25 MB for OH triage groups)</li>
+                    <li>All attachments combined cannot exceed 10 MB (25 MB for OH triage groups)</li>
+                    <li>Supported file types/extensions: DOC, DOCX, GIF, JPG, JPEG, PDF, PNG, RTF, TXT, XLS, XLSX, JFIF, PJPEG, PJP (OH triage groups also support: BMP, TIFF, TIF, PPT, PPTX, PPS, PPSX, ODT, MP4, M4V, MOV, WMV, MPG).</li>
+                    </ul>
+                  items:
+                    format: binary
+                    type: string
+                  type: array
+              type: object
+        description: |
+          New message body.
+
+          <strong>NOTES:</strong>
+          <ul>
+            <li>If a subject isn't included, default subject will be "{{Category}} Inquiry" (e.g. Medication Inquiry)</li>
+            <li>Messages can only be replied to for 45 days.  After that, the message is considered "expired"</li>
+            <li>If sending a draft, include the draft's ID in the request body as `draft_id`. Draft will be deleted once sent. Any fields included in request body will overwrite original draft contents.
+            <li>If including file attachments, this request must be sent as <i>multipart/form-data</i></li>
+            <li>
+              File attachment restrictions (as imposed by MHV):
+              <ul>
+                <li>User may attach up to 4 files (10 files for OH triage groups)</li>
+                <li>Single attachment cannot exceed 6 MB (25 MB for OH triage groups)</li>
+                <li>Total attachment cannot exceed 10 MB (25 MB for OH triage groups)</li>
+                <li>Accepted formats: DOC, DOCX, GIF, JPG, JPEG, PDF, PNG, RTF, TXT, XLS, XLSX, JFIF, PJPEG, PJP (OH triage groups also support: BMP, TIFF, TIF, PPT, PPTX, PPS, PPSX, ODT, MP4, M4V, MOV, WMV, MPG)</li>
+              </ul>
+            </li>
+          </ul>
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageDetail.yml
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: |-
+            Bad Request - Oracle Health message send failed. This can occur when:
+            - Message status polling returns FAILED or INVALID status
+            - Error code SM98 will be returned in the response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: |
+            Unprocessable Entity - Validation failed for one or more message fields
+            (for example, missing or empty `body`), as defined by the request schema.
+      summary: /v1/messaging/messages
+  /v1/messaging/messages/categories:
+    get:
+      description: List available message categories
+      operationId: get_categories
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageCategories.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/messages/categories
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+  /v1/messaging/messages/oh_sync_status:
+    get:
+      description: Get the Oracle Health sync status
+      operationId: get_oh_sync_status
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/OhSyncStatus.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Gateway - upstream service error
+      summary: /v1/messaging/messages/oh_sync_status
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+  /v1/messaging/messages/{id}:
+    delete:
+      description: Moves a secure message to the "Deleted" folder
+      operationId: delete_message
+      parameters:
+        - description: The id of the message that is to be deleted
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "204":
+          description: The message was deleted successfully
+        "400":
+          content:
+            application/json:
+              example:
+                errors:
+                  - code: SM114
+                    detail: Unable to move message
+                    status: "400"
+                    title: Operation failed
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              example:
+                errors:
+                  - code: "401"
+                    detail: IAM user session is inactive
+                    status: "401"
+                    title: Not authorized
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              example:
+                errors:
+                  - code: "403"
+                    detail: You do not have access to messaging
+                    status: "403"
+                    title: Forbidden
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/messages/{id}
+    get:
+      description: |
+        Get a secure message <strong>and mark the message as read</strong>.
+
+        <strong>NOTES:</strong>
+        <ul>
+          <li>Unlike listing messages in a folder, the message resource returned from this operation will include
+        the message body and attachment information.</li>
+          <li>This GET operation is not fully idempotent and will set readReceipt field as 'READ'</li>
+          <li>If message has an attachment included, attachmentSize is displayed in bytes</li>
+        </ul>
+      operationId: get_message
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageDetail.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/messages/{id}
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+    patch:
+      description: Moves a secure message to a specified folder
+      operationId: post_move_message
+      parameters:
+        - description: The id of the message that is to be moved
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - description: The id of the folder that the message is to be moved to
+          in: query
+          name: folder_id,
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "204":
+          description: The message was moved successfully
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/messages/{id}/move
+  /v1/messaging/messages/{id}/attachments/{attachment_id}:
+    get:
+      description: |
+        Get a secure message attachment content as a direct binary download. Secure messaging supports the following file types/extensions: doc, docx, gif, jpg, pdf, png, rtf, txt, xls, xlsx.
+      operationId: get_attachment
+      parameters:
+        - description: ID of the message that we are retrieving attachments of
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: OK
+          headers:
+            Content-Disposition:
+              description: |
+                This header will have the value of "attachment", and a "filename" parameter containing the original filename of the attached content.
+              schema:
+                type: string
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/messages/{id}/attachments/{attachment_id}
+  /v1/messaging/messages/{id}/reply:
+    post:
+      description: |
+        Send reply to a secure message
+
+        <strong>NOTE:</strong> If including file attachments, this request must be sent as <i>multipart/form-data</i>
+
+        File attachment restrictions (as imposed by MHV):
+        <ul>
+          <li>User may attach up to 4 files (10 files for OH triage groups)</li>
+          <li>Accepted formats: DOC, DOCX, GIF, JPG, JPEG, PDF, PNG, RTF, TXT, XLS, XLSX, JFIF, PJPEG, PJP (OH triage groups also support: BMP, TIFF, TIF, PPT, PPTX, PPS, PPSX, ODT, MP4, M4V, MOV, WMV, MPG)</li>
+          <li>Single attachment cannot exceed 6 MB (25 MB for OH triage groups)</li>
+          <li>Total attachment cannot exceed 10 MB (25 MB for OH triage groups)</li>
+        </ul>
+      operationId: post_create_message_reply
+      parameters:
+        - description: ID of the message that is being replied to
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+        - description: Indicates if this message is for an OH triage group (allows larger attachments)
+          in: query
+          name: is_oh_triage_group
+          required: false
+          schema:
+            type: boolean
+        - $ref: "#/components/parameters/InflectionHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/SecureMessageReplyRequest.yml
+          multipart/form-data:
+            schema:
+              properties:
+                message:
+                  description:
+                    Stringified JSON with same parameters as if this was
+                    an application/json request (e.g. '{"body":"test body with attachment"}')
+                  type: string
+                uploads[]:
+                  description: |
+                    One or more message attachments.
+
+                    <strong>NOTES:</strong>
+                    <ul>
+                    <li>A single message may have a maximum of 4 attachments (10 for OH triage groups).</li>
+                    <li>A single attachment cannot exceed 6 MB (25 MB for OH triage groups)</li>
+                    <li>All attachments combined cannot exceed 10 MB (25 MB for OH triage groups)</li>
+                    <li>Supported file types/extensions: DOC, DOCX, GIF, JPG, JPEG, PDF, PNG, RTF, TXT, XLS, XLSX, JFIF, PJPEG, PJP (OH triage groups also support: BMP, TIFF, TIF, PPT, PPTX, PPS, PPSX, ODT, MP4, M4V, MOV, WMV, MPG).</li>
+                    </ul>
+                  items:
+                    format: binary
+                    type: string
+                  type: array
+              type: object
+        description: Reply message body
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageDetail.yml
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: |
+            Bad Request - Oracle Health message send failed. This can occur when:
+            <ul>
+              <li>Message status polling returns FAILED or INVALID status</li>
+              <li>Error code SM98 will be returned in the response</li>
+            </ul>
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: |
+            Unprocessable Entity - Validation failed for one or more message fields
+            (for example, missing or empty `body`), as defined by the request schema.
+      summary: /v1/messaging/messages/{id}/reply
+  /v1/messaging/messages/{id}/thread:
+    get:
+      description: |
+        Gets a list of message summaries that are related to the message of the passed id.
+      operationId: get_messages_for_thread
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: ./schemas/SecureMessageListInThread.yml
+                  - $ref: ./schemas/SecureMessageListInThreadWithFullBody.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/messages/{id}/thread
+      parameters:
+        - name: full_body
+          in: query
+          description: Include the full body of the messages and attachments meta in the response
+          required: false
+          schema:
+            type: boolean
+        - $ref: "#/components/parameters/InflectionHeader"
+  /v1/messaging/recipients:
+    get:
+      description: List available recipients to which messages may be sent
+      operationId: get_triage_teams
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessagingRecipients.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/recipients
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+  /v1/messaging/allrecipients:
+    get:
+      description: List available recipients to which messages may be sent with advanced attributes
+      operationId: get_all_triage_teams
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessagingAllRecipients.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/allrecipients
+  /v1/messaging/threads/{id}/move:
+    patch:
+      description:
+        Moves all received messages in a secure message thread to a specified folder. Sent
+        messages, draft messages, and deleted messages will not be moved.
+      operationId: post_move_thread
+      parameters:
+        - description: The id of the thread that is to be moved
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - description: The id of the folder that the message is to be moved to
+          in: query
+          name: folder_id,
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "204":
+          description: The message thread was moved successfully
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/threads/{id}/move
+  /v1/messaging/preferences/recipients:
+    post:
+      description: Update recipients `preferredTeam` value
+      operationId: update_triage_team_preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/SecureMessagingUpdateTriageTeamRequest.yml
+
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              type: string
+              example: "Success"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/preferences/recipients
+  /v1/messaging/preferences/signature:
+    get:
+      description: Gets user message signature preferences
+      operationId: get_signature
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageSignature.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/preferences/signature
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+    post:
+      description: Update user message signature preferences
+      operationId: update_signature
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/SecureMessageSignatureUpdateRequest.yml
+
+      responses:
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/SecureMessageSignature.yml
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/messaging/preferences/signature
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+  /v1/prescriptions:
+    get:
+      description: List medications.
+      operationId: get_prescriptions
+      parameters:
+        - description: One refill status to filter on
+          in: query
+          name: refill_status
+          required: false
+          schema:
+            type: string
+        - description: The page number to get based on your page size
+          in: query
+          name: page
+          required: false
+          schema:
+            type: string
+        - description: The size of the pagination you want
+          in: query
+          name: per_page
+          required: false
+          schema:
+            type: string
+        - description: The attribute to sort on, negated for descending
+          in: query
+          name: sort
+          required: false
+          schema:
+            type: string
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/V1PrescriptionList.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions
+  /v1/prescriptions/{id}:
+    get:
+      description: Get prescription.
+      operationId: get_prescription
+      parameters:
+        - description: prescription id
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Prescription.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions/{id}
+  /v1/prescriptions/{id}/refill:
+    patch:
+      description: Refill the prescription
+      operationId: patch_refill_prescription
+      parameters:
+        - description: The id of the prescription
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "204":
+          description: Success
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions/{id}/refill
+  /v1/prescriptions/list_refillable_prescriptions:
+    get:
+      description: List refillable medications.
+      operationId: get_list_refillable_prescriptions
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/V1PrescriptionList.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions/list_refillable_prescriptions
+  /v1/prescriptions/refill_prescriptions:
+    patch:
+      description: Refill the prescriptions
+      operationId: patch_refill_prescription
+      parameters:
+        - description: Array of the prescription ids
+          in: query
+          name: ids
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "204":
+          description: Success
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized for access to secure messages
+      summary: /v1/prescriptions/refill_prescriptions
+  /v1/tooltips:
+    get:
+      description: Retrieve tooltips settings for mhv-medications In-Product Education (IPE)
+      operationId: get_tooltips
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./schemas/Tooltip.yml
+          description: OK
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+    post:
+      description: Create tooltip setting for mhv-medications In-Product Education (IPE)
+      operationId: post_tooltip
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/TooltipParams.yml"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Tooltip.yml
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+    summary: /v1/tooltips
+  /v1/tooltips/{id}:
+    patch:
+      description: Update tooltip setting for mhv-medications In-Product Education (IPE), typically used for setting 'hidden' attribute
+      operationId: patch_tooltip
+      parameters:
+        - description: The id of the tooltip
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: increment_counter
+          required: false
+          schema:
+            type: boolean
+          description: Value indicates if counter will be incremented
+        - $ref: "#/components/parameters/InflectionHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/TooltipParams.yml"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Tooltip.yml
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+    summary: /v1/tooltips/{id}
+  /v1/unique_user_metrics:
+    post:
+      description: |
+        Log unique user metrics events for analytics tracking. Accepts multiple events in a single batch operation
+        and buffers them for asynchronous processing by a background job.
+
+        This endpoint is used for tracking unique user interactions with MHV Portal features to provide
+        opt-out-free analytics that are more accurate than Google Analytics.
+
+        <strong>Asynchronous Processing:</strong> Events are buffered and processed in batches by a background job.
+        The response indicates which events were accepted for processing, not whether they are new unique events.
+        Duplicate events (same user + event combination) are handled during background processing.
+
+        <strong>Valid Event Names:</strong> Event names must be from the approved registry of valid events.
+        See <a href='https://github.com/department-of-veterans-affairs/vets-api/blob/master/lib/unique_user_events/event_registry.rb'>EventRegistry</a>
+        for the complete list. Invalid event names are silently filtered out.
+      operationId: log_unique_user_metrics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/UniqueUserMetricsRequest.yml
+        description: |
+          Array of event names to log for the authenticated user.
+
+          <strong>NOTES:</strong>
+          <ul>
+            <li>Events are buffered for asynchronous batch processing</li>
+            <li>Event names must be from the approved registry - see <a href='https://github.com/department-of-veterans-affairs/vets-api/blob/master/lib/unique_user_events/event_registry.rb'>EventRegistry</a></li>
+            <li>Invalid event names are silently filtered out</li>
+            <li>Maximum 50 characters per event name</li>
+            <li>At least one event name must be provided</li>
+          </ul>
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/UniqueUserMetricsResponse.yml
+              example:
+                buffered_events: []
+          description: OK - No events were buffered (feature disabled or all events were invalid)
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/UniqueUserMetricsResponse.yml
+              example:
+                buffered_events:
+                  - "mhv_landing_page_accessed"
+                  - "secure_messaging_accessed"
+                  - "prescriptions_accessed"
+          description: Accepted - Events were accepted and buffered for asynchronous processing
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request - Invalid request parameters (missing event_names, not an array, or empty array)
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+      summary: /v1/unique_user_metrics
+  /v2/labs_and_tests:
+    get:
+      description: |
+        Get lab results and test information for the current user within a specified date range.
+        This endpoint provides structured lab and test data with FHIR path mappings for each data element.
+      operationId: getLabsAndTests
+      parameters:
+        - name: start_date
+          in: query
+          description: Start date for lab results query (format YYYY-MM-DD)
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          description: End date for lab results query (format YYYY-MM-DD)
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Lab results and test information response
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/LabsAndTestsResponse.yml
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not authorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden - user not authorized for lab results
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: No lab results found
+      summary: /v2/labs_and_tests
+  /v2/prescriptions:
+    get:
+      description: |
+        List medications for the current user. This endpoint uses the Unified Health Data (Oracle Health) backend
+        and requires the `mhv_medications_cerner_pilot` feature flag to be enabled.
+
+        Supports filtering, sorting, and pagination. Results can be filtered by prescription status and sorted
+        by various attributes. Pending (PD) prescriptions are included based on the `mhv_medications_display_pending_meds`
+        feature flag.
+      operationId: get_v2_prescriptions
+      parameters:
+        - description: Filter prescriptions by disp_status (comma-separated for multiple values, e.g., "Active,Expired")
+          in: query
+          name: filter[disp_status][eq]
+          required: false
+          schema:
+            type: string
+            example: "Active"
+        - description: The page number for pagination
+          in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+        - description: The number of items per page
+          in: query
+          name: per_page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            example: 20
+        - description: |
+            The attribute to sort by. Prefix with "-" for descending order.
+            Supported values: "alphabetical-rx-name", "last-fill-date", or field names like "disp_status", "prescription_name", "dispensed_date"
+          in: query
+          name: sort
+          required: false
+          schema:
+            type: string
+            example: "alphabetical-rx-name"
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/V2PrescriptionList.yml
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden - Feature not available or user not authorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Internal Server Error
+      summary: /v2/prescriptions
+  /v2/prescriptions/list_refillable_prescriptions:
+    get:
+      description: |
+        List refillable medications for the current user. This endpoint returns prescriptions that can be refilled,
+        including those marked as refillable or renewable (Active/Expired within 120 days).
+
+        Uses the Unified Health Data (Oracle Health) backend and requires the `mhv_medications_cerner_pilot` feature flag.
+      operationId: get_v2_list_refillable_prescriptions
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - meta
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: ./schemas/PrescriptionDetail.yml
+                  meta:
+                    type: object
+                    required:
+                      - recently_requested
+                    properties:
+                      recently_requested:
+                        type: array
+                        description: >
+                          List of prescriptions with status "Active: Refill in Process"
+                          or "Active: Submitted"
+                        items:
+                          type: object
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden - Feature not available or user not authorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Internal Server Error
+      summary: /v2/prescriptions/list_refillable_prescriptions
+  /v2/prescriptions/refill:
+    post:
+      description: |
+        Refill one or more prescriptions in a batch operation. This endpoint accepts an array of prescription orders,
+        each containing a station number and prescription ID. Returns detailed results for each refill attempt,
+        including successful refills and any errors encountered.
+
+        Uses the Unified Health Data (Oracle Health) backend and requires the `mhv_medications_cerner_pilot` feature flag.
+
+        <strong>NOTES:</strong>
+        <ul>
+          <li>All orders are processed in a single batch operation</li>
+          <li>Partial failures are allowed - some prescriptions may succeed while others fail</li>
+          <li>Each order must include both stationNumber and id fields</li>
+          <li>At least one order must be provided</li>
+          <li>Results include separate lists for successful and failed refills</li>
+        </ul>
+      operationId: post_v2_refill_prescriptions
+      parameters:
+        - $ref: "#/components/parameters/InflectionHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/PrescriptionRefillRequest.yml
+        description: Array of prescription orders to refill
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/PrescriptionRefillResponse.yml
+          description: OK - Refill operation completed (may include partial failures)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request - Invalid request format or missing required fields
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden - Feature not available or user not authorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Internal Server Error
+      summary: /v2/prescriptions/refill
+  /v2/medical_records/clinical_notes:
+    get:
+      description: |
+        List clinical notes (care summaries and notes) for the current user within a specified date range.
+        Returns notes from both VistA and Oracle Health sources. Each note includes a `source` field
+        indicating which system the record originated from.
+      operationId: listClinicalNotesV2
+      parameters:
+        - name: start_date
+          in: query
+          description: Start date for clinical notes query (format YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          description: End date for clinical notes query (format YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        "200":
+          description: Clinical notes list response
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/ClinicalNotesResponse.yml
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request - Invalid date parameter format
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Gateway - upstream service error
+      summary: /v2/medical_records/clinical_notes
+  /v2/medical_records/clinical_notes/{id}:
+    get:
+      description: |
+        Get a single clinical note by ID. The `source` query parameter is required and must be set
+        to `oracle-health` to retrieve the note directly from the Oracle Health source-specific endpoint.
+        Requests with `source=vista` or without a `source` parameter will receive a 404 response.
+      operationId: getClinicalNoteV2
+      parameters:
+        - name: id
+          in: path
+          description: Clinical note record ID
+          required: true
+          schema:
+            type: string
+        - name: source
+          in: query
+          description: >
+            The data source of the note. Must be `oracle-health` for direct retrieval from the
+            Oracle Health endpoint. Requests with `vista` or without this parameter return 404.
+          required: true
+          schema:
+            type: string
+            enum:
+              - oracle-health
+        - $ref: '#/components/parameters/InflectionHeader'
+      responses:
+        "200":
+          description: Single clinical note response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: './schemas/ClinicalNotesResponse.yml#/definitions/ClinicalNote'
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Forbidden
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Request - source parameter is missing, unsupported (e.g. vista), or invalid
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Not Found - no note matching the given ID
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/Errors.yml
+          description: Bad Gateway - upstream service error
+      summary: /v2/medical_records/clinical_notes/{id}
+
+components:
+  securitySchemes:
+    CookieAuth:
+      type: apiKey
+      name: api_session
+      in: cookie
+      description: An authenticated session is established using the Sessions Controller to initiate federated authentication with an external credential provider, after which an API session token is established in the api_session cookie.
+  parameters:
+    InflectionHeader:
+      in: header
+      name: X-Key-Inflection
+      required: false
+      schema:
+        type: string
+        enum: [camel, snake]
+      description: Instructs the API to return camelCase keys rather than snake_case
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/Errors.yml"
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/Errors.yml"
+    UnprocessableEntity:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/Errors.yml"
+
+security:
+  - CookieAuth: []
