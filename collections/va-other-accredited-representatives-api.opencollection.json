@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Other Accredited Representatives API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Other Accredited Representatives",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of accredited attorneys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v0/other_accredited_representatives",
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude for the search location."
+              },
+              {
+                "name": "long",
+                "value": "",
+                "type": "query",
+                "description": "Longitude for the search location."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of accredited representative (e.g., attorney or claim_agents)."
+              },
+              {
+                "name": "distance",
+                "value": "",
+                "type": "query",
+                "description": "Search radius in miles."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to search for."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting order of the results."
+              }
+            ]
+          },
+          "docs": "Retrieve accredited attorneys based on location, name, and type. Supports sorting and pagination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,534 @@
+{
+  "item": [
+    {
+      "id": "9681d18d-8d4f-478f-bef3-137eb6958050",
+      "name": "Contestable Issues",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "580b4d55-d78f-4a0b-bd37-87743a894f05",
+          "name": "Returns all contestable issues for a specific veteran.",
+          "request": {
+            "name": "Returns all contestable issues for a specific veteran.",
+            "description": {
+              "content": "Returns all issues associated with a Veteran that have been decided as of the `receiptDate`. Not all issues returned are guaranteed to be eligible for appeal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contestable_issues",
+                ":decision_review_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "benefit_type",
+                  "value": "<string>",
+                  "description": "Required if decision review type is Higher Level Review or Supplemental Claims."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "decision_review_type",
+                  "description": "(Required) Scoping of appeal type for associated issues"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{version}}",
+                  "key": "version"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Veteran's SSN",
+                "key": "X-VA-SSN",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) (yyyy-mm-dd) In order to determine contestability of issues, the receipt date of a hypothetical Decision Review must be specified. This date must be after 2019-02-19, the Appeals Modernization Act (AMA) Activation Date.",
+                "key": "X-VA-Receipt-Date",
+                "value": "<date>"
+              },
+              {
+                "disabled": false,
+                "description": "Veteran's file number",
+                "key": "X-VA-File-Number",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Veteran's ICN",
+                "key": "X-VA-ICN",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "35135e51-ba1b-4833-b959-44273fc07ec0",
+              "name": "JSON:API response returning all contestable issues for a specific veteran.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contestable_issues",
+                    ":decision_review_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefit_type",
+                      "value": "compensation"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decision_review_type",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Veteran's SSN",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) (yyyy-mm-dd) In order to determine contestability of issues, the receipt date of a hypothetical Decision Review must be specified. This date must be after 2019-02-19, the Appeals Modernization Act (AMA) Activation Date.",
+                    "key": "X-VA-Receipt-Date",
+                    "value": "2022-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's file number",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"contestableIssue\",\n      \"attributes\": {\n        \"ratingIssueSubjectText\": \"right knee\",\n        \"ratingIssuePercentNumber\": \"10\",\n        \"ratingIssueReferenceId\": \"826209920000\",\n        \"ratingIssueProfileDate\": \"2019-02-22\",\n        \"ratingIssueDiagnosticCode\": null,\n        \"description\": \"Right knee\",\n        \"isRating\": true,\n        \"latestIssuesInChain\": [\n          {\n            \"id\": null,\n            \"approxDecisionDate\": \"2019-02-26\"\n          }\n        ],\n        \"decisionIssueId\": null,\n        \"ratingDecisionReferenceId\": null,\n        \"approxDecisionDate\": \"2019-02-26\",\n        \"rampClaimId\": null,\n        \"titleOfActiveReview\": null,\n        \"sourceReviewType\": null,\n        \"timely\": true,\n        \"activeReview\": false\n      }\n    },\n    {\n      \"type\": \"contestableIssue\",\n      \"attributes\": {\n        \"ratingIssueSubjectText\": \"ptsd\",\n        \"ratingIssueReferenceId\": \"826209441170\",\n        \"ratingIssueProfileDate\": \"2019-02-22\",\n        \"ratingIssueDiagnosticCode\": null,\n        \"description\": \"PTSD\",\n        \"isRating\": true,\n        \"latestIssuesInChain\": [\n          {\n            \"id\": null,\n            \"approxDecisionDate\": \"2019-02-25\"\n          }\n        ],\n        \"decisionIssueId\": null,\n        \"ratingDecisionReferenceId\": null,\n        \"approxDecisionDate\": \"2019-02-25\",\n        \"rampClaimId\": null,\n        \"titleOfActiveReview\": null,\n        \"sourceReviewType\": null,\n        \"timely\": true,\n        \"activeReview\": false\n      }\n    },\n    {\n      \"type\": \"contestableIssue\",\n      \"attributes\": {\n        \"ratingIssueSubjectText\": \"left knee\",\n        \"ratingIssueReferenceId\": \"826209597423\",\n        \"ratingIssueProfileDate\": \"2019-02-22\",\n        \"ratingIssueDiagnosticCode\": null,\n        \"description\": \"Left knee\",\n        \"isRating\": true,\n        \"latestIssuesInChain\": [\n          {\n            \"id\": null,\n            \"approxDecisionDate\": \"2019-02-24\"\n          }\n        ],\n        \"decisionIssueId\": null,\n        \"ratingDecisionReferenceId\": null,\n        \"approxDecisionDate\": \"2019-02-24\",\n        \"rampClaimId\": null,\n        \"titleOfActiveReview\": null,\n        \"sourceReviewType\": null,\n        \"timely\": true,\n        \"activeReview\": false\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0dfd9be2-0753-4438-8d8f-d4396e314743",
+              "name": "Veteran not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contestable_issues",
+                    ":decision_review_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefit_type",
+                      "value": "compensation"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decision_review_type",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Veteran's SSN",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) (yyyy-mm-dd) In order to determine contestability of issues, the receipt date of a hypothetical Decision Review must be specified. This date must be after 2019-02-19, the Appeals Modernization Act (AMA) Activation Date.",
+                    "key": "X-VA-Receipt-Date",
+                    "value": "2022-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's file number",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"404\",\n      \"title\": \"Veteran not found\",\n      \"detail\": \"A veteran with that SSN was not found in our systems.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aed118ed-16bb-4924-a93f-12035bca325f",
+              "name": "Parameter Errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contestable_issues",
+                    ":decision_review_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefit_type",
+                      "value": "compensation"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decision_review_type",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Veteran's SSN",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) (yyyy-mm-dd) In order to determine contestability of issues, the receipt date of a hypothetical Decision Review must be specified. This date must be after 2019-02-19, the Appeals Modernization Act (AMA) Activation Date.",
+                    "key": "X-VA-Receipt-Date",
+                    "value": "2022-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's file number",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Unprocessable Entity\",\n      \"code\": \"unprocessable_entity\",\n      \"detail\": \"decision_review_type must be one of: higher_level_reviews, notice_of_disagreements, supplemental_claims\",\n      \"status\": \"422\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d17c4551-062a-4208-8fe8-0635eead5cb4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contestable_issues",
+                    ":decision_review_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefit_type",
+                      "value": "compensation"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decision_review_type",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Veteran's SSN",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) (yyyy-mm-dd) In order to determine contestability of issues, the receipt date of a hypothetical Decision Review must be specified. This date must be after 2019-02-19, the Appeals Modernization Act (AMA) Activation Date.",
+                    "key": "X-VA-Receipt-Date",
+                    "value": "2022-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's file number",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Internal server error\",\n      \"detail\": \"Internal server error\",\n      \"code\": \"500\",\n      \"status\": \"500\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9dd38ac9-0189-43f5-a965-b32f10188dee",
+              "name": "Unknown error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contestable_issues",
+                    ":decision_review_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefit_type",
+                      "value": "compensation"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decision_review_type",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Veteran's SSN",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) (yyyy-mm-dd) In order to determine contestability of issues, the receipt date of a hypothetical Decision Review must be specified. This date must be after 2019-02-19, the Appeals Modernization Act (AMA) Activation Date.",
+                    "key": "X-VA-Receipt-Date",
+                    "value": "2022-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's file number",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Bad Gateway\",\n      \"detail\": \"Received a 500 response from the upstream server\",\n      \"code\": \"CASEFLOWSTATUS500\",\n      \"source\": \"No method error\",\n      \"status\": \"502\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "v0",
+      "key": "version"
+    },
+    {
+      "type": "string",
+      "value": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{{version}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9d1cae7f-a52c-434f-b320-407159239a45",
+    "name": "Appealable Issues Contestable Issues API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Appealable Issues API lets you retrieve a list of a claimant’s appealable issues and any chains of preceding issues. Appealable issues are issues from claims about which VA has made a decision that may be eligible for appeal. Not all appealable issues are guaranteed to be eligible for appeal; for example, claimants may have another appeal in progress for an issue.\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Appealable Issues API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/appealable_issues_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n\n\nContact Support:\n Name: developer.va.gov",
+      "type": "text/plain"
+    }
+  }
+}

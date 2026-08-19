@@ -1,0 +1,651 @@
+{
+  "item": [
+    {
+      "id": "763d5b24-58c9-4f66-add4-33b91560fa7c",
+      "name": "Appealable Issues",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b57990e3-2b25-4305-912b-2d6840699437",
+          "name": "Returns all appealable issues for a specific Veteran.",
+          "request": {
+            "name": "Returns all appealable issues for a specific Veteran.",
+            "description": {
+              "content": "Returns all issues associated with a Veteran that have been decided as of the `receiptDate`. Not all issues returned are guaranteed to be eligible for appeal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appealable-issues",
+                ":decisionReviewType"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "benefitType",
+                  "value": "<string>",
+                  "description": "Required if decision review type is Higher-Level Reviews or Supplemental Claims"
+                },
+                {
+                  "disabled": false,
+                  "key": "receiptDate",
+                  "value": "<date>",
+                  "description": "(Required) (yyyy-mm-dd) In order to determine appealability of issues, the receipt date of a hypothetical Decision Review must be specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "icn",
+                  "value": "<string>",
+                  "description": "Veteran's Master Person Index (MPI) Integration Control Number (ICN)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "decisionReviewType",
+                  "description": "(Required) Scoping of appeal type for associated issues"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{version}}",
+                  "key": "version"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "veteran/AppealableIssues.read veteran/appeals.read representative/AppealableIssues.read representative/appeals.read"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.va.gov/oauth2/appeals/v1/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://api.va.gov/oauth2/appeals/v1/authorization"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a8feddc9-ba8b-4073-8fd3-aff7051a28a1",
+              "name": "Retrieve all appealable issues for a Veteran",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appealable-issues",
+                    ":decisionReviewType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefitType",
+                      "value": "compensation"
+                    },
+                    {
+                      "key": "receiptDate",
+                      "value": "2022-01-01"
+                    },
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decisionReviewType",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"appealableIssue\",\n      \"attributes\": {\n        \"ratingIssueSubjectText\": \"right knee\",\n        \"ratingIssuePercentNumber\": \"10\",\n        \"ratingIssueReferenceId\": \"826209920000\",\n        \"ratingIssueProfileDate\": \"2019-02-22\",\n        \"ratingIssueDiagnosticCode\": null,\n        \"description\": \"Right knee\",\n        \"isRating\": true,\n        \"latestIssuesInChain\": [\n          {\n            \"id\": null,\n            \"approxDecisionDate\": \"2019-02-26\"\n          }\n        ],\n        \"decisionIssueId\": null,\n        \"ratingDecisionReferenceId\": null,\n        \"approxDecisionDate\": \"2019-02-26\",\n        \"rampClaimId\": null,\n        \"titleOfActiveReview\": null,\n        \"sourceReviewType\": null,\n        \"timely\": true\n      }\n    },\n    {\n      \"type\": \"appealableIssue\",\n      \"attributes\": {\n        \"ratingIssueSubjectText\": \"ptsd\",\n        \"ratingIssueReferenceId\": \"826209441170\",\n        \"ratingIssueProfileDate\": \"2019-02-22\",\n        \"ratingIssueDiagnosticCode\": null,\n        \"description\": \"PTSD\",\n        \"isRating\": true,\n        \"latestIssuesInChain\": [\n          {\n            \"id\": null,\n            \"approxDecisionDate\": \"2019-02-25\"\n          }\n        ],\n        \"decisionIssueId\": null,\n        \"ratingDecisionReferenceId\": null,\n        \"approxDecisionDate\": \"2019-02-25\",\n        \"rampClaimId\": null,\n        \"titleOfActiveReview\": null,\n        \"sourceReviewType\": null,\n        \"timely\": true\n      }\n    },\n    {\n      \"type\": \"appealableIssue\",\n      \"attributes\": {\n        \"ratingIssueSubjectText\": \"left knee\",\n        \"ratingIssueReferenceId\": \"826209597423\",\n        \"ratingIssueProfileDate\": \"2019-02-22\",\n        \"ratingIssueDiagnosticCode\": null,\n        \"description\": \"Left knee\",\n        \"isRating\": true,\n        \"latestIssuesInChain\": [\n          {\n            \"id\": null,\n            \"approxDecisionDate\": \"2019-02-24\"\n          }\n        ],\n        \"decisionIssueId\": null,\n        \"ratingDecisionReferenceId\": null,\n        \"approxDecisionDate\": \"2019-02-24\",\n        \"rampClaimId\": null,\n        \"titleOfActiveReview\": null,\n        \"sourceReviewType\": null,\n        \"timely\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b33b717-5941-4c17-ac92-39c89db3b635",
+              "name": "Missing ICN parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appealable-issues",
+                    ":decisionReviewType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefitType",
+                      "value": "compensation"
+                    },
+                    {
+                      "key": "receiptDate",
+                      "value": "2022-01-01"
+                    },
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decisionReviewType",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Missing parameter\",\n      \"detail\": \"The 'icn' parameter is required with this request\",\n      \"code\": \"108\",\n      \"status\": \"400\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfdcdeee-548f-411b-a469-9dd291e5db51",
+              "name": "Access forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appealable-issues",
+                    ":decisionReviewType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefitType",
+                      "value": "compensation"
+                    },
+                    {
+                      "key": "receiptDate",
+                      "value": "2022-01-01"
+                    },
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decisionReviewType",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Forbidden\",\n      \"detail\": \"Invalid 'icn' parameter: Veterans may access only their own records\",\n      \"code\": \"403\",\n      \"status\": \"403\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fdeba9e-7a23-4470-81a1-6d4f069d1b6e",
+              "name": "Veteran record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appealable-issues",
+                    ":decisionReviewType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefitType",
+                      "value": "compensation"
+                    },
+                    {
+                      "key": "receiptDate",
+                      "value": "2022-01-01"
+                    },
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decisionReviewType",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Resource not found\",\n      \"detail\": \"A matching Veteran was not found in our systems\",\n      \"code\": \"404\",\n      \"status\": \"404\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea4ec3c0-f770-40a4-9d50-df36bf76a4f0",
+              "name": "Parameter Errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appealable-issues",
+                    ":decisionReviewType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefitType",
+                      "value": "compensation"
+                    },
+                    {
+                      "key": "receiptDate",
+                      "value": "2022-01-01"
+                    },
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decisionReviewType",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Invalid option\",\n      \"detail\": \"'invalid' is not an available option\",\n      \"code\": \"141\",\n      \"source\": {\n        \"pointer\": \"/decisionReviewType\"\n      },\n      \"status\": \"422\",\n      \"meta\": {\n        \"available_options\": [\n          \"higher-level-reviews\",\n          \"notice-of-disagreements\",\n          \"supplemental-claims\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c63ce200-78fc-4979-a212-bec0b319db52",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appealable-issues",
+                    ":decisionReviewType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefitType",
+                      "value": "compensation"
+                    },
+                    {
+                      "key": "receiptDate",
+                      "value": "2022-01-01"
+                    },
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decisionReviewType",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Internal server error\",\n      \"detail\": \"Internal server error\",\n      \"code\": \"500\",\n      \"status\": \"500\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d1e7c88-df4d-4129-9865-565a91c76f64",
+              "name": "Unknown upstream error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appealable-issues",
+                    ":decisionReviewType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "benefitType",
+                      "value": "compensation"
+                    },
+                    {
+                      "key": "receiptDate",
+                      "value": "2022-01-01"
+                    },
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "decisionReviewType",
+                      "description": "(Required) Scoping of appeal type for associated issues"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Bad Gateway\",\n      \"detail\": \"Received an unusable response from Caseflow\",\n      \"code\": \"502\",\n      \"status\": \"502\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "v0",
+      "key": "version"
+    },
+    {
+      "type": "string",
+      "value": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{{version}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "eafe94d4-95f7-4c61-aff6-6936db082a5e",
+    "name": "Appealable Issues API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Appealable Issues API lets you retrieve a list of a claimant’s appealable issues and any chains of preceding issues. Appealable issues are issues from claims about which VA has made a decision that may be eligible for appeal. Not all appealable issues are guaranteed to be eligible for appeal; for example, claimants may have another appeal in progress for an issue.\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Appealable Issues API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/appealable_issues_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n\n\nContact Support:\n Name: developer.va.gov",
+      "type": "text/plain"
+    }
+  }
+}

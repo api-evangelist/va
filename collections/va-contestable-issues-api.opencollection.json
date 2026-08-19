@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Contestable Issues API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contestable Issues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns all contestable issues for a specific veteran.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/contestable_issues/:decision_review_type",
+            "headers": [
+              {
+                "name": "X-VA-SSN",
+                "value": "706547821"
+              },
+              {
+                "name": "X-VA-Receipt-Date",
+                "value": "2022-01-01"
+              },
+              {
+                "name": "X-VA-File-Number",
+                "value": ""
+              },
+              {
+                "name": "X-VA-ICN",
+                "value": "1013062086V794840"
+              }
+            ],
+            "params": [
+              {
+                "name": "decision_review_type",
+                "value": "higher_level_reviews",
+                "type": "path",
+                "description": "Scoping of appeal type for associated issues"
+              },
+              {
+                "name": "benefit_type",
+                "value": "compensation",
+                "type": "query",
+                "description": "Required if decision review type is Higher Level Review or Supplemental Claims."
+              }
+            ]
+          },
+          "docs": "Returns all issues associated with a Veteran that have been decided as of the `receiptDate`. Not all issues returned are guaranteed to be eligible for appeal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

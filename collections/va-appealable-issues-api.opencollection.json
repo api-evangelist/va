@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Appealable Issues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns all appealable issues for a specific Veteran.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/appealable-issues/:decisionReviewType",
+            "params": [
+              {
+                "name": "decisionReviewType",
+                "value": "higher-level-reviews",
+                "type": "path",
+                "description": "Scoping of appeal type for associated issues"
+              },
+              {
+                "name": "benefitType",
+                "value": "compensation",
+                "type": "query",
+                "description": "Required if decision review type is Higher-Level Reviews or Supplemental Claims"
+              },
+              {
+                "name": "receiptDate",
+                "value": "2022-01-01",
+                "type": "query",
+                "description": "(yyyy-mm-dd) In order to determine appealability of issues, the receipt date of a hypothetical Decision Review must be specified."
+              },
+              {
+                "name": "icn",
+                "value": "1012832025V743496",
+                "type": "query",
+                "description": "Veteran's Master Person Index (MPI) Integration Control Number (ICN)"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns all issues associated with a Veteran that have been decided as of the `receiptDate`. Not all issues returned are guaranteed to be eligible for appeal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

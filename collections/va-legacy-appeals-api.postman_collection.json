@@ -1,0 +1,896 @@
+{
+  "item": [
+    {
+      "id": "77920eeb-7f58-4ee3-a105-b0c40252478b",
+      "name": "Legacy Appeals",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64e68f0f-8093-4abb-892f-77478cc2f8b7",
+          "name": "Returns eligible appeals in the legacy process for a Veteran.",
+          "request": {
+            "name": "Returns eligible appeals in the legacy process for a Veteran.",
+            "description": {
+              "content": "Returns eligible legacy appeals for a Veteran. A legacy appeal is eligible if a statement of the case (SOC)  or supplemental statement of the case (SSOC) has been declared, and if the date of declaration is within the last 60 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legacy_appeals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{version}}",
+                  "key": "version"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-SSN: 123456789",
+                "key": "X-VA-SSN",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-File-Number: 123456789",
+                "key": "X-VA-File-Number",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Veteran's ICN",
+                "key": "X-VA-ICN",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "c5286530-3a88-4205-ab61-6f5c8daff0ad",
+              "name": "Returns eligible legacy appeals for a Veteran",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy_appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-SSN: 123456789",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-File-Number: 123456789",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"2760964\",\n      \"type\": \"legacyAppeal\",\n      \"attributes\": {\n        \"issues\": [\n          {\n            \"summary\": \"Service connection, pancreatitis\"\n          }\n        ],\n        \"veteranFullName\": \"Elda Z Quigley\",\n        \"decisionDate\": \"2021-05-04T00:00:00.000Z\",\n        \"latestSocSsocDate\": \"2021-06-12\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38d3c8c9-0936-4a99-b815-2edfbc5681a5",
+              "name": "Veteran record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy_appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-SSN: 123456789",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-File-Number: 123456789",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"404\",\n      \"code\": \"veteran_not_found\",\n      \"title\": \"Veteran Not Found\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2a65d9a-4b59-4543-8b8e-06c933ae5862",
+              "name": "Header Errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy_appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-SSN: 123456789",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-File-Number: 123456789",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Validation error\",\n      \"detail\": \"Validation error\",\n      \"code\": \"100\",\n      \"source\": {\n        \"pointer\": \"/\"\n      },\n      \"status\": \"422\"\n    },\n    {\n      \"title\": \"Invalid length\",\n      \"detail\": \"'' did not fit within the defined length limits\",\n      \"code\": \"142\",\n      \"source\": {\n        \"pointer\": \"/X-VA-SSN\"\n      },\n      \"status\": \"422\",\n      \"meta\": {\n        \"max_length\": 9,\n        \"min_length\": 9\n      }\n    },\n    {\n      \"title\": \"Invalid pattern\",\n      \"detail\": \"'' did not match the defined pattern\",\n      \"code\": \"143\",\n      \"source\": {\n        \"pointer\": \"/X-VA-SSN\"\n      },\n      \"status\": \"422\",\n      \"meta\": {\n        \"regex\": \"^[0-9]{9}$\"\n      }\n    },\n    {\n      \"title\": \"Invalid pattern\",\n      \"detail\": \"'' did not match the defined pattern\",\n      \"code\": \"143\",\n      \"source\": {\n        \"pointer\": \"/X-VA-File-Number\"\n      },\n      \"status\": \"422\",\n      \"meta\": {\n        \"regex\": \"[^ \\\\f\\\\n\\\\r\\\\t\\\\v\\\\u00a0\\\\u1680\\\\u2000-\\\\u200a\\\\u2028\\\\u2029\\\\u202f\\\\u205f\\\\u3000\\\\ufeff]\"\n      }\n    },\n    {\n      \"title\": \"Invalid length\",\n      \"detail\": \"'' did not fit within the defined length limits\",\n      \"code\": \"142\",\n      \"source\": {\n        \"pointer\": \"/X-VA-File-Number\"\n      },\n      \"status\": \"422\",\n      \"meta\": {\n        \"max_length\": 9,\n        \"min_length\": 1\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90e921b2-17af-4d0d-96b8-da041f908077",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy_appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-SSN: 123456789",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-File-Number: 123456789",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Internal server error\",\n      \"detail\": \"Internal server error\",\n      \"code\": \"500\",\n      \"status\": \"500\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79795c3b-ad3f-4846-8938-171099f7852b",
+              "name": "Unknown Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy_appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-SSN: 123456789",
+                    "key": "X-VA-SSN",
+                    "value": "706547821"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Either X-VA-SSN or X-VA-File-Number is required. Example X-VA-File-Number: 123456789",
+                    "key": "X-VA-File-Number",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Veteran's ICN",
+                    "key": "X-VA-ICN",
+                    "value": "1013062086V794840"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"502\",\n      \"detail\": \"Received a 500 response from the upstream server\",\n      \"code\": \"CASEFLOWSTATUS500\",\n      \"title\": \"Bad Gateway\"\n    },\n    {\n      \"status\": \"502\",\n      \"detail\": \"Received a 500 response from the upstream server\",\n      \"code\": \"CASEFLOWSTATUS500\",\n      \"title\": \"Bad Gateway\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23ee534b-d6b0-4ed6-8680-c56e1cc4afb1",
+          "name": "Returns eligible appeals in the legacy process for a Veteran.",
+          "request": {
+            "name": "Returns eligible appeals in the legacy process for a Veteran.",
+            "description": {
+              "content": "Returns eligible legacy appeals for a Veteran. A legacy appeal is eligible if a statement of the case (SOC)  or supplemental statement of the case (SSOC) has been declared, and if the date of declaration is within the last 60 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "legacy-appeals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "icn",
+                  "value": "<string>",
+                  "description": "Veteran's Master Person Index (MPI) Integration Control Number (ICN). Optional when using a veteran-scoped token. Required when using a representative- or system-scoped token."
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{version}}",
+                  "key": "version"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "veteran/AppealableIssues.read veteran/appeals.read representative/AppealableIssues.read representative/appeals.read"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.va.gov/oauth2/appeals/v1/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://api.va.gov/oauth2/appeals/v1/authorization"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bff3f9a6-60bf-447f-ba7e-7674fc3cb7bd",
+              "name": "Retrieve legacy appeals for the Veteran with the supplied ICN",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy-appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"2760964\",\n      \"type\": \"legacyAppeal\",\n      \"attributes\": {\n        \"issues\": [\n          {\n            \"summary\": \"Service connection, pancreatitis\"\n          }\n        ],\n        \"veteranFullName\": \"Elda Z Quigley\",\n        \"decisionDate\": \"2021-05-04T00:00:00.000Z\",\n        \"latestSocSsocDate\": \"2021-06-12\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ae54e1b-2d63-448c-85ee-9eaeb200af79",
+              "name": "Missing ICN parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy-appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Missing parameter\",\n      \"detail\": \"The 'icn' parameter is required with this request\",\n      \"code\": \"108\",\n      \"status\": \"400\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6698fc6a-cdfb-4daf-b706-86624ca76f33",
+              "name": "Access forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy-appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Forbidden\",\n      \"detail\": \"Invalid 'icn' parameter: Veterans may access only their own records\",\n      \"code\": \"403\",\n      \"status\": \"403\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f62dc1b6-5eef-4835-84ee-4de797d0dc8b",
+              "name": "Veteran record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy-appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Resource not found\",\n      \"detail\": \"A matching Veteran was not found in our systems\",\n      \"code\": \"404\",\n      \"status\": \"404\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b0ddb02-faa7-4219-badd-0bbb037ee91f",
+              "name": "Invalid 'icn' parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy-appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Unprocessable Entity\",\n      \"detail\": \"'icn' parameter has an invalid format. Pattern: /^[0-9]{10}V[0-9]{6}$/\",\n      \"code\": \"422\",\n      \"status\": \"422\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c68c72b-9419-4d85-a431-f62902c4a464",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy-appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Internal server error\",\n      \"detail\": \"Internal server error\",\n      \"code\": \"500\",\n      \"status\": \"500\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77c770a4-2808-4b28-b051-7db35a1ae208",
+              "name": "Unknown upstream error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "legacy-appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Bad Gateway\",\n      \"detail\": \"Received an unusable response from Caseflow\",\n      \"code\": \"502\",\n      \"status\": \"502\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "v0",
+      "key": "version"
+    },
+    {
+      "type": "string",
+      "value": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{{version}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "87f3f1d9-a1d0-48ba-8b26-5f9d827fc940",
+    "name": "Appealable Issues Legacy Appeals API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Appealable Issues API lets you retrieve a list of a claimant’s appealable issues and any chains of preceding issues. Appealable issues are issues from claims about which VA has made a decision that may be eligible for appeal. Not all appealable issues are guaranteed to be eligible for appeal; for example, claimants may have another appeal in progress for an issue.\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Appealable Issues API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/appealable_issues_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n\n\nContact Support:\n Name: developer.va.gov",
+      "type": "text/plain"
+    }
+  }
+}

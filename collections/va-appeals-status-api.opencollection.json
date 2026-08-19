@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Appeals Status API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Appeals Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve appeals status for the Veteran with the supplied ICN",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/appeals",
+            "params": [
+              {
+                "name": "icn",
+                "value": "1012832025V743496",
+                "type": "query",
+                "description": "Veteran's Master Person Index (MPI) Integration Control Number (ICN). Optional when using a veteran-scoped token. Required when using a representative- or system-scoped token."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns a list of all known appeal records for the given Veteran. Includes details of each appeal's current status, priority, and history of updates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

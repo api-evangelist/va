@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues VSO Accredited Representatives API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VSO Accredited Representatives",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of veteran service officers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v0/vso_accredited_representatives",
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude for the search location."
+              },
+              {
+                "name": "long",
+                "value": "",
+                "type": "query",
+                "description": "Longitude for the search location."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of accredited representative (e.g., veteran_service_officer)."
+              },
+              {
+                "name": "distance",
+                "value": "",
+                "type": "query",
+                "description": "Search radius in miles."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to search for."
+              },
+              {
+                "name": "org_name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the Veterans Service Organization (VSO). Must be an exact match."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting order of the results."
+              }
+            ]
+          },
+          "docs": "Retrieve accredited veteran service officers based on location, name, and type. Supports sorting and pagination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

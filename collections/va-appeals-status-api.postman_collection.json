@@ -1,0 +1,461 @@
+{
+  "item": [
+    {
+      "id": "ea0d8380-9af0-46a9-bc6f-485bffafe643",
+      "name": "Appeals Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4f4a462f-c8a7-40c3-acd3-129ecdaacdbb",
+          "name": "Retrieve appeals status for the Veteran with the supplied ICN",
+          "request": {
+            "name": "Retrieve appeals status for the Veteran with the supplied ICN",
+            "description": {
+              "content": "Returns a list of all known appeal records for the given Veteran. Includes details of each appeal's current status, priority, and history of updates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appeals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "icn",
+                  "value": "<string>",
+                  "description": "Veteran's Master Person Index (MPI) Integration Control Number (ICN). Optional when using a veteran-scoped token. Required when using a representative- or system-scoped token."
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{version}}",
+                  "key": "version"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "veteran/AppealableIssues.read veteran/appeals.read representative/AppealableIssues.read representative/appeals.read"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.va.gov/oauth2/appeals/v1/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://api.va.gov/oauth2/appeals/v1/authorization"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3f27bb96-1121-47d6-953e-f6dbf29de36d",
+              "name": "Successfully fetching appeals",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"attributes\": {\n        \"appealIds\": [],\n        \"active\": false,\n        \"alerts\": [],\n        \"aod\": false,\n        \"aoj\": \"vba\",\n        \"description\": \"\",\n        \"docket\": null,\n        \"events\": [\n          {\n            \"date\": \"2002-09-23\",\n            \"type\": \"claim_decision\"\n          },\n          {\n            \"date\": \"2003-01-06\",\n            \"type\": \"nod\"\n          },\n          {\n            \"date\": \"2003-06-18\",\n            \"type\": \"soc\"\n          },\n          {\n            \"date\": \"2003-09-30\",\n            \"type\": \"ftr\"\n          }\n        ],\n        \"evidence\": [],\n        \"incompleteHistory\": false,\n        \"issues\": [\n          {\n            \"active\": false,\n            \"date\": \"2003-09-30\",\n            \"description\": \"Service connection, lumbosacral strain\",\n            \"diagnosticCode\": \"5295\",\n            \"lastAction\": \"withdrawn\"\n          }\n        ],\n        \"location\": \"bva\",\n        \"programArea\": \"compensation\",\n        \"status\": {\n          \"details\": {},\n          \"type\": \"ftr\"\n        },\n        \"type\": \"original\",\n        \"updated\": \"2018-01-19T10:20:42-05:00\"\n      },\n      \"id\": \"1196201\",\n      \"type\": \"legacyAppeal\"\n    },\n    {\n      \"attributes\": {\n        \"appealIds\": [],\n        \"active\": true,\n        \"alerts\": [],\n        \"aod\": false,\n        \"aoj\": \"vba\",\n        \"description\": \"\",\n        \"docket\": null,\n        \"events\": [\n          {\n            \"date\": \"2008-04-24\",\n            \"type\": \"claim_decision\"\n          },\n          {\n            \"date\": \"2008-06-11\",\n            \"type\": \"nod\"\n          },\n          {\n            \"date\": \"2010-09-10\",\n            \"type\": \"soc\"\n          },\n          {\n            \"date\": \"2010-11-08\",\n            \"type\": \"form9\"\n          },\n          {\n            \"date\": \"2014-01-03\",\n            \"type\": \"ssoc\"\n          },\n          {\n            \"date\": \"2014-07-28\",\n            \"type\": \"certified\"\n          },\n          {\n            \"date\": \"2015-04-17\",\n            \"type\": \"hearing_held\"\n          },\n          {\n            \"date\": \"2015-07-24\",\n            \"type\": \"bva_decision\"\n          },\n          {\n            \"date\": \"2015-10-06\",\n            \"type\": \"ssoc\"\n          },\n          {\n            \"date\": \"2016-05-03\",\n            \"type\": \"bva_decision\"\n          },\n          {\n            \"date\": \"2018-01-16\",\n            \"type\": \"ssoc\"\n          }\n        ],\n        \"evidence\": [],\n        \"incompleteHistory\": false,\n        \"issues\": [\n          {\n            \"active\": true,\n            \"date\": \"2016-05-03\",\n            \"description\": \"Increased rating, migraines\",\n            \"diagnosticCode\": \"8100\",\n            \"lastAction\": \"remand\"\n          },\n          {\n            \"active\": true,\n            \"date\": \"2016-05-03\",\n            \"description\": \"Increased rating, limitation of leg motion\",\n            \"diagnosticCode\": \"5260\",\n            \"lastAction\": \"remand\"\n          },\n          {\n            \"active\": true,\n            \"date\": \"2016-05-03\",\n            \"description\": \"100% rating for individual unemployability\",\n            \"diagnosticCode\": null,\n            \"lastAction\": \"remand\"\n          },\n          {\n            \"active\": false,\n            \"date\": null,\n            \"description\": \"Service connection, ankylosis of hip\",\n            \"diagnosticCode\": \"5250\",\n            \"lastAction\": null\n          },\n          {\n            \"active\": true,\n            \"date\": \"2015-07-24\",\n            \"description\": \"Service connection, degenerative spinal arthritis\",\n            \"diagnosticCode\": \"5242\",\n            \"lastAction\": \"remand\"\n          },\n          {\n            \"active\": false,\n            \"date\": null,\n            \"description\": \"Service connection, hearing loss\",\n            \"diagnosticCode\": \"6100\",\n            \"lastAction\": null\n          },\n          {\n            \"active\": true,\n            \"date\": \"2015-07-24\",\n            \"description\": \"Service connection, sciatic nerve paralysis\",\n            \"diagnosticCode\": \"8520\",\n            \"lastAction\": \"remand\"\n          },\n          {\n            \"active\": false,\n            \"date\": null,\n            \"description\": \"Service connection, arthritis due to trauma\",\n            \"diagnosticCode\": \"5010\",\n            \"lastAction\": null\n          },\n          {\n            \"active\": false,\n            \"date\": \"2015-07-24\",\n            \"description\": \"New and material evidence for service connection, degenerative spinal arthritis\",\n            \"diagnosticCode\": \"5242\",\n            \"lastAction\": \"allowed\"\n          }\n        ],\n        \"location\": \"aoj\",\n        \"programArea\": \"compensation\",\n        \"status\": {\n          \"details\": {},\n          \"type\": \"remand_ssoc\"\n        },\n        \"type\": \"post_remand\",\n        \"updated\": \"2018-01-19T10:20:42-05:00\"\n      },\n      \"id\": \"3294289\",\n      \"type\": \"legacyAppeal\"\n    },\n    {\n      \"attributes\": {\n        \"appealIds\": [],\n        \"active\": false,\n        \"alerts\": [],\n        \"aod\": false,\n        \"aoj\": \"other\",\n        \"description\": \"\",\n        \"docket\": null,\n        \"events\": [\n          {\n            \"date\": \"2010-08-11\",\n            \"type\": \"claim_decision\"\n          },\n          {\n            \"date\": \"2010-09-17\",\n            \"type\": \"nod\"\n          },\n          {\n            \"date\": \"2013-09-26\",\n            \"type\": \"soc\"\n          },\n          {\n            \"date\": \"2013-10-02\",\n            \"type\": \"form9\"\n          },\n          {\n            \"date\": \"2014-07-28\",\n            \"type\": \"certified\"\n          },\n          {\n            \"date\": \"2015-02-26\",\n            \"type\": \"merged\"\n          }\n        ],\n        \"evidence\": [],\n        \"incompleteHistory\": false,\n        \"issues\": [],\n        \"location\": \"bva\",\n        \"programArea\": null,\n        \"status\": {\n          \"details\": {},\n          \"type\": \"other_close\"\n        },\n        \"type\": \"original\",\n        \"updated\": \"2018-01-19T10:20:42-05:00\"\n      },\n      \"id\": \"2348605\",\n      \"type\": \"legacyAppeal\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3884c2ea-5fa0-4220-b522-72edffeb24dd",
+              "name": "Missing parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Missing parameter\",\n      \"detail\": \"The 'icn' parameter is required with this request\",\n      \"code\": \"108\",\n      \"status\": \"400\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5dc6a661-7063-45d9-8d98-0904bd35dba0",
+              "name": "Forbidden requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Forbidden\",\n      \"detail\": \"Invalid 'icn' parameter: Veterans may access only their own records\",\n      \"code\": \"403\",\n      \"status\": \"403\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d47dd61f-ce19-4b3a-874b-31988683950e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Resource not found\",\n      \"detail\": \"A matching Veteran was not found in our systems\",\n      \"code\": \"404\",\n      \"status\": \"404\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64a8edab-908b-4604-b13c-ff6723f2ce2e",
+              "name": "Invalid 'icn' parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Unprocessable Entity\",\n      \"detail\": \"'icn' parameter has an invalid format. Pattern: /^[0-9]{10}V[0-9]{6}$/\",\n      \"code\": \"422\",\n      \"status\": \"422\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae2e71f8-bc8d-42f5-ae8f-1ef04e6183f5",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appeals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "icn",
+                      "value": "1012832025V743496"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{version}}",
+                      "key": "version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"title\": \"Internal server error\",\n      \"detail\": \"Internal server error\",\n      \"code\": \"500\",\n      \"status\": \"500\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "v0",
+      "key": "version"
+    },
+    {
+      "type": "string",
+      "value": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{{version}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "310ded57-1467-4968-bb7e-c9db30e84423",
+    "name": "Appealable Issues Appeals Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Appealable Issues API lets you retrieve a list of a claimant’s appealable issues and any chains of preceding issues. Appealable issues are issues from claims about which VA has made a decision that may be eligible for appeal. Not all appealable issues are guaranteed to be eligible for appeal; for example, claimants may have another appeal in progress for an issue.\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Appealable Issues API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/appealable_issues_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n\n\nContact Support:\n Name: developer.va.gov",
+      "type": "text/plain"
+    }
+  }
+}

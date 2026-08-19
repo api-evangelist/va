@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Legacy Appeals API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Legacy Appeals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns eligible appeals in the legacy process for a Veteran.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/legacy_appeals",
+            "headers": [
+              {
+                "name": "X-VA-SSN",
+                "value": "706547821"
+              },
+              {
+                "name": "X-VA-File-Number",
+                "value": ""
+              },
+              {
+                "name": "X-VA-ICN",
+                "value": "1013062086V794840"
+              }
+            ]
+          },
+          "docs": "Returns eligible legacy appeals for a Veteran. A legacy appeal is eligible if a statement of the case (SOC)  or supplemental statement of the case (SSOC) has been declared, and if the date of declaration is within the last 60 days."
+        },
+        {
+          "info": {
+            "name": "Returns eligible appeals in the legacy process for a Veteran.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/legacy-appeals",
+            "params": [
+              {
+                "name": "icn",
+                "value": "1012832025V743496",
+                "type": "query",
+                "description": "Veteran's Master Person Index (MPI) Integration Control Number (ICN). Optional when using a veteran-scoped token. Required when using a representative- or system-scoped token."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns eligible legacy appeals for a Veteran. A legacy appeal is eligible if a statement of the case (SOC)  or supplemental statement of the case (SSOC) has been declared, and if the date of declaration is within the last 60 days."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

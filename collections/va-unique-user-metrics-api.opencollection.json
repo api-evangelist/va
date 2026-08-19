@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Unique User Metrics API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Unique User Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/v1/unique_user_metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/unique_user_metrics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Log unique user metrics events for analytics tracking. Accepts multiple events in a single batch operation\nand buffers them for asynchronous processing by a background job.\n\nThis endpoint is used for tracking unique user interactions with MHV Portal features to provide\nopt-out-free analytics that are more accurate than Google Analytics.\n\n<strong>Asynchronous Processing:</strong> Events are buffered and processed in batches by a background job.\nThe response indicates which events were accepted fo"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

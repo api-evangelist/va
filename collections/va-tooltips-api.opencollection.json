@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Tooltips API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tooltips",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_tooltips",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/tooltips",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieve tooltips settings for mhv-medications In-Product Education (IPE)"
+        },
+        {
+          "info": {
+            "name": "post_tooltip",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/tooltips",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create tooltip setting for mhv-medications In-Product Education (IPE)"
+        },
+        {
+          "info": {
+            "name": "patch_tooltip",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/tooltips/:id",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the tooltip"
+              },
+              {
+                "name": "increment_counter",
+                "value": "",
+                "type": "query",
+                "description": "Value indicates if counter will be incremented"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update tooltip setting for mhv-medications In-Product Education (IPE), typically used for setting 'hidden' attribute"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,586 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Messaging API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messaging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/v1/messaging/folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/folders"
+          },
+          "docs": "List available secure messaging folders"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/folders/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/folders/:id"
+          },
+          "docs": "Get a secure messaging folder"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/folders/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/folders/:id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename an existing folder"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/folders/{id}/threads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/folders/:id/threads",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the folder that threads are being retrieved from"
+              },
+              {
+                "name": "pageSize,",
+                "value": "",
+                "type": "query",
+                "description": "The size of the pagination you want"
+              },
+              {
+                "name": "pageNumber,",
+                "value": "",
+                "type": "query",
+                "description": "The page number to get based on your page size"
+              },
+              {
+                "name": "sortField,",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort the results by"
+              },
+              {
+                "name": "sortOrder,",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by"
+              }
+            ]
+          },
+          "docs": "List threads in a secure messaging folder."
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/folders/{id}/search",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/folders/:id/search",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to be returned (passed through to MHV API)"
+              },
+              {
+                "name": "per_page,",
+                "value": "",
+                "type": "query",
+                "description": "The number of results per page (passed through to MHV API)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search messages in a secure messaging folder. If multiple search criteria are specified, each returned search\nresult will match ALL criteria. Pagination is supported and is handled by the upstream MHV server.\n\nWhen listing messages, the response for each message will include most but not all of the message attributes.\nSpecifically, the message body and attachment information is not included. Those attributes can be obtained by\ngetting the specific message resource.\n"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/message_drafts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/message_drafts",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save a new draft message"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/message_drafts/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/message_drafts/:id",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the draft that is to be updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing draft message"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/message_drafts/{reply_id}/replydraft",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/message_drafts/:reply_id/replydraft",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "reply_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the message that will be replied to"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save a new draft message as a reply to an existing message"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/message_drafts/{reply_id}/replydraft/{draft_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/message_drafts/:reply_id/replydraft/:draft_id",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "reply_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the message that will be replied to"
+              },
+              {
+                "name": "draft_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the draft that is to be updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit a draft message that was a reply to an existing message"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/messages",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "is_oh_triage_group",
+                "value": "",
+                "type": "query",
+                "description": "Indicates if this message is for an OH triage group (allows larger attachments)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send a new secure message. When `prescription_id` is included in the request body,\nthe message is routed to the upstream MHV `POST message/renewal` endpoint for\nprescription renewal messages.\n"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/messages/categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/messages/categories",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "List available message categories"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/messages/oh_sync_status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/messages/oh_sync_status",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Get the Oracle Health sync status"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/messages/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/messages/:id",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Get a secure message <strong>and mark the message as read</strong>.\n\n<strong>NOTES:</strong>\n<ul>\n  <li>Unlike listing messages in a folder, the message resource returned from this operation will include\nthe message body and attachment information.</li>\n  <li>This GET operation is not fully idempotent and will set readReceipt field as 'READ'</li>\n  <li>If message has an attachment included, attachmentSize is displayed in bytes</li>\n</ul>\n"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/messages/{id}/move",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/messages/:id",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the message that is to be moved"
+              },
+              {
+                "name": "folder_id,",
+                "value": "",
+                "type": "query",
+                "description": "The id of the folder that the message is to be moved to"
+              }
+            ]
+          },
+          "docs": "Moves a secure message to a specified folder"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/messages/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/messages/:id",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the message that is to be deleted"
+              }
+            ]
+          },
+          "docs": "Moves a secure message to the \"Deleted\" folder"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/messages/{id}/attachments/{attachment_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/messages/:id/attachments/:attachment_id",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the message that we are retrieving attachments of"
+              }
+            ]
+          },
+          "docs": "Get a secure message attachment content as a direct binary download. Secure messaging supports the following file types/extensions: doc, docx, gif, jpg, pdf, png, rtf, txt, xls, xlsx.\n"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/messages/{id}/reply",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/messages/:id/reply",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the message that is being replied to"
+              },
+              {
+                "name": "is_oh_triage_group",
+                "value": "",
+                "type": "query",
+                "description": "Indicates if this message is for an OH triage group (allows larger attachments)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send reply to a secure message\n\n<strong>NOTE:</strong> If including file attachments, this request must be sent as <i>multipart/form-data</i>\n\nFile attachment restrictions (as imposed by MHV):\n<ul>\n  <li>User may attach up to 4 files (10 files for OH triage groups)</li>\n  <li>Accepted formats: DOC, DOCX, GIF, JPG, JPEG, PDF, PNG, RTF, TXT, XLS, XLSX, JFIF, PJPEG, PJP (OH triage groups also support: BMP, TIFF, TIF, PPT, PPTX, PPS, PPSX, ODT, MP4, M4V, MOV, WMV, MPG)</li>\n  <li>Single attachment c"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/messages/{id}/thread",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/messages/:id/thread",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "full_body",
+                "value": "",
+                "type": "query",
+                "description": "Include the full body of the messages and attachments meta in the response"
+              }
+            ]
+          },
+          "docs": "Gets a list of message summaries that are related to the message of the passed id.\n"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/recipients",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "List available recipients to which messages may be sent"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/allrecipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/allrecipients"
+          },
+          "docs": "List available recipients to which messages may be sent with advanced attributes"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/threads/{id}/move",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/threads/:id/move",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the thread that is to be moved"
+              },
+              {
+                "name": "folder_id,",
+                "value": "",
+                "type": "query",
+                "description": "The id of the folder that the message is to be moved to"
+              }
+            ]
+          },
+          "docs": "Moves all received messages in a secure message thread to a specified folder. Sent messages, draft messages, and deleted messages will not be moved."
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/preferences/recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/preferences/recipients",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update recipients `preferredTeam` value"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/preferences/signature",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/preferences/signature",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Gets user message signature preferences"
+        },
+        {
+          "info": {
+            "name": "/v1/messaging/preferences/signature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/messaging/preferences/signature",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update user message signature preferences"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

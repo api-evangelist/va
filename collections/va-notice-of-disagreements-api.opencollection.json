@@ -1,0 +1,439 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Notice of Disagreements API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notice of Disagreements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates a new Notice of Disagreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/notice_of_disagreements",
+            "headers": [
+              {
+                "name": "X-VA-File-Number",
+                "value": ""
+              },
+              {
+                "name": "X-VA-ICN",
+                "value": "1013062086V794840"
+              },
+              {
+                "name": "X-VA-First-Name",
+                "value": "Cara"
+              },
+              {
+                "name": "X-VA-Middle-Initial",
+                "value": ""
+              },
+              {
+                "name": "X-VA-Last-Name",
+                "value": "Bartlett"
+              },
+              {
+                "name": "X-VA-Birth-Date",
+                "value": "1975-02-14"
+              },
+              {
+                "name": "X-VA-NonVeteranClaimant-First-Name",
+                "value": ""
+              },
+              {
+                "name": "X-VA-NonVeteranClaimant-Middle-Initial",
+                "value": ""
+              },
+              {
+                "name": "X-VA-NonVeteranClaimant-Last-Name",
+                "value": ""
+              },
+              {
+                "name": "X-VA-NonVeteranClaimant-Birth-Date",
+                "value": ""
+              },
+              {
+                "name": "X-Consumer-Username",
+                "value": ""
+              },
+              {
+                "name": "X-Consumer-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits an appeal of type Notice of Disagreement. This endpoint is the same as submitting [VA Form 10182](https://www.va.gov/vaforms/va/pdf/VA10182.pdf) via mail or fax directly to the Board of Veterans’ Appeals."
+        },
+        {
+          "info": {
+            "name": "Shows a specific Notice of Disagreement. (a.k.a. the Show endpoint)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/notice_of_disagreements/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "02bbbe56-443c-42fa-aaf2-ef6200a6eddd",
+                "type": "path",
+                "description": "Notice of Disagreement UUID"
+              }
+            ]
+          },
+          "docs": "Returns all of the data associated with a specific Notice of Disagreement."
+        },
+        {
+          "info": {
+            "name": "Gets the Notice of Disagreement JSON Schema.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/notice_of_disagreements/schema"
+          },
+          "docs": "Returns the [JSON Schema](https://json-schema.org/) for the `POST /notice_of_disagreements` endpoint."
+        },
+        {
+          "info": {
+            "name": "Validates a POST request body against the JSON schema.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/notice_of_disagreements/validate",
+            "headers": [
+              {
+                "name": "X-VA-File-Number",
+                "value": ""
+              },
+              {
+                "name": "X-VA-ICN",
+                "value": "1013062086V794840"
+              },
+              {
+                "name": "X-VA-First-Name",
+                "value": "Cara"
+              },
+              {
+                "name": "X-VA-Middle-Initial",
+                "value": ""
+              },
+              {
+                "name": "X-VA-Last-Name",
+                "value": "Bartlett"
+              },
+              {
+                "name": "X-VA-Birth-Date",
+                "value": "1975-02-14"
+              },
+              {
+                "name": "X-Consumer-Username",
+                "value": ""
+              },
+              {
+                "name": "X-Consumer-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Like the POST /notice_of_disagreements, but only does the validations <b>—does not submit anything.</b>"
+        },
+        {
+          "info": {
+            "name": "Get a location for subsequent evidence submission document upload PUT request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/notice_of_disagreements/evidence_submissions",
+            "headers": [
+              {
+                "name": "X-VA-File-Number",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "nod_uuid",
+                "value": "9dbc8f83-a778-417e-9f8b-a9a36d710f70",
+                "type": "query",
+                "description": "Associated Notice of Disagreement UUID"
+              }
+            ]
+          },
+          "docs": "This is the first step to submitting supporting evidence for an NOD.  (See the Evidence Uploads section above for additional information.)\nThe Notice of Disagreement GUID that is returned when the NOD is submitted, is supplied to this endpoint to ensure the NOD is in a valid state for sending supporting evidence documents.  Only NODs that selected the Evidence Submission lane are allowed to submit evidence documents up to 90 days after the NOD is received by VA.\n"
+        },
+        {
+          "info": {
+            "name": "Accepts Notice of Disagreement Evidence Submission document upload.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/nod_upload_path",
+            "headers": [
+              {
+                "name": "Content-MD5",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Accepts document metadata, document binary, and attachment binaries. Full URL, including\nquery parameters, provided from POST `/*/evidence_submissions`.\nPlease see the `documentUploadMetadata` schema for the required payload schema.\n\n## Example Payload\n\nThe following demonstrates a (redacted) multipart payload suitable for submitting to the PUT\nendpoint. Most programming languages should have provisions for assembling a multipart\npayload like this without having to do so manually.\n\n```\n--17de1ed"
+        },
+        {
+          "info": {
+            "name": "Returns all of the data associated with a specific Notice of Disagreement Evidence Submission.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/notice_of_disagreements/evidence_submissions/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "b77404cf-ef08-45e4-8201-d5b7622f63df",
+                "type": "path",
+                "description": "Notice of Disagreement UUID Evidence Submission"
+              }
+            ]
+          },
+          "docs": "Returns all of the data associated with a specific Notice of Disagreement Evidence Submission."
+        },
+        {
+          "info": {
+            "name": "Creates a new Notice of Disagreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/forms/10182",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Submits an appeal of type Notice of Disagreement. This endpoint is the same as submitting [VA Form 10182](https://www.va.gov/vaforms/va/pdf/VA10182.pdf) via mail or fax directly to the Board of Veterans’ Appeals."
+        },
+        {
+          "info": {
+            "name": "Show a specific Notice of Disagreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/forms/10182/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "02bbbe56-443c-42fa-aaf2-ef6200a6eddd",
+                "type": "path",
+                "description": "Notice of Disagreement UUID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns basic data associated with a specific Notice of Disagreement."
+        },
+        {
+          "info": {
+            "name": "Download a watermarked copy of a submitted Notice of Disagreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/forms/10182/:id/download",
+            "params": [
+              {
+                "name": "icn",
+                "value": "1012832025V743496",
+                "type": "query",
+                "description": "ICN of the Veteran associated with the Notice of Disagreement. Optional when using a veteran-scoped OAuth token. Required when using a representative- or system-scoped token."
+              },
+              {
+                "name": "id",
+                "value": "44444444-5555-6666-7777-888888888888",
+                "type": "path",
+                "description": "Notice of Disagreement ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns a watermarked copy of a Notice of Disagreement PDF as submitted to the VA. PDFs are available\nwith the following caveats:\n\n1. The PDF download will become available only after after the Notice of Disagreement has progressed to\n   the 'submitted' state.\n2. The PDF will stop being available one week after the Notice of Disagreement has progressed to the\n   'completed' state. This is when the Veteran's personally identifying information is purged from our servers.\n\nThe 'icn' parameter is re"
+        },
+        {
+          "info": {
+            "name": "Gets the Notice of Disagreement JSON Schema.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/schemas/:schema_type",
+            "params": [
+              {
+                "name": "schema_type",
+                "value": "",
+                "type": "path",
+                "description": "Schema type. Can be: `10182`, `address`, `nonBlankString`, `phone`, `timezone`"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the [JSON Schema](https://json-schema.org/) for the `POST /forms/10182` endpoint."
+        },
+        {
+          "info": {
+            "name": "Validates a POST request body against the JSON schema.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/forms/10182/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Like the POST /forms/10182, but only does the validations <b>—does not submit anything.</b>"
+        },
+        {
+          "info": {
+            "name": "Get a location for subsequent evidence submission document upload PUT request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/evidence-submissions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This is the first step to submitting supporting evidence for an NOD.  (See the Evidence Uploads section above for additional information.)\nThe Notice of Disagreement GUID that is returned when the NOD is submitted, is supplied to this endpoint to ensure the NOD is in a valid state for sending supporting evidence documents.  Only NODs that selected the Evidence Submission lane are allowed to submit evidence documents up to 90 days after the NOD is received by VA.\n"
+        },
+        {
+          "info": {
+            "name": "Accepts Notice of Disagreement Evidence Submission document upload.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/nod-upload-path",
+            "headers": [
+              {
+                "name": "Content-MD5",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Accepts document metadata, document binary, and attachment binaries. Full URL, including\nquery parameters, provided from POST `/*/evidence_submissions`.\nPlease see the `documentUploadMetadata` schema for the required payload schema.\n\n## Example Payload\n\nThe following demonstrates a (redacted) multipart payload suitable for submitting to the PUT\nendpoint. Most programming languages should have provisions for assembling a multipart\npayload like this without having to do so manually.\n\n```\n--17de1ed"
+        },
+        {
+          "info": {
+            "name": "Returns all of the data associated with a specific Notice of Disagreement Evidence Submission.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/evidence-submissions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "b77404cf-ef08-45e4-8201-d5b7622f63df",
+                "type": "path",
+                "description": "Notice of Disagreement UUID Evidence Submission"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns all of the data associated with a specific Notice of Disagreement Evidence Submission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

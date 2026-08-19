@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Labs And Tests API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Labs And Tests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/v2/labs_and_tests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v2/labs_and_tests",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for lab results query (format YYYY-MM-DD)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for lab results query (format YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Get lab results and test information for the current user within a specified date range.\nThis endpoint provides structured lab and test data with FHIR path mappings for each data element.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

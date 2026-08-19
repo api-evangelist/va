@@ -1,0 +1,430 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appealable Issues Medical Records API",
+    "version": "v0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Medical Records",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/v1/medical_records/allergies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/allergies"
+          },
+          "docs": "List patient allergies"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/allergies/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/allergies/:id"
+          },
+          "docs": "Get a patient allergy"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/bbmi_notification/status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/bbmi_notification/status"
+          },
+          "docs": "Show the current user's preference setting for BBMI email notifications."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/ccd/generate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/ccd/generate"
+          },
+          "docs": "Generate a Continuity of Care Document for a patient to later download."
+        },
+        {
+          "info": {
+            "name": "Download Continuity of Care Document (CCD)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/ccd/download.:format",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date of the desired CCD, as pulled verbatim from the `generate` endpoint response.\n"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "path",
+                "description": "The format of the returned CCD document. Can be `xml`, `html`, or `pdf`.\n"
+              }
+            ]
+          },
+          "docs": "Download the Continuity of Care Document (CCD) specified by the `date` parameter.\n\nThe response format is indicated by the path extension — for example:\n- `/v1/medical_records/ccd/download.xml`\n- `/v1/medical_records/ccd/download.html`\n- `/v1/medical_records/ccd/download.pdf`\n\nIf the format extension is not included, the default is XML.\n"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/clinical_notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/clinical_notes"
+          },
+          "docs": "List patient clinical notes"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/clinical_notes/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/clinical_notes/:id"
+          },
+          "docs": "Get a clinical note"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/conditions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/conditions"
+          },
+          "docs": "List patient health conditions"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/conditions/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/conditions/:id"
+          },
+          "docs": "Get a patient health condition"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/imaging",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/imaging"
+          },
+          "docs": "Get a list of MHV radiology reports from CVIX for the current user. These results do not include VIA reports."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/imaging",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/imaging/status"
+          },
+          "docs": "Get the statuses of all available CVIX study jobs for the current user."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/imaging/{studyId}/dicom",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/imaging/:studyId/dicom",
+            "params": [
+              {
+                "name": "studyId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the imaging study"
+              }
+            ]
+          },
+          "docs": "Returns a ZIP file containing DICOM images for the specified study."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/imaging/{studyId}/images/{seriesId}/{imageId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/imaging/:studyId/images/:seriesId/:imageId",
+            "params": [
+              {
+                "name": "studyId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the imaging study"
+              },
+              {
+                "name": "seriesId",
+                "value": "",
+                "type": "path",
+                "description": "Study-scoped identifier for the image series"
+              },
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path",
+                "description": "Study-scoped identifier for the image within the series"
+              }
+            ]
+          },
+          "docs": "Returns a JPG image for the provided study, series, and image."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/imaging/{studyId}/request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/imaging/:studyId/request"
+          },
+          "docs": "Request that MHV download an imaging study from CVIX. This will initiate the transfer of the images into MHV for later retrieval from vets-api as DICOM or JPGs."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/imaging/{studyId}/images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/imaging/:studyId/images"
+          },
+          "docs": "Get a list of images for the provided CVIX radiology study"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/labs_and_tests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/labs_and_tests"
+          },
+          "docs": "List patient labs and tests. This API call runs three separate backend calls, then merges the results. It returns results for the Chemistry/Hematology, EKG, Microbiology, Pathology, and Radiology domains.\n"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/labs_and_tests/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/labs_and_tests/:id"
+          },
+          "docs": "Get a patient labs and tests record of type DiagnosticReport.\n"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/military_service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/military_service"
+          },
+          "docs": "Get the current user's military service"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/patient"
+          },
+          "docs": "Get the current user's patient account information, including a list of treatment facilities."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/patient/demographic",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/patient/demographic"
+          },
+          "docs": "Get the current user's self-entered demographic information."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/radiology",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/radiology"
+          },
+          "docs": "Get the current user's non-FHIR-ized list of radiology reports from VIA (through MHV)."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/self_entered",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/self_entered"
+          },
+          "docs": "Get the current user's self-entered information."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/session"
+          },
+          "docs": "Creates a session to the upstream MHV APIs. Note that any MR API call will do this as well. This endpoint ONLY creates a session."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/session/status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/session/status"
+          },
+          "docs": "Returns the PHR Refresh status for the current user."
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/vaccines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/vaccines"
+          },
+          "docs": "List patient vaccines"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/vaccines/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/vaccines/:id"
+          },
+          "docs": "Get a patient vaccine"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/vitals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/vitals"
+          },
+          "docs": "List patient vital records"
+        },
+        {
+          "info": {
+            "name": "/v1/medical_records/vitals/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v1/medical_records/vitals/:id"
+          },
+          "docs": "Get a patient vital record"
+        },
+        {
+          "info": {
+            "name": "/v2/medical_records/clinical_notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v2/medical_records/clinical_notes",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for clinical notes query (format YYYY-MM-DD)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for clinical notes query (format YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "List clinical notes (care summaries and notes) for the current user within a specified date range.\nReturns notes from both VistA and Oracle Health sources. Each note includes a `source` field\nindicating which system the record originated from.\n"
+        },
+        {
+          "info": {
+            "name": "/v2/medical_records/clinical_notes/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}/v2/medical_records/clinical_notes/:id",
+            "headers": [
+              {
+                "name": "X-Key-Inflection",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Clinical note record ID"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source of the note. Must be `oracle-health` for direct retrieval from the Oracle Health endpoint. Requests with `vista` or without this parameter return 404.\n"
+              }
+            ]
+          },
+          "docs": "Get a single clinical note by ID. The `source` query parameter is required and must be set\nto `oracle-health` to retrieve the note directly from the Oracle Health source-specific endpoint.\nRequests with `source=vista` or without a `source` parameter will receive a 404 response.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
