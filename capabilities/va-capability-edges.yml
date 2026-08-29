@@ -1,0 +1,48 @@
+slug: va
+provider: Veterans Affairs
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Healthcare Providers
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Messaging
+  spec_file: va-messaging-api-openapi.yml
+  capability_id: BC-2910.10
+  capability_id_l1: BC-2910
+  capability_name: Patient Engagement & Communication
+  confidence: 0.72
+  evidence: POST /v1/messaging/messages  post_create_message ... GET /v1/messaging/folders/{id}/threads
+  reason: 'Secure messaging surface within the VA ''My Health'' patient-facing platform: folders, threads,
+    drafts, replies, message categories. This realises multi-channel patient/family communication with
+    the care team. Some overlap with patient portal digital services, hence not higher confidence.'
+- tag: Medical Records
+  spec_file: va-medical-records-api-openapi.yml
+  capability_id: BC-2900
+  capability_id_l1: BC-2900
+  capability_name: Health Information Management
+  confidence: 0.7
+  evidence: GET /v1/medical_records/ccd/download.{format}  download_ccd  Download Continuity of Care Document
+    (CCD)
+  reason: Operations retrieve and export a patient's health record content — allergies, clinical notes,
+    conditions, imaging studies/DICOM, and Continuity of Care Document generation and download. That is
+    health information management / record access and sharing rather than active clinical documentation
+    authoring. Sub-capability ambiguous between record lifecycle and interoperability operations, so L2
+    left null.
+- tag: Prescriptions
+  spec_file: va-prescriptions-api-openapi.yml
+  capability_id: BC-2850
+  capability_id_l1: BC-2850
+  capability_name: Pharmacy & Medication Management
+  confidence: 0.7
+  evidence: PATCH /v1/prescriptions/{id}/refill  patch_refill_prescription ... GET /v1/prescriptions/list_refillable_prescriptions
+  reason: Operations list a patient's prescriptions and submit refill requests against VA pharmacy — medication/prescription
+    management. Whether this counts as outpatient/mail-order pharmacy operations or a patient self-service
+    channel is ambiguous, so only the L1 is asserted.

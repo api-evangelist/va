@@ -408,6 +408,9 @@ apis:
   - type: Documentation
     url: https://developer.va.gov/explore/api/benefits-intake/docs
 common:
+  - type: CapabilityMap
+    url: capabilities/va-capability-edges.yml
+    name: Veterans Affairs Business Capability Map
   - type: AgenticAccess
     url: agentic-access/va-agentic-access.yml
   - type: VulnerabilityDisclosure
