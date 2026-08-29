@@ -1,17 +1,27 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Appealable Issues Legacy Appeals API
-  version: v0
+  title: Va Legacy Appeals API
   contact:
     name: developer.va.gov
-  description: "The Appealable Issues API lets you retrieve a list of a claimant’s appealable issues and any chains of preceding issues. Appealable issues are issues from claims about which VA has made a decision that may be eligible for appeal. Not all appealable issues are guaranteed to be eligible for appeal; for example, claimants may have another appeal in progress for an issue.\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Appealable Issues API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/appealable_issues_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n"
+  version: '1.0'
+  description: 'Operations tagged Legacy Appeals across 2 of this provider''s published API definitions: va-decision-reviews-openapi.json, va-legacy-appeals-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}
+- url: https://sandbox-api.va.gov/services/appeals/{version}/decision_reviews
+  description: VA.gov API sandbox environment
+  variables:
+    version:
+      default: v2
+- url: https://api.va.gov/services/appeals/{version}/decision_reviews
+  description: VA.gov API production environment
+  variables:
+    version:
+      default: v2
+- url: https://sandbox-api.va.gov/services/appeals/legacy-appeals/{version}
   description: VA.gov API sandbox environment
   variables:
     version:
       default: v0
-- url: https://api.va.gov/services/appeals/appealable-issues/{version}
+- url: https://api.va.gov/services/appeals/legacy-appeals/{version}
   description: VA.gov API production environment
   variables:
     version:
@@ -203,6 +213,17 @@ paths:
                         title:
                           type: string
                           example: Bad Gateway
+    servers:
+    - url: https://sandbox-api.va.gov/services/appeals/{version}/decision_reviews
+      description: VA.gov API sandbox environment
+      variables:
+        version:
+          default: v2
+    - url: https://api.va.gov/services/appeals/{version}/decision_reviews
+      description: VA.gov API production environment
+      variables:
+        version:
+          default: v2
   /legacy-appeals:
     get:
       summary: Returns eligible appeals in the legacy process for a Veteran.
@@ -355,14 +376,46 @@ paths:
                   status: '502'
               schema:
                 $ref: '#/components/schemas/errorModel'
+    servers:
+    - url: https://sandbox-api.va.gov/services/appeals/legacy-appeals/{version}
+      description: VA.gov API sandbox environment
+      variables:
+        version:
+          default: v0
+    - url: https://api.va.gov/services/appeals/legacy-appeals/{version}
+      description: VA.gov API production environment
+      variables:
+        version:
+          default: v0
 components:
   schemas:
+    X-VA-SSN:
+      description: social security number
+      type: string
+      minLength: 9
+      maxLength: 9
+      pattern: ^[0-9]{9}$
     X-VA-ICN:
       description: Veteran's Integration Control Number, a unique identifier established via the Master Person Index (MPI)
       type: string
       minLength: 17
       maxLength: 17
       pattern: ^[0-9]{10}V[0-9]{6}$
+    legacyAppeals:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/legacyAppeal'
+    X-VA-File-Number:
+      allOf:
+      - description: VA file number (c-file / css)
+      - maxLength: 9
+      - $ref: '#/components/schemas/nonBlankString'
+    nonBlankString:
+      type: string
+      pattern: '[^ \f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]'
     legacyAppeal:
       properties:
         type:
@@ -442,63 +495,49 @@ components:
                     items:
                       type: string
                     description: List of missing fields
-    X-VA-SSN:
-      description: social security number
-      type: string
-      minLength: 9
-      maxLength: 9
-      pattern: ^[0-9]{9}$
-    legacyAppeals:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/legacyAppeal'
-    nonBlankString:
-      type: string
-      pattern: '[^ \f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]'
-    X-VA-File-Number:
-      allOf:
-      - description: VA file number (c-file / css)
-      - maxLength: 9
-      - $ref: '#/components/schemas/nonBlankString'
   securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
     bearer_token:
       type: http
       scheme: bearer
       bearerFormat: JWT
     productionOauth:
       type: oauth2
-      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+      description: 'The authentication model for the Legacy Appeals API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/legacy-appeals/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/legacy-appeals/client-credentials).'
       flows:
         authorizationCode:
           authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
           tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
           scopes:
-            veteran/AppealableIssues.read: Appealable issues info
+            veteran/LegacyAppeals.read: Legacy appeals info
             veteran/appeals.read: Appeals info
-            representative/AppealableIssues.read: Appealable issues info
+            representative/LegacyAppeals.read: Legacy appeals info
             representative/appeals.read: Appeals info
         clientCredentials:
           tokenUrl: To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
           scopes:
-            system/AppealableIssues.read: Appealable issues info
+            system/LegacyAppeals.read: Legacy appeals info
             system/appeals.read: Appeals info
     sandboxOauth:
       type: oauth2
-      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
+      description: 'The authentication model for the Legacy Appeals API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/legacy-appeals/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/legacy-appeals/client-credentials).'
       flows:
         authorizationCode:
           authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
           tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
           scopes:
-            veteran/AppealableIssues.read: Appealable issues info
+            veteran/LegacyAppeals.read: Legacy appeals info
             veteran/appeals.read: Appeals info
-            representative/AppealableIssues.read: Appealable issues info
+            representative/LegacyAppeals.read: Legacy appeals info
             representative/appeals.read: Appeals info
         clientCredentials:
           tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
           scopes:
-            system/AppealableIssues.read: Appealable issues info
+            system/LegacyAppeals.read: Legacy appeals info
             system/appeals.read: Appeals info
+x-refined-from:
+- va-decision-reviews-openapi.json
+- va-legacy-appeals-openapi.json

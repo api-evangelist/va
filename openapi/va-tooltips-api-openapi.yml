@@ -1,21 +1,16 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Appealable Issues Tooltips API
-  version: v0
-  contact:
-    name: developer.va.gov
-  description: "The Appealable Issues API lets you retrieve a list of a claimant’s appealable issues and any chains of preceding issues. Appealable issues are issues from claims about which VA has made a decision that may be eligible for appeal. Not all appealable issues are guaranteed to be eligible for appeal; for example, claimants may have another appeal in progress for an issue.\n\nTo check the status of all decision reviews and appeals for a specified individual, use the [Appeals Status API](https://developer.va.gov/explore/api/appeals-status/docs).\n\nTo file an appeal or decision review, use one of these APIs: \n* [Higher-Level Reviews API](https://developer.va.gov/explore/api/higher-level-reviews/docs)\n* [Notice of Disagreements API](https://developer.va.gov/explore/api/notice-of-disagreements/docs)\n* [Supplemental Claims API](https://developer.va.gov/explore/api/supplemental-claims/docs)\n\n## Technical overview\nThe Appealable Issues API pulls data from Caseflow, a case management system. It provides decision review and appeal data that can be used for submitting a Higher Level Review, Notice of Disagreement, or Supplemental Claim.\n\n### Authorization and Access\nThe authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported:\n* [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code)\n* [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials)\n\n**Important:** To get production access using client credentials grant, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).\n\n### Test data\n\nOur sandbox environment is populated with [Veteran test data](https://github.com/department-of-veterans-affairs/vets-api-clients/blob/master/test_accounts/appealable_issues_test_accounts.md) that can be used to test various response scenarios. This sandbox data contains no PII or PHI, but mimics real Veteran account information.\n"
+  version: 1.0.0
+  title: VA My Health Tooltips API
+  license:
+    name: CC0 1.0 Universal
+  description: 'The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
+
+    '
 servers:
-- url: https://sandbox-api.va.gov/services/appeals/appealable-issues/{version}
-  description: VA.gov API sandbox environment
-  variables:
-    version:
-      default: v0
-- url: https://api.va.gov/services/appeals/appealable-issues/{version}
-  description: VA.gov API production environment
-  variables:
-    version:
-      default: v0
+- url: https://api.va.gov/my_health
+security:
+- CookieAuth: []
 tags:
 - name: Tooltips
 paths:
@@ -106,7 +101,24 @@ paths:
       tags:
       - Tooltips
 components:
+  parameters:
+    InflectionHeader:
+      in: header
+      name: X-Key-Inflection
+      required: false
+      schema:
+        type: string
+        enum:
+        - camel
+        - snake
+      description: Instructs the API to return camelCase keys rather than snake_case
   responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: ./schemas/Errors.yml
     UnprocessableEntity:
       description: Unprocessable Entity
       content:
@@ -119,59 +131,9 @@ components:
         application/json:
           schema:
             $ref: ./schemas/Errors.yml
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: ./schemas/Errors.yml
-  parameters:
-    InflectionHeader:
-      in: header
-      name: X-Key-Inflection
-      required: false
-      schema:
-        type: string
-        enum:
-        - camel
-        - snake
-      description: Instructs the API to return camelCase keys rather than snake_case
   securitySchemes:
-    bearer_token:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-    productionOauth:
-      type: oauth2
-      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
-      flows:
-        authorizationCode:
-          authorizationUrl: https://api.va.gov/oauth2/appeals/v1/authorization
-          tokenUrl: https://api.va.gov/oauth2/appeals/v1/token
-          scopes:
-            veteran/AppealableIssues.read: Appealable issues info
-            veteran/appeals.read: Appeals info
-            representative/AppealableIssues.read: Appealable issues info
-            representative/appeals.read: Appeals info
-        clientCredentials:
-          tokenUrl: To get production access, you must either work for VA or have specific VA agreements in place. If you have questions, [contact us](https://developer.va.gov/support/contact-us).
-          scopes:
-            system/AppealableIssues.read: Appealable issues info
-            system/appeals.read: Appeals info
-    sandboxOauth:
-      type: oauth2
-      description: 'The authentication model for the Appealable Issues API uses OAuth 2.0/OpenID Connect. The following authorization models are supported: [Authorization code flow](https://developer.va.gov/explore/api/appealable-issues/authorization-code) and [Client Credentials Grant (CCG)](https://developer.va.gov/explore/api/appealable-issues/client-credentials).'
-      flows:
-        authorizationCode:
-          authorizationUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/authorization
-          tokenUrl: https://sandbox-api.va.gov/oauth2/appeals/v1/token
-          scopes:
-            veteran/AppealableIssues.read: Appealable issues info
-            veteran/appeals.read: Appeals info
-            representative/AppealableIssues.read: Appealable issues info
-            representative/appeals.read: Appeals info
-        clientCredentials:
-          tokenUrl: https://deptva-eval.okta.com/oauth2/auskff5o6xsoQVngk2p7/v1/token
-          scopes:
-            system/AppealableIssues.read: Appealable issues info
-            system/appeals.read: Appeals info
+    CookieAuth:
+      type: apiKey
+      name: api_session
+      in: cookie
+      description: An authenticated session is established using the Sessions Controller to initiate federated authentication with an external credential provider, after which an API session token is established in the api_session cookie.
