@@ -124,6 +124,10 @@ apis:
   baseURL: https://api.va.gov/services/va_facilities/v1
   tags:
   - Facilities
+  - Location
+  - Healthcare
+  tags_raw:
+  - Facilities
   - Locations
   - Healthcare
   properties:
