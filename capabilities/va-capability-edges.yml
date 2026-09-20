@@ -11,8 +11,73 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 3
+edge_count: 9
 edges:
+- tag: Appeals Status
+  spec_file: va-appeals-status-api-openapi.yml
+  capability_id: BC-3220.50
+  capability_id_l1: BC-3220
+  capability_name: Appeals & Ombudsman Management
+  confidence: 0.85
+  evidence: '"allows you to request the statuses of all decision reviews for a Veteran, including decision
+    reviews following the AMA process and legacy benefit appeals"; GET /appeals getAppealStatus'
+  reason: Operations expose status of benefit appeals / decision reviews of agency benefit decisions —
+    administrative review and appeals handling for citizens, i.e. Appeals & Ombudsman Management.
+  recovered_from: vertical-public-sector-government-edges.json
+- tag: Higher-Level Reviews
+  spec_file: va-higher-level-reviews-api-openapi.yml
+  capability_id: BC-3220.50
+  capability_id_l1: BC-3220
+  capability_name: Appeals & Ombudsman Management
+  confidence: 0.85
+  evidence: POST /higher_level_reviews createHlr "Creates a new Higher-Level Review"; POST /forms/200996
+  reason: Filing and retrieval of Higher-Level Reviews (VA form 20-0996) is initiation and tracking of
+    an administrative review of an agency benefit decision — appeals management.
+  recovered_from: vertical-public-sector-government-edges.json
+- tag: Legacy Appeals
+  spec_file: va-legacy-appeals-api-openapi.yml
+  capability_id: BC-3220.50
+  capability_id_l1: BC-3220
+  capability_name: Appeals & Ombudsman Management
+  confidence: 0.85
+  evidence: GET /legacy_appeals getLegacyAppeals "Returns eligible appeals in the legacy process for a
+    Veteran."
+  reason: Retrieval of a veteran's appeals in the legacy benefits appeal process — administrative review
+    of agency decisions.
+  recovered_from: vertical-public-sector-government-edges.json
+- tag: Notice of Disagreements
+  spec_file: va-notice-of-disagreements-api-openapi.yml
+  capability_id: BC-3220.50
+  capability_id_l1: BC-3220
+  capability_name: Appeals & Ombudsman Management
+  confidence: 0.85
+  evidence: POST /notice_of_disagreements createNod "Creates a new Notice of Disagreement"; POST /notice_of_disagreements/evidence_submissions
+  reason: Filing a Notice of Disagreement (VA form 10182) with supporting evidence is the appeal of an
+    agency benefit decision to the Board — administrative appeals management.
+  recovered_from: vertical-public-sector-government-edges.json
+- tag: Contestable Issues
+  spec_file: va-contestable-issues-api-openapi.yml
+  capability_id: BC-3220.50
+  capability_id_l1: BC-3220
+  capability_name: Appeals & Ombudsman Management
+  confidence: 0.8
+  evidence: '"Returns all contestable issues for a specific veteran"; "interact with a Veteran''s decision
+    reviews, also known as benefit appeals"'
+  reason: Contestable issues are the subject matter of a decision review/appeal against a benefit decision;
+    surface supports the administrative appeal process rather than initial benefit adjudication.
+  recovered_from: vertical-public-sector-government-edges.json
+- tag: Supplemental Claims
+  spec_file: va-supplemental-claims-api-openapi.yml
+  capability_id: BC-3220.50
+  capability_id_l1: BC-3220
+  capability_name: Appeals & Ombudsman Management
+  confidence: 0.8
+  evidence: POST /supplemental_claims createSc "Creates a new Supplemental Claim"; POST /forms/200995;
+    evidence_submissions
+  reason: Supplemental Claims (VA form 20-0995) are one of the three AMA decision-review lanes, i.e. review
+    of an earlier agency decision with new evidence; fits appeals/administrative review rather than initial
+    benefit award.
+  recovered_from: vertical-public-sector-government-edges.json
 - tag: Messaging
   spec_file: va-messaging-api-openapi.yml
   capability_id: BC-2910.10
