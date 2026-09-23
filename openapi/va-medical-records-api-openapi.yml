@@ -4,9 +4,7 @@ info:
   title: VA My Health Medical Records API
   license:
     name: CC0 1.0 Universal
-  description: 'The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
-
-    '
+  description: The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
 servers:
 - url: https://api.va.gov/my_health
 security:
@@ -145,9 +143,7 @@ paths:
         - `/v1/medical_records/ccd/download.pdf`
 
 
-        If the format extension is not included, the default is XML.
-
-        '
+        If the format extension is not included, the default is XML.'
       operationId: download_ccd
       parameters:
       - name: date
@@ -543,9 +539,7 @@ paths:
       - Medical Records
   /v1/medical_records/labs_and_tests:
     get:
-      description: 'List patient labs and tests. This API call runs three separate backend calls, then merges the results. It returns results for the Chemistry/Hematology, EKG, Microbiology, Pathology, and Radiology domains.
-
-        '
+      description: List patient labs and tests. This API call runs three separate backend calls, then merges the results. It returns results for the Chemistry/Hematology, EKG, Microbiology, Pathology, and Radiology domains.
       operationId: list_labs_and_tests
       responses:
         '200':
@@ -574,9 +568,7 @@ paths:
       - Medical Records
   /v1/medical_records/labs_and_tests/{id}:
     get:
-      description: 'Get a patient labs and tests record of type DiagnosticReport.
-
-        '
+      description: Get a patient labs and tests record of type DiagnosticReport.
       operationId: get_labs_and_tests_diagrep
       responses:
         '200':
@@ -951,9 +943,7 @@ paths:
 
         Returns notes from both VistA and Oracle Health sources. Each note includes a `source` field
 
-        indicating which system the record originated from.
-
-        '
+        indicating which system the record originated from.'
       operationId: listClinicalNotesV2
       parameters:
       - name: start_date
@@ -1011,9 +1001,7 @@ paths:
 
         to `oracle-health` to retrieve the note directly from the Oracle Health source-specific endpoint.
 
-        Requests with `source=vista` or without a `source` parameter will receive a 404 response.
-
-        '
+        Requests with `source=vista` or without a `source` parameter will receive a 404 response.'
       operationId: getClinicalNoteV2
       parameters:
       - name: id

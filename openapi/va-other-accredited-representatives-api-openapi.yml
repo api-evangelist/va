@@ -112,24 +112,6 @@ paths:
                 $ref: '#/components/schemas/InternalServerError'
 components:
   schemas:
-    BadRequestError:
-      type: object
-      properties:
-        errors:
-          type: object
-          properties:
-            title:
-              type: string
-              example: Invalid field value
-            detail:
-              type: string
-              example: my_rep is not a valid value for type
-            code:
-              type: string
-              example: '103'
-            status:
-              type: string
-              example: '400'
     InternalServerError:
       type: object
       properties:
@@ -148,3 +130,21 @@ components:
             status:
               type: string
               example: '500'
+    BadRequestError:
+      type: object
+      properties:
+        errors:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Invalid field value
+            detail:
+              type: string
+              example: my_rep is not a valid value for type
+            code:
+              type: string
+              example: '103'
+            status:
+              type: string
+              example: '400'

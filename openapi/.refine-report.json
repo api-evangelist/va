@@ -124,7 +124,8 @@
     "tag 'Higher-Level Reviews' spans 2 source specs (va-decision-reviews-openapi.json, va-higher-level-reviews-openapi.json): per-path servers applied",
     "tag 'Legacy Appeals' spans 2 source specs (va-decision-reviews-openapi.json, va-legacy-appeals-openapi.json): per-path servers applied",
     "tag 'Notice of Disagreements' spans 2 source specs (va-decision-reviews-openapi.json, va-notice-of-disagreements-openapi.json): per-path servers applied",
-    "tag 'Supplemental Claims' spans 2 source specs (va-decision-reviews-openapi.json, va-supplemental-claims-openapi.json): per-path servers applied"
+    "tag 'Supplemental Claims' spans 2 source specs (va-decision-reviews-openapi.json, va-supplemental-claims-openapi.json): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "va-appealable-issues-api-openapi.yml: previously refined output, superseded by openapi/_original/",

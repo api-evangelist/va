@@ -4,9 +4,7 @@ info:
   title: VA My Health Tooltips API
   license:
     name: CC0 1.0 Universal
-  description: 'The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
-
-    '
+  description: The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
 servers:
 - url: https://api.va.gov/my_health
 security:
@@ -36,6 +34,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
       tags:
       - Tooltips
+      summary: Get tooltips
+      x-summary-source: derived
     post:
       description: Create tooltip setting for mhv-medications In-Product Education (IPE)
       operationId: post_tooltip
@@ -61,6 +61,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
       tags:
       - Tooltips
+      summary: Post tooltip
+      x-summary-source: derived
   /v1/tooltips/{id}:
     summary: /v1/tooltips/{id}
     patch:
@@ -100,19 +102,16 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
       tags:
       - Tooltips
+      summary: Patch tooltip
+      x-summary-source: derived
 components:
-  parameters:
-    InflectionHeader:
-      in: header
-      name: X-Key-Inflection
-      required: false
-      schema:
-        type: string
-        enum:
-        - camel
-        - snake
-      description: Instructs the API to return camelCase keys rather than snake_case
   responses:
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: ./schemas/Errors.yml
     Unauthorized:
       description: Unauthorized
       content:
@@ -125,12 +124,17 @@ components:
         application/json:
           schema:
             $ref: ./schemas/Errors.yml
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: ./schemas/Errors.yml
+  parameters:
+    InflectionHeader:
+      in: header
+      name: X-Key-Inflection
+      required: false
+      schema:
+        type: string
+        enum:
+        - camel
+        - snake
+      description: Instructs the API to return camelCase keys rather than snake_case
   securitySchemes:
     CookieAuth:
       type: apiKey

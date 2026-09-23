@@ -4,9 +4,7 @@ info:
   title: VA My Health Labs And Tests API
   license:
     name: CC0 1.0 Universal
-  description: 'The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
-
-    '
+  description: The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
 servers:
 - url: https://api.va.gov/my_health
 security:
@@ -18,9 +16,7 @@ paths:
     get:
       description: 'Get lab results and test information for the current user within a specified date range.
 
-        This endpoint provides structured lab and test data with FHIR path mappings for each data element.
-
-        '
+        This endpoint provides structured lab and test data with FHIR path mappings for each data element.'
       operationId: getLabsAndTests
       parameters:
       - name: start_date

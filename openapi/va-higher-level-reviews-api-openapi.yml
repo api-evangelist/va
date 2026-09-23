@@ -33,7 +33,7 @@ paths:
   /higher_level_reviews:
     post:
       summary: Creates a new Higher-Level Review
-      description: Submits an appeal of type Higher Level Review. This endpoint is the same as submitting [VA Form 20-0996](https://www.va.gov/decision-reviews/higher-level-review/request-higher-level-review-form-20-0996) via mail or fax directly to the Board of Veterans’ Appeals.
+      description: Submits an appeal of type Higher Level Review. This endpoint is the same as submitting VA Form 20-0996 via mail or fax directly to the Board of Veterans’ Appeals.
       tags:
       - Higher-Level Reviews
       operationId: createHlr
@@ -580,7 +580,7 @@ paths:
           default: v2
   /higher_level_reviews/contestable_issues/{benefit_type}:
     get:
-      summary: Returns all contestable issues for a specific veteran.
+      summary: Returns all contestable issues for a specific veteran
       tags:
       - Higher-Level Reviews
       operationId: hlrContestableIssues
@@ -873,11 +873,11 @@ paths:
           default: v2
   /higher_level_reviews/schema:
     get:
-      summary: Gets the Higher-Level Review JSON Schema.
+      summary: Gets the Higher-Level Review JSON Schema
       tags:
       - Higher-Level Reviews
       operationId: hlrSchema
-      description: Returns the [JSON Schema](https://json-schema.org/) for the `POST /higher_level_reviews` endpoint.
+      description: Returns the JSON Schema for the `POST /higher_level_reviews` endpoint.
       security:
       - apikey: []
       responses:
@@ -911,11 +911,11 @@ paths:
           default: v2
   /higher_level_reviews/validate:
     post:
-      summary: Validates a POST request body against the JSON schema.
+      summary: Validates a POST request body against the JSON schema
       tags:
       - Higher-Level Reviews
       operationId: hlrValidate
-      description: Like the POST /higher_level_reviews, but only does the validations <b>—does not submit anything.</b>
+      description: Like the POST /higher_level_reviews, but only does the validations —does not submit anything.
       security:
       - apikey: []
       parameters:
@@ -1260,7 +1260,7 @@ paths:
   /forms/200996:
     post:
       summary: Creates a new Higher-Level Review
-      description: Submits an appeal of type Higher-Level Review. This endpoint is the same as submitting [VA Form 20-0996](https://www.va.gov/decision-reviews/higher-level-review/request-higher-level-review-form-20-0996) via mail or fax directly to the Board of Veterans’ Appeals.
+      description: Submits an appeal of type Higher-Level Review. This endpoint is the same as submitting VA Form 20-0996 via mail or fax directly to the Board of Veterans’ Appeals.
       tags:
       - Higher-Level Reviews
       operationId: createHlr
@@ -1815,7 +1815,23 @@ paths:
         - representative/HigherLevelReviews.read
         - system/HigherLevelReviews.read
       - bearer_token: []
-      description: "Returns a watermarked copy of a Higher-Level Review PDF as submitted to the VA. PDFs are available\nwith the following caveats:\n\n1. The PDF download will become available only after after the Higher-Level Review has progressed to\n   the 'submitted' state.\n2. The PDF will stop being available one week after the Higher-Level Review has progressed to the\n   'completed' state. This is when the Veteran's personally identifying information is purged from our servers.\n\nThe 'icn' parameter is required when accessing this endpoint using an OAuth token with the 'representative/HigherLevelReviews.read' or 'system/HigherLevelReviews.read' scopes.\nRequests made with the 'veteran/HigherLevelReviews.read' scope may omit the 'icn' parameter.\n"
+      description: 'Returns a watermarked copy of a Higher-Level Review PDF as submitted to the VA. PDFs are available
+
+        with the following caveats:
+
+
+        1. The PDF download will become available only after after the Higher-Level Review has progressed to
+
+        the ''submitted'' state.
+
+        2. The PDF will stop being available one week after the Higher-Level Review has progressed to the
+
+        ''completed'' state. This is when the Veteran''s personally identifying information is purged from our servers.
+
+
+        The ''icn'' parameter is required when accessing this endpoint using an OAuth token with the ''representative/HigherLevelReviews.read'' or ''system/HigherLevelReviews.read'' scopes.
+
+        Requests made with the ''veteran/HigherLevelReviews.read'' scope may omit the ''icn'' parameter.'
       parameters:
       - name: icn
         description: ICN of the Veteran associated with the Higher-Level Review. Optional when using a veteran-scoped OAuth token. Required when using a representative- or system-scoped token.
@@ -1929,11 +1945,11 @@ paths:
           default: v0
   /schemas/{schema_type}:
     get:
-      summary: Gets JSON schema related to Higher-Level Review.
+      summary: Gets JSON schema related to Higher-Level Review
       tags:
       - Higher-Level Reviews
       operationId: hlrSchema
-      description: Returns the [JSON Schema](https://json-schema.org) related to the `POST /forms/200996` endpoint
+      description: Returns the JSON Schema related to the `POST /forms/200996` endpoint
       security:
       - productionOauth:
         - veteran/HigherLevelReviews.read
@@ -3014,11 +3030,11 @@ paths:
           default: v0
   /forms/200996/validate:
     post:
-      summary: Validates a POST request body against the JSON schema.
+      summary: Validates a POST request body against the JSON schema
       tags:
       - Higher-Level Reviews
       operationId: hlrValidate
-      description: Like the POST /higher_level_reviews, but only does the validations <b>—does not submit anything.</b>
+      description: Like the POST /higher_level_reviews, but only does the validations —does not submit anything.
       security:
       - productionOauth:
         - veteran/HigherLevelReviews.write
@@ -3299,56 +3315,10 @@ paths:
           default: v0
 components:
   schemas:
-    X-VA-ICN:
-      description: Veteran's Integration Control Number, a unique identifier established via the Master Person Index (MPI)
+    X-VA-Birth-Date:
+      description: Veteran's birth date
       type: string
-      minLength: 17
-      maxLength: 17
-      pattern: ^[0-9]{10}V[0-9]{6}$
-    X-VA-Last-Name:
-      allOf:
-      - description: last name
-      - $ref: '#/components/schemas/nonBlankString'
-    hlrShow:
-      type: object
-      properties:
-        data:
-          properties:
-            id:
-              $ref: '#/components/schemas/uuid'
-            type:
-              type: string
-              enum:
-              - higherLevelReview
-            attributes:
-              properties:
-                status:
-                  type: string
-                  example: pending
-                  enum:
-                  - pending
-                  - submitting
-                  - submitted
-                  - processing
-                  - success
-                  - complete
-                  - error
-                updatedAt:
-                  description: The last time the submission was updated
-                  type: string
-                  format: date-time
-                  example: '2018-07-30T17:31:15.958Z'
-                createdAt:
-                  description: The time the submission was created
-                  type: string
-                  format: date-time
-                  example: '2018-07-30T17:31:15.958Z'
-          required:
-          - id
-          - type
-          - attributes
-      required:
-      - data
+      format: date
     errorModel:
       required:
       - errors
@@ -3395,212 +3365,6 @@ components:
                     items:
                       type: string
                     description: List of missing fields
-    X-VA-NonVeteranClaimant-First-Name:
-      allOf:
-      - description: first name
-      - $ref: '#/components/schemas/nonBlankString'
-    X-VA-SSN:
-      description: social security number
-      type: string
-      minLength: 9
-      maxLength: 9
-      pattern: ^[0-9]{9}$
-    X-VA-Middle-Initial:
-      allOf:
-      - description: middle initial
-      - $ref: '#/components/schemas/nonBlankString'
-    X-VA-File-Number:
-      allOf:
-      - description: VA file number (c-file / css)
-      - maxLength: 9
-      - $ref: '#/components/schemas/nonBlankString'
-    X-VA-Birth-Date:
-      description: Veteran's birth date
-      type: string
-      format: date
-    hlrCreatePhone:
-      type: object
-      properties:
-        countryCode:
-          type: string
-          pattern: ^[0-9]+$
-          minLength: 1
-          maxLength: 3
-        areaCode:
-          type: string
-          pattern: ^[0-9]{1,4}$
-          minLength: 1
-          maxLength: 4
-        phoneNumber:
-          type: string
-          pattern: ^[0-9]{1,14}$
-          minLength: 1
-          maxLength: 14
-        phoneNumberExt:
-          type: string
-          pattern: ^[a-zA-Z0-9]{1,10}$
-          minLength: 1
-          maxLength: 10
-      required:
-      - phoneNumber
-    contestableIssues:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/contestableIssue'
-    X-VA-Insurance-Policy-Number:
-      allOf:
-      - description: Veteran's insurance policy number
-        maxLength: 18
-      - $ref: '#/components/schemas/nonBlankString'
-    X-VA-NonVeteranClaimant-SSN:
-      type: string
-      description: Non-Veteran claimants's SSN
-      pattern: ^[0-9]{9}$
-    X-VA-NonVeteranClaimant-Birth-Date:
-      description: Non-veteran claimant's birth date
-      type: string
-      format: date
-    nonBlankString:
-      type: string
-      pattern: '[^ \f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]'
-    uuid:
-      type: string
-      pattern: ^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$
-    X-VA-First-Name:
-      allOf:
-      - description: first name
-      - type: string
-    X-VA-Receipt-Date:
-      description: (yyyy-mm-dd) Date to limit the contestable issues
-      type: string
-      format: date
-    contestableIssue:
-      type: object
-      description: A contestable issue (to contest this, you include it as a RequestIssue when creating a HigherLevelReview, SupplementalClaim, or Appeal)
-      properties:
-        type:
-          type: string
-          enum:
-          - contestableIssue
-        id:
-          type:
-          - string
-          - 'null'
-        attributes:
-          type: object
-          properties:
-            ratingIssueReferenceId:
-              type:
-              - string
-              - 'null'
-              description: RatingIssue ID
-              example: '2385'
-            ratingIssueProfileDate:
-              type:
-              - string
-              - 'null'
-              format: date
-              description: (yyyy-mm-dd) RatingIssue profile date
-              example: '2006-05-31'
-            ratingIssueDiagnosticCode:
-              type:
-              - string
-              - 'null'
-              description: RatingIssue diagnostic code
-              example: '5005'
-            ratingDecisionReferenceId:
-              type:
-              - string
-              - 'null'
-              description: The BGS ID for the contested rating decision. This may be populated while ratingIssueReferenceId is nil
-              example: null
-            decisionIssueId:
-              type:
-              - integer
-              - 'null'
-              description: DecisionIssue ID
-              example: null
-            approxDecisionDate:
-              type:
-              - string
-              - 'null'
-              format: date
-              description: (yyyy-mm-dd) Approximate decision date
-              example: '2006-11-27'
-            description:
-              type:
-              - string
-              - 'null'
-              description: Description
-              example: Service connection for hypertension is granted with an evaluation of 10 percent effective July 24, 2005.
-            rampClaimId:
-              type:
-              - string
-              - 'null'
-              description: RampClaim ID
-              example: null
-            titleOfActiveReview:
-              type:
-              - string
-              - 'null'
-              description: Title of DecisionReview that this issue is still active on
-              example: null
-            sourceReviewType:
-              type:
-              - string
-              - 'null'
-              description: The type of DecisionReview (HigherLevelReview, SupplementalClaim, Appeal) the issue was last decided on (if any)
-              example: null
-            timely:
-              type: boolean
-              description: An issue is timely if the receipt date is within 372 dates of the decision date.
-              example: false
-            activeReview:
-              type: boolean
-              description: Indicates whether this issue is already part of an active Decision Review that is being processed by VA. Submitting a Decision Review that includes a listed issue with an activeReview of true may result in VA rejecting the submission.
-              example: false
-            latestIssuesInChain:
-              type: array
-              description: Shows the chain of decision and rating issues that preceded this issue. Only the most recent issue can be contested (the object itself that contains the latestIssuesInChain attribute).
-              items:
-                type: object
-                properties:
-                  id:
-                    oneOf:
-                    - type:
-                      - string
-                      - 'null'
-                    - type: integer
-                    example: null
-                  approxDecisionDate:
-                    type:
-                    - string
-                    - 'null'
-                    format: date
-                    example: '2006-11-27'
-            ratingIssueSubjectText:
-              type:
-              - string
-              - 'null'
-              description: Short description of RatingIssue
-              example: Hypertension
-            ratingIssuePercentNumber:
-              type:
-              - string
-              - 'null'
-              description: Numerical rating for RatingIssue
-              example: '10'
-            isRating:
-              type: boolean
-              description: Whether or not this is a RatingIssue
-              example: true
-    X-VA-NonVeteranClaimant-Middle-Initial:
-      allOf:
-      - description: middle initial
-      - $ref: '#/components/schemas/nonBlankString'
     hlrCreate:
       type: object
       properties:
@@ -5165,16 +4929,374 @@ components:
       required:
       - data
       - included
+    X-VA-Middle-Initial:
+      allOf:
+      - description: middle initial
+      - $ref: '#/components/schemas/nonBlankString'
+    X-VA-First-Name:
+      allOf:
+      - description: first name
+      - type: string
+    hlrCreatePhone:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          pattern: ^[0-9]+$
+          minLength: 1
+          maxLength: 3
+        areaCode:
+          type: string
+          pattern: ^[0-9]{1,4}$
+          minLength: 1
+          maxLength: 4
+        phoneNumber:
+          type: string
+          pattern: ^[0-9]{1,14}$
+          minLength: 1
+          maxLength: 14
+        phoneNumberExt:
+          type: string
+          pattern: ^[a-zA-Z0-9]{1,10}$
+          minLength: 1
+          maxLength: 10
+      required:
+      - phoneNumber
+    X-VA-ICN:
+      description: Veteran's Integration Control Number, a unique identifier established via the Master Person Index (MPI)
+      type: string
+      minLength: 17
+      maxLength: 17
+      pattern: ^[0-9]{10}V[0-9]{6}$
+    uuid:
+      type: string
+      pattern: ^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$
+    X-VA-NonVeteranClaimant-First-Name:
+      allOf:
+      - description: first name
+      - $ref: '#/components/schemas/nonBlankString'
+    X-VA-NonVeteranClaimant-Birth-Date:
+      description: Non-veteran claimant's birth date
+      type: string
+      format: date
+    contestableIssues:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/contestableIssue'
+    X-VA-NonVeteranClaimant-SSN:
+      type: string
+      description: Non-Veteran claimants's SSN
+      pattern: ^[0-9]{9}$
+    X-VA-Receipt-Date:
+      description: (yyyy-mm-dd) Date to limit the contestable issues
+      type: string
+      format: date
+    X-VA-SSN:
+      description: social security number
+      type: string
+      minLength: 9
+      maxLength: 9
+      pattern: ^[0-9]{9}$
+    X-VA-Insurance-Policy-Number:
+      allOf:
+      - description: Veteran's insurance policy number
+        maxLength: 18
+      - $ref: '#/components/schemas/nonBlankString'
+    X-VA-Last-Name:
+      allOf:
+      - description: last name
+      - $ref: '#/components/schemas/nonBlankString'
+    nonBlankString:
+      type: string
+      pattern: '[^ \f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]'
+    X-VA-NonVeteranClaimant-Middle-Initial:
+      allOf:
+      - description: middle initial
+      - $ref: '#/components/schemas/nonBlankString'
+    contestableIssue:
+      type: object
+      description: A contestable issue (to contest this, you include it as a RequestIssue when creating a HigherLevelReview, SupplementalClaim, or Appeal)
+      properties:
+        type:
+          type: string
+          enum:
+          - contestableIssue
+        id:
+          type:
+          - string
+          - 'null'
+        attributes:
+          type: object
+          properties:
+            ratingIssueReferenceId:
+              type:
+              - string
+              - 'null'
+              description: RatingIssue ID
+              example: '2385'
+            ratingIssueProfileDate:
+              type:
+              - string
+              - 'null'
+              format: date
+              description: (yyyy-mm-dd) RatingIssue profile date
+              example: '2006-05-31'
+            ratingIssueDiagnosticCode:
+              type:
+              - string
+              - 'null'
+              description: RatingIssue diagnostic code
+              example: '5005'
+            ratingDecisionReferenceId:
+              type:
+              - string
+              - 'null'
+              description: The BGS ID for the contested rating decision. This may be populated while ratingIssueReferenceId is nil
+              example: null
+            decisionIssueId:
+              type:
+              - integer
+              - 'null'
+              description: DecisionIssue ID
+              example: null
+            approxDecisionDate:
+              type:
+              - string
+              - 'null'
+              format: date
+              description: (yyyy-mm-dd) Approximate decision date
+              example: '2006-11-27'
+            description:
+              type:
+              - string
+              - 'null'
+              description: Description
+              example: Service connection for hypertension is granted with an evaluation of 10 percent effective July 24, 2005.
+            rampClaimId:
+              type:
+              - string
+              - 'null'
+              description: RampClaim ID
+              example: null
+            titleOfActiveReview:
+              type:
+              - string
+              - 'null'
+              description: Title of DecisionReview that this issue is still active on
+              example: null
+            sourceReviewType:
+              type:
+              - string
+              - 'null'
+              description: The type of DecisionReview (HigherLevelReview, SupplementalClaim, Appeal) the issue was last decided on (if any)
+              example: null
+            timely:
+              type: boolean
+              description: An issue is timely if the receipt date is within 372 dates of the decision date.
+              example: false
+            activeReview:
+              type: boolean
+              description: Indicates whether this issue is already part of an active Decision Review that is being processed by VA. Submitting a Decision Review that includes a listed issue with an activeReview of true may result in VA rejecting the submission.
+              example: false
+            latestIssuesInChain:
+              type: array
+              description: Shows the chain of decision and rating issues that preceded this issue. Only the most recent issue can be contested (the object itself that contains the latestIssuesInChain attribute).
+              items:
+                type: object
+                properties:
+                  id:
+                    oneOf:
+                    - type:
+                      - string
+                      - 'null'
+                    - type: integer
+                    example: null
+                  approxDecisionDate:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    example: '2006-11-27'
+            ratingIssueSubjectText:
+              type:
+              - string
+              - 'null'
+              description: Short description of RatingIssue
+              example: Hypertension
+            ratingIssuePercentNumber:
+              type:
+              - string
+              - 'null'
+              description: Numerical rating for RatingIssue
+              example: '10'
+            isRating:
+              type: boolean
+              description: Whether or not this is a RatingIssue
+              example: true
+    X-VA-File-Number:
+      allOf:
+      - description: VA file number (c-file / css)
+      - maxLength: 9
+      - $ref: '#/components/schemas/nonBlankString'
     X-VA-NonVeteranClaimant-Last-Name:
       allOf:
       - description: last name
       - $ref: '#/components/schemas/nonBlankString'
+    hlrShow:
+      type: object
+      properties:
+        data:
+          properties:
+            id:
+              $ref: '#/components/schemas/uuid'
+            type:
+              type: string
+              enum:
+              - higherLevelReview
+            attributes:
+              properties:
+                status:
+                  type: string
+                  example: pending
+                  enum:
+                  - pending
+                  - submitting
+                  - submitted
+                  - processing
+                  - success
+                  - complete
+                  - error
+                updatedAt:
+                  description: The last time the submission was updated
+                  type: string
+                  format: date-time
+                  example: '2018-07-30T17:31:15.958Z'
+                createdAt:
+                  description: The time the submission was created
+                  type: string
+                  format: date-time
+                  example: '2018-07-30T17:31:15.958Z'
+          required:
+          - id
+          - type
+          - attributes
+      required:
+      - data
     ssn:
       type: string
       description: Social Security Number
       pattern: ^[0-9]{9}
       minLength: 9
       maxLength: 9
+    address:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          minLength: 1
+          maxLength: 60
+        addressLine2:
+          type: string
+          minLength: 1
+          maxLength: 30
+        addressLine3:
+          type: string
+          minLength: 1
+          maxLength: 10
+        city:
+          type: string
+          minLength: 1
+          maxLength: 60
+        stateCode:
+          type: string
+          enum:
+          - AL
+          - AK
+          - AS
+          - AZ
+          - AR
+          - AA
+          - AE
+          - AP
+          - CA
+          - CO
+          - CT
+          - DE
+          - DC
+          - FM
+          - FL
+          - GA
+          - GU
+          - HI
+          - ID
+          - IL
+          - IN
+          - IA
+          - KS
+          - KY
+          - LA
+          - ME
+          - MH
+          - MD
+          - MA
+          - MI
+          - MN
+          - MS
+          - MO
+          - MT
+          - NE
+          - NV
+          - NH
+          - NJ
+          - NM
+          - NY
+          - NC
+          - ND
+          - MP
+          - OH
+          - OK
+          - OR
+          - PW
+          - PA
+          - PR
+          - RI
+          - SC
+          - SD
+          - TN
+          - TX
+          - UT
+          - VT
+          - VI
+          - VA
+          - WA
+          - WV
+          - WI
+          - WY
+        countryCodeIso3:
+          description: Three letter ISO 3166-1 country code
+          type: string
+          pattern: ^[A-Z]{3}$
+          minLength: 3
+          maxLength: 3
+          example: USA
+        zipCode5:
+          type: string
+          description: Five digit zipcode. Use "00000" if address is outside the United States
+          pattern: ^[0-9]{5}$
+          minLength: 5
+          maxLength: 5
+        internationalPostalCode:
+          type: string
+          minLength: 1
+          maxLength: 16
+      required:
+      - addressLine1
+      - city
+      - countryCodeIso3
+      - zipCode5
     hlrCreate_2:
       type: object
       description: JSON Schema for VA Form 20-0996
@@ -5404,191 +5526,6 @@ components:
       required:
       - data
       - included
-    address:
-      type: object
-      properties:
-        addressLine1:
-          type: string
-          minLength: 1
-          maxLength: 60
-        addressLine2:
-          type: string
-          minLength: 1
-          maxLength: 30
-        addressLine3:
-          type: string
-          minLength: 1
-          maxLength: 10
-        city:
-          type: string
-          minLength: 1
-          maxLength: 60
-        stateCode:
-          type: string
-          enum:
-          - AL
-          - AK
-          - AS
-          - AZ
-          - AR
-          - AA
-          - AE
-          - AP
-          - CA
-          - CO
-          - CT
-          - DE
-          - DC
-          - FM
-          - FL
-          - GA
-          - GU
-          - HI
-          - ID
-          - IL
-          - IN
-          - IA
-          - KS
-          - KY
-          - LA
-          - ME
-          - MH
-          - MD
-          - MA
-          - MI
-          - MN
-          - MS
-          - MO
-          - MT
-          - NE
-          - NV
-          - NH
-          - NJ
-          - NM
-          - NY
-          - NC
-          - ND
-          - MP
-          - OH
-          - OK
-          - OR
-          - PW
-          - PA
-          - PR
-          - RI
-          - SC
-          - SD
-          - TN
-          - TX
-          - UT
-          - VT
-          - VI
-          - VA
-          - WA
-          - WV
-          - WI
-          - WY
-        countryCodeIso3:
-          description: Three letter ISO 3166-1 country code
-          type: string
-          pattern: ^[A-Z]{3}$
-          minLength: 3
-          maxLength: 3
-          example: USA
-        zipCode5:
-          type: string
-          description: Five digit zipcode. Use "00000" if address is outside the United States
-          pattern: ^[0-9]{5}$
-          minLength: 5
-          maxLength: 5
-        internationalPostalCode:
-          type: string
-          minLength: 1
-          maxLength: 16
-      required:
-      - addressLine1
-      - city
-      - countryCodeIso3
-      - zipCode5
-    icn:
-      type: string
-      description: Veteran's Master Person Index (MPI) Integration Control Number (ICN)
-      pattern: ^[0-9]{10}V[0-9]{6}$
-      minLength: 17
-      maxLength: 17
-      example: 1012832025V743496
-    hlrShow_2:
-      type: object
-      properties:
-        data:
-          properties:
-            id:
-              $ref: '#/components/schemas/uuid'
-            type:
-              type: string
-              enum:
-              - higherLevelReview
-            attributes:
-              properties:
-                status:
-                  type: string
-                  example: pending
-                  enum:
-                  - pending
-                  - submitting
-                  - submitted
-                  - processing
-                  - success
-                  - complete
-                  - error
-                updateDate:
-                  description: The last time the submission was updated
-                  type: string
-                  format: date-time
-                  example: '2018-07-30T17:31:15.958Z'
-                createDate:
-                  description: The time the submission was created
-                  type: string
-                  format: date-time
-                  example: '2018-07-30T17:31:15.958Z'
-          required:
-          - id
-          - type
-          - attributes
-      required:
-      - data
-    phone:
-      type: object
-      properties:
-        countryCode:
-          type: string
-          pattern: ^[0-9]+$
-          minLength: 1
-          maxLength: 3
-        areaCode:
-          type: string
-          pattern: ^[0-9]{1,4}$
-          minLength: 1
-          maxLength: 4
-        phoneNumber:
-          type: string
-          pattern: ^[0-9]{1,14}$
-          minLength: 1
-          maxLength: 14
-        phoneNumberExt:
-          type: string
-          pattern: ^[a-zA-Z0-9]{1,10}$
-          minLength: 1
-          maxLength: 10
-      required:
-      - areaCode
-      - phoneNumber
-    fileNumber:
-      description: Veteran's VA file number (c-file / css)
-      type: string
-      minLength: 7
-      maxLength: 9
-      example: '987654321'
     timezone:
       type: string
       enum:
@@ -6202,6 +6139,85 @@ components:
       - W-SU
       - WET
       - Zulu
+    fileNumber:
+      description: Veteran's VA file number (c-file / css)
+      type: string
+      minLength: 7
+      maxLength: 9
+      example: '987654321'
+    icn:
+      type: string
+      description: Veteran's Master Person Index (MPI) Integration Control Number (ICN)
+      pattern: ^[0-9]{10}V[0-9]{6}$
+      minLength: 17
+      maxLength: 17
+      example: 1012832025V743496
+    phone:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          pattern: ^[0-9]+$
+          minLength: 1
+          maxLength: 3
+        areaCode:
+          type: string
+          pattern: ^[0-9]{1,4}$
+          minLength: 1
+          maxLength: 4
+        phoneNumber:
+          type: string
+          pattern: ^[0-9]{1,14}$
+          minLength: 1
+          maxLength: 14
+        phoneNumberExt:
+          type: string
+          pattern: ^[a-zA-Z0-9]{1,10}$
+          minLength: 1
+          maxLength: 10
+      required:
+      - areaCode
+      - phoneNumber
+    hlrShow_2:
+      type: object
+      properties:
+        data:
+          properties:
+            id:
+              $ref: '#/components/schemas/uuid'
+            type:
+              type: string
+              enum:
+              - higherLevelReview
+            attributes:
+              properties:
+                status:
+                  type: string
+                  example: pending
+                  enum:
+                  - pending
+                  - submitting
+                  - submitted
+                  - processing
+                  - success
+                  - complete
+                  - error
+                updateDate:
+                  description: The last time the submission was updated
+                  type: string
+                  format: date-time
+                  example: '2018-07-30T17:31:15.958Z'
+                createDate:
+                  description: The time the submission was created
+                  type: string
+                  format: date-time
+                  example: '2018-07-30T17:31:15.958Z'
+          required:
+          - id
+          - type
+          - attributes
+      required:
+      - data
   securitySchemes:
     apikey:
       type: apiKey

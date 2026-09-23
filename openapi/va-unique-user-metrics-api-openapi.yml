@@ -4,9 +4,7 @@ info:
   title: VA My Health Unique User Metrics API
   license:
     name: CC0 1.0 Universal
-  description: 'The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
-
-    '
+  description: The Department of Veterans Affairs My Health APIs. All paths are relative to https://api.va.gov/my_health.
 servers:
 - url: https://api.va.gov/my_health
 security:
@@ -26,20 +24,18 @@ paths:
         opt-out-free analytics that are more accurate than Google Analytics.
 
 
-        <strong>Asynchronous Processing:</strong> Events are buffered and processed in batches by a background job.
+        Asynchronous Processing: Events are buffered and processed in batches by a background job.
 
         The response indicates which events were accepted for processing, not whether they are new unique events.
 
         Duplicate events (same user + event combination) are handled during background processing.
 
 
-        <strong>Valid Event Names:</strong> Event names must be from the approved registry of valid events.
+        Valid Event Names: Event names must be from the approved registry of valid events.
 
-        See <a href=''https://github.com/department-of-veterans-affairs/vets-api/blob/master/lib/unique_user_events/event_registry.rb''>EventRegistry</a>
+        See EventRegistry
 
-        for the complete list. Invalid event names are silently filtered out.
-
-        '
+        for the complete list. Invalid event names are silently filtered out.'
       operationId: log_unique_user_metrics
       requestBody:
         content:

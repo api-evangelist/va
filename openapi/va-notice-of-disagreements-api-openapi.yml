@@ -36,7 +36,7 @@ paths:
       tags:
       - Notice of Disagreements
       operationId: createNod
-      description: Submits an appeal of type Notice of Disagreement. This endpoint is the same as submitting [VA Form 10182](https://www.va.gov/vaforms/va/pdf/VA10182.pdf) via mail or fax directly to the Board of Veterans’ Appeals.
+      description: Submits an appeal of type Notice of Disagreement. This endpoint is the same as submitting VA Form 10182 via mail or fax directly to the Board of Veterans’ Appeals.
       security:
       - apikey: []
       parameters:
@@ -465,11 +465,11 @@ paths:
           default: v2
   /notice_of_disagreements/schema:
     get:
-      summary: Gets the Notice of Disagreement JSON Schema.
+      summary: Gets the Notice of Disagreement JSON Schema
       tags:
       - Notice of Disagreements
       operationId: nodSchema
-      description: Returns the [JSON Schema](https://json-schema.org/) for the `POST /notice_of_disagreements` endpoint.
+      description: Returns the JSON Schema for the `POST /notice_of_disagreements` endpoint.
       security:
       - apikey: []
       responses:
@@ -503,11 +503,11 @@ paths:
           default: v2
   /notice_of_disagreements/validate:
     post:
-      summary: Validates a POST request body against the JSON schema.
+      summary: Validates a POST request body against the JSON schema
       tags:
       - Notice of Disagreements
       operationId: nodValidate
-      description: Like the POST /notice_of_disagreements, but only does the validations <b>—does not submit anything.</b>
+      description: Like the POST /notice_of_disagreements, but only does the validations —does not submit anything.
       security:
       - apikey: []
       parameters:
@@ -764,11 +764,9 @@ paths:
       tags:
       - Notice of Disagreements
       operationId: postNoticeOfDisagreementEvidenceSubmission
-      description: 'This is the first step to submitting supporting evidence for an NOD.  (See the Evidence Uploads section above for additional information.)
+      description: 'This is the first step to submitting supporting evidence for an NOD. (See the Evidence Uploads section above for additional information.)
 
-        The Notice of Disagreement GUID that is returned when the NOD is submitted, is supplied to this endpoint to ensure the NOD is in a valid state for sending supporting evidence documents.  Only NODs that selected the Evidence Submission lane are allowed to submit evidence documents up to 90 days after the NOD is received by VA.
-
-        '
+        The Notice of Disagreement GUID that is returned when the NOD is submitted, is supplied to this endpoint to ensure the NOD is in a valid state for sending supporting evidence documents. Only NODs that selected the Evidence Submission lane are allowed to submit evidence documents up to 90 days after the NOD is received by VA.'
       parameters:
       - name: nod_uuid
         in: query
@@ -867,7 +865,7 @@ paths:
           default: v2
   /nod_upload_path:
     put:
-      summary: Accepts Notice of Disagreement Evidence Submission document upload.
+      summary: Accepts Notice of Disagreement Evidence Submission document upload
       tags:
       - Notice of Disagreements
       operationId: putNoticeOfDisagreementEvidenceSubmission
@@ -918,16 +916,12 @@ paths:
         Content-Type: application/pdf
 
 
-        <Binary PDF contents>
-
         --17de1ed8f01442b2a2d7a93506314b76
 
         Content-Disposition: form-data; name="attachment1"
 
         Content-Type: application/pdf
 
-
-        <Binary PDF attachment contents>
 
         --17de1ed8f01442b2a2d7a93506314b76--
 
@@ -946,9 +940,7 @@ paths:
 
         Note that the Content-Disposition parameter "name" in each part must be the expected values
 
-        "metadata", "content", "attachment1"..."attachmentN"
-
-        '
+        "metadata", "content", "attachment1"..."attachmentN"'
       security:
       - apikey: []
       parameters:
@@ -1011,7 +1003,7 @@ paths:
           default: v2
   /notice_of_disagreements/evidence_submissions/{uuid}:
     get:
-      summary: Returns all of the data associated with a specific Notice of Disagreement Evidence Submission.
+      summary: Returns all of the data associated with a specific Notice of Disagreement…
       tags:
       - Notice of Disagreements
       operationId: getNoticeOfDisagreementEvidenceSubmission
@@ -1088,7 +1080,7 @@ paths:
       tags:
       - Notice of Disagreements
       operationId: createNod
-      description: Submits an appeal of type Notice of Disagreement. This endpoint is the same as submitting [VA Form 10182](https://www.va.gov/vaforms/va/pdf/VA10182.pdf) via mail or fax directly to the Board of Veterans’ Appeals.
+      description: Submits an appeal of type Notice of Disagreement. This endpoint is the same as submitting VA Form 10182 via mail or fax directly to the Board of Veterans’ Appeals.
       security:
       - productionOauth:
         - veteran/NoticeOfDisagreements.write
@@ -1540,7 +1532,23 @@ paths:
         - representative/NoticeOfDisagreements.read
         - system/NoticeOfDisagreements.read
       - bearer_token: []
-      description: "Returns a watermarked copy of a Notice of Disagreement PDF as submitted to the VA. PDFs are available\nwith the following caveats:\n\n1. The PDF download will become available only after after the Notice of Disagreement has progressed to\n   the 'submitted' state.\n2. The PDF will stop being available one week after the Notice of Disagreement has progressed to the\n   'completed' state. This is when the Veteran's personally identifying information is purged from our servers.\n\nThe 'icn' parameter is required when accessing this endpoint using an OAuth token with the 'representative/NoticeOfDisagreements.read' or 'system/NoticeOfDisagreements.read' scopes.\nRequests made with the 'veteran/NoticeOfDisagreements.read' scope may omit the 'icn' parameter.\n"
+      description: 'Returns a watermarked copy of a Notice of Disagreement PDF as submitted to the VA. PDFs are available
+
+        with the following caveats:
+
+
+        1. The PDF download will become available only after after the Notice of Disagreement has progressed to
+
+        the ''submitted'' state.
+
+        2. The PDF will stop being available one week after the Notice of Disagreement has progressed to the
+
+        ''completed'' state. This is when the Veteran''s personally identifying information is purged from our servers.
+
+
+        The ''icn'' parameter is required when accessing this endpoint using an OAuth token with the ''representative/NoticeOfDisagreements.read'' or ''system/NoticeOfDisagreements.read'' scopes.
+
+        Requests made with the ''veteran/NoticeOfDisagreements.read'' scope may omit the ''icn'' parameter.'
       parameters:
       - name: icn
         description: ICN of the Veteran associated with the Notice of Disagreement. Optional when using a veteran-scoped OAuth token. Required when using a representative- or system-scoped token.
@@ -1654,11 +1662,11 @@ paths:
           default: v0
   /schemas/{schema_type}:
     get:
-      summary: Gets the Notice of Disagreement JSON Schema.
+      summary: Gets the Notice of Disagreement JSON Schema
       tags:
       - Notice of Disagreements
       operationId: nodSchema
-      description: Returns the [JSON Schema](https://json-schema.org/) for the `POST /forms/10182` endpoint.
+      description: Returns the JSON Schema for the `POST /forms/10182` endpoint.
       security:
       - productionOauth:
         - veteran/NoticeOfDisagreements.read
@@ -2714,11 +2722,11 @@ paths:
           default: v0
   /forms/10182/validate:
     post:
-      summary: Validates a POST request body against the JSON schema.
+      summary: Validates a POST request body against the JSON schema
       tags:
       - Notice of Disagreements
       operationId: nodValidate
-      description: Like the POST /forms/10182, but only does the validations <b>—does not submit anything.</b>
+      description: Like the POST /forms/10182, but only does the validations —does not submit anything.
       security:
       - productionOauth:
         - veteran/NoticeOfDisagreements.write
@@ -2953,11 +2961,9 @@ paths:
       tags:
       - Notice of Disagreements
       operationId: postNoticeOfDisagreementEvidenceSubmission
-      description: 'This is the first step to submitting supporting evidence for an NOD.  (See the Evidence Uploads section above for additional information.)
+      description: 'This is the first step to submitting supporting evidence for an NOD. (See the Evidence Uploads section above for additional information.)
 
-        The Notice of Disagreement GUID that is returned when the NOD is submitted, is supplied to this endpoint to ensure the NOD is in a valid state for sending supporting evidence documents.  Only NODs that selected the Evidence Submission lane are allowed to submit evidence documents up to 90 days after the NOD is received by VA.
-
-        '
+        The Notice of Disagreement GUID that is returned when the NOD is submitted, is supplied to this endpoint to ensure the NOD is in a valid state for sending supporting evidence documents. Only NODs that selected the Evidence Submission lane are allowed to submit evidence documents up to 90 days after the NOD is received by VA.'
       security:
       - productionOauth:
         - veteran/NoticeOfDisagreements.write
@@ -3096,7 +3102,7 @@ paths:
           default: v0
   /nod-upload-path:
     put:
-      summary: Accepts Notice of Disagreement Evidence Submission document upload.
+      summary: Accepts Notice of Disagreement Evidence Submission document upload
       tags:
       - Notice of Disagreements
       operationId: putNoticeOfDisagreementEvidenceSubmission
@@ -3147,16 +3153,12 @@ paths:
         Content-Type: application/pdf
 
 
-        <Binary PDF contents>
-
         --17de1ed8f01442b2a2d7a93506314b76
 
         Content-Disposition: form-data; name="attachment1"
 
         Content-Type: application/pdf
 
-
-        <Binary PDF attachment contents>
 
         --17de1ed8f01442b2a2d7a93506314b76--
 
@@ -3175,9 +3177,7 @@ paths:
 
         Note that the Content-Disposition parameter "name" in each part must be the expected values
 
-        "metadata", "content", "attachment1"..."attachmentN"
-
-        '
+        "metadata", "content", "attachment1"..."attachmentN"'
       security:
       - productionOauth:
         - veteran/NoticeOfDisagreements.write
@@ -3248,7 +3248,7 @@ paths:
           default: v0
   /evidence-submissions/{id}:
     get:
-      summary: Returns all of the data associated with a specific Notice of Disagreement Evidence Submission.
+      summary: Returns all of the data associated with a specific Notice of Disagreement…
       tags:
       - Notice of Disagreements
       operationId: getNoticeOfDisagreementEvidenceSubmission
@@ -3341,99 +3341,10 @@ paths:
           default: v0
 components:
   schemas:
-    X-VA-ICN:
-      description: Veteran's Integration Control Number, a unique identifier established via the Master Person Index (MPI)
+    X-VA-Birth-Date:
+      description: Veteran's birth date
       type: string
-      minLength: 17
-      maxLength: 17
-      pattern: ^[0-9]{10}V[0-9]{6}$
-    X-VA-Last-Name:
-      allOf:
-      - description: last name
-      - $ref: '#/components/schemas/nonBlankString'
-    nodCreateResponse:
-      description: Successful response of a 10182 form submission
-      type: object
-      properties:
-        data:
-          properties:
-            id:
-              type: string
-              description: Unique ID of created NOD
-              example: 97751cb6-d06d-4179-87f6-75e3fc9d875c
-            type:
-              type: string
-              description: Name of record class
-              example: noticeOfDisagreement
-            attributes:
-              type: object
-              properties:
-                status:
-                  type: string
-                  description: Status of NOD
-                  example: pending
-                  enum:
-                  - pending
-                  - submitting
-                  - submitted
-                  - processing
-                  - success
-                  - complete
-                  - error
-                createdAt:
-                  type: string
-                  description: Created timestamp of the NOD
-                  example: '2020-12-16T19:52:23.909Z'
-                updatedAt:
-                  type: string
-                  description: Updated timestamp of the NOD
-                  example: '2020-12-16T19:52:23.909Z'
-            formData:
-              $ref: '#/components/schemas/nodCreate'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/contestableIssue'
-    nodShowResponse:
-      type: object
-      properties:
-        data:
-          properties:
-            id:
-              $ref: '#/components/schemas/uuid'
-            type:
-              type: string
-              enum:
-              - noticeOfDisagreement
-            attributes:
-              properties:
-                status:
-                  type: string
-                  example: pending
-                  enum:
-                  - pending
-                  - submitting
-                  - submitted
-                  - processing
-                  - success
-                  - complete
-                  - error
-                updatedAt:
-                  description: The last time the submission was updated
-                  type: string
-                  format: date-time
-                  example: '2018-07-30T17:31:15.958Z'
-                createdAt:
-                  description: The time the submission was created
-                  type: string
-                  format: date-time
-                  example: '2018-07-30T17:31:15.958Z'
-          required:
-          - id
-          - type
-          - attributes
-      required:
-      - data
+      format: date
     errorModel:
       required:
       - errors
@@ -3480,23 +3391,71 @@ components:
                     items:
                       type: string
                     description: List of missing fields
-    X-VA-NonVeteranClaimant-First-Name:
-      allOf:
-      - description: first name
-      - $ref: '#/components/schemas/nonBlankString'
     X-VA-Middle-Initial:
       allOf:
       - description: middle initial
       - $ref: '#/components/schemas/nonBlankString'
-    X-VA-File-Number:
+    X-VA-First-Name:
       allOf:
-      - description: VA file number (c-file / css)
-      - maxLength: 9
+      - description: first name
+      - type: string
+    X-VA-ICN:
+      description: Veteran's Integration Control Number, a unique identifier established via the Master Person Index (MPI)
+      type: string
+      minLength: 17
+      maxLength: 17
+      pattern: ^[0-9]{10}V[0-9]{6}$
+    uuid:
+      type: string
+      pattern: ^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$
+    X-VA-NonVeteranClaimant-First-Name:
+      allOf:
+      - description: first name
       - $ref: '#/components/schemas/nonBlankString'
-    X-VA-Birth-Date:
-      description: Veteran's birth date
+    X-VA-NonVeteranClaimant-Birth-Date:
+      description: Non-veteran claimant's birth date
       type: string
       format: date
+    nodShowResponse:
+      type: object
+      properties:
+        data:
+          properties:
+            id:
+              $ref: '#/components/schemas/uuid'
+            type:
+              type: string
+              enum:
+              - noticeOfDisagreement
+            attributes:
+              properties:
+                status:
+                  type: string
+                  example: pending
+                  enum:
+                  - pending
+                  - submitting
+                  - submitted
+                  - processing
+                  - success
+                  - complete
+                  - error
+                updatedAt:
+                  description: The last time the submission was updated
+                  type: string
+                  format: date-time
+                  example: '2018-07-30T17:31:15.958Z'
+                createdAt:
+                  description: The time the submission was created
+                  type: string
+                  format: date-time
+                  example: '2018-07-30T17:31:15.958Z'
+          required:
+          - id
+          - type
+          - attributes
+      required:
+      - data
     nodEvidenceSubmissionResponse:
       type: object
       properties:
@@ -3570,149 +3529,53 @@ components:
           - attributes
       required:
       - data
-    X-VA-NonVeteranClaimant-Birth-Date:
-      description: Non-veteran claimant's birth date
-      type: string
-      format: date
-    address:
+    nodCreateResponse:
+      description: Successful response of a 10182 form submission
       type: object
       properties:
-        addressLine1:
-          type: string
-          minLength: 1
-          maxLength: 60
-        addressLine2:
-          type: string
-          minLength: 1
-          maxLength: 30
-        addressLine3:
-          type: string
-          minLength: 1
-          maxLength: 10
-        city:
-          type: string
-          minLength: 1
-          maxLength: 60
-        stateCode:
-          type: string
-          enum:
-          - AL
-          - AK
-          - AS
-          - AZ
-          - AR
-          - AA
-          - AE
-          - AP
-          - CA
-          - CO
-          - CT
-          - DE
-          - DC
-          - FM
-          - FL
-          - GA
-          - GU
-          - HI
-          - ID
-          - IL
-          - IN
-          - IA
-          - KS
-          - KY
-          - LA
-          - ME
-          - MH
-          - MD
-          - MA
-          - MI
-          - MN
-          - MS
-          - MO
-          - MT
-          - NE
-          - NV
-          - NH
-          - NJ
-          - NM
-          - NY
-          - NC
-          - ND
-          - MP
-          - OH
-          - OK
-          - OR
-          - PW
-          - PA
-          - PR
-          - RI
-          - SC
-          - SD
-          - TN
-          - TX
-          - UT
-          - VT
-          - VI
-          - VA
-          - WA
-          - WV
-          - WI
-          - WY
-        countryCodeISO2:
-          type: string
-          pattern: ^[A-Z]{2}$
-          minLength: 2
-          maxLength: 2
-        zipCode5:
-          type: string
-          description: 5-digit zipcode. Use "00000" if address is outside the United States
-          pattern: ^[0-9]{5}$
-          minLength: 5
-          maxLength: 5
-        internationalPostalCode:
-          type: string
-          minLength: 1
-          maxLength: 16
-      required:
-      - addressLine1
-      - city
-      - countryCodeISO2
-      - zipCode5
-    uuid:
-      type: string
-      pattern: ^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$
-    nonBlankString:
-      type: string
-      pattern: '[^ \f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]'
-    phone:
-      type: object
-      properties:
-        countryCode:
-          type: string
-          pattern: ^[0-9]+$
-          minLength: 1
-          maxLength: 3
-        areaCode:
-          type: string
-          pattern: ^[0-9]{1,4}$
-          minLength: 1
-          maxLength: 4
-        phoneNumber:
-          type: string
-          pattern: ^[0-9]{1,14}$
-          minLength: 1
-          maxLength: 14
-        phoneNumberExt:
-          type: string
-          pattern: ^[a-zA-Z0-9]{1,10}$
-          minLength: 1
-          maxLength: 10
-      required:
-      - phoneNumber
-    X-VA-First-Name:
+        data:
+          properties:
+            id:
+              type: string
+              description: Unique ID of created NOD
+              example: 97751cb6-d06d-4179-87f6-75e3fc9d875c
+            type:
+              type: string
+              description: Name of record class
+              example: noticeOfDisagreement
+            attributes:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: Status of NOD
+                  example: pending
+                  enum:
+                  - pending
+                  - submitting
+                  - submitted
+                  - processing
+                  - success
+                  - complete
+                  - error
+                createdAt:
+                  type: string
+                  description: Created timestamp of the NOD
+                  example: '2020-12-16T19:52:23.909Z'
+                updatedAt:
+                  type: string
+                  description: Updated timestamp of the NOD
+                  example: '2020-12-16T19:52:23.909Z'
+            formData:
+              $ref: '#/components/schemas/nodCreate'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/contestableIssue'
+    X-VA-Last-Name:
       allOf:
-      - description: first name
-      - type: string
+      - description: last name
+      - $ref: '#/components/schemas/nonBlankString'
     timezone:
       type: string
       enum:
@@ -4313,133 +4176,141 @@ components:
       - W-SU
       - WET
       - Zulu
-    contestableIssue:
+    phone:
       type: object
-      description: A contestable issue (to contest this, you include it as a RequestIssue when creating a HigherLevelReview, SupplementalClaim, or Appeal)
       properties:
-        type:
+        countryCode:
+          type: string
+          pattern: ^[0-9]+$
+          minLength: 1
+          maxLength: 3
+        areaCode:
+          type: string
+          pattern: ^[0-9]{1,4}$
+          minLength: 1
+          maxLength: 4
+        phoneNumber:
+          type: string
+          pattern: ^[0-9]{1,14}$
+          minLength: 1
+          maxLength: 14
+        phoneNumberExt:
+          type: string
+          pattern: ^[a-zA-Z0-9]{1,10}$
+          minLength: 1
+          maxLength: 10
+      required:
+      - phoneNumber
+    nonBlankString:
+      type: string
+      pattern: '[^ \f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]'
+    address:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          minLength: 1
+          maxLength: 60
+        addressLine2:
+          type: string
+          minLength: 1
+          maxLength: 30
+        addressLine3:
+          type: string
+          minLength: 1
+          maxLength: 10
+        city:
+          type: string
+          minLength: 1
+          maxLength: 60
+        stateCode:
           type: string
           enum:
-          - contestableIssue
-        id:
-          type:
-          - string
-          - 'null'
-        attributes:
-          type: object
-          properties:
-            ratingIssueReferenceId:
-              type:
-              - string
-              - 'null'
-              description: RatingIssue ID
-              example: '2385'
-            ratingIssueProfileDate:
-              type:
-              - string
-              - 'null'
-              format: date
-              description: (yyyy-mm-dd) RatingIssue profile date
-              example: '2006-05-31'
-            ratingIssueDiagnosticCode:
-              type:
-              - string
-              - 'null'
-              description: RatingIssue diagnostic code
-              example: '5005'
-            ratingDecisionReferenceId:
-              type:
-              - string
-              - 'null'
-              description: The BGS ID for the contested rating decision. This may be populated while ratingIssueReferenceId is nil
-              example: null
-            decisionIssueId:
-              type:
-              - integer
-              - 'null'
-              description: DecisionIssue ID
-              example: null
-            approxDecisionDate:
-              type:
-              - string
-              - 'null'
-              format: date
-              description: (yyyy-mm-dd) Approximate decision date
-              example: '2006-11-27'
-            description:
-              type:
-              - string
-              - 'null'
-              description: Description
-              example: Service connection for hypertension is granted with an evaluation of 10 percent effective July 24, 2005.
-            rampClaimId:
-              type:
-              - string
-              - 'null'
-              description: RampClaim ID
-              example: null
-            titleOfActiveReview:
-              type:
-              - string
-              - 'null'
-              description: Title of DecisionReview that this issue is still active on
-              example: null
-            sourceReviewType:
-              type:
-              - string
-              - 'null'
-              description: The type of DecisionReview (HigherLevelReview, SupplementalClaim, Appeal) the issue was last decided on (if any)
-              example: null
-            timely:
-              type: boolean
-              description: An issue is timely if the receipt date is within 372 dates of the decision date.
-              example: false
-            activeReview:
-              type: boolean
-              description: Indicates whether this issue is already part of an active Decision Review that is being processed by VA. Submitting a Decision Review that includes a listed issue with an activeReview of true may result in VA rejecting the submission.
-              example: false
-            latestIssuesInChain:
-              type: array
-              description: Shows the chain of decision and rating issues that preceded this issue. Only the most recent issue can be contested (the object itself that contains the latestIssuesInChain attribute).
-              items:
-                type: object
-                properties:
-                  id:
-                    oneOf:
-                    - type:
-                      - string
-                      - 'null'
-                    - type: integer
-                    example: null
-                  approxDecisionDate:
-                    type:
-                    - string
-                    - 'null'
-                    format: date
-                    example: '2006-11-27'
-            ratingIssueSubjectText:
-              type:
-              - string
-              - 'null'
-              description: Short description of RatingIssue
-              example: Hypertension
-            ratingIssuePercentNumber:
-              type:
-              - string
-              - 'null'
-              description: Numerical rating for RatingIssue
-              example: '10'
-            isRating:
-              type: boolean
-              description: Whether or not this is a RatingIssue
-              example: true
+          - AL
+          - AK
+          - AS
+          - AZ
+          - AR
+          - AA
+          - AE
+          - AP
+          - CA
+          - CO
+          - CT
+          - DE
+          - DC
+          - FM
+          - FL
+          - GA
+          - GU
+          - HI
+          - ID
+          - IL
+          - IN
+          - IA
+          - KS
+          - KY
+          - LA
+          - ME
+          - MH
+          - MD
+          - MA
+          - MI
+          - MN
+          - MS
+          - MO
+          - MT
+          - NE
+          - NV
+          - NH
+          - NJ
+          - NM
+          - NY
+          - NC
+          - ND
+          - MP
+          - OH
+          - OK
+          - OR
+          - PW
+          - PA
+          - PR
+          - RI
+          - SC
+          - SD
+          - TN
+          - TX
+          - UT
+          - VT
+          - VI
+          - VA
+          - WA
+          - WV
+          - WI
+          - WY
+        countryCodeISO2:
+          type: string
+          pattern: ^[A-Z]{2}$
+          minLength: 2
+          maxLength: 2
+        zipCode5:
+          type: string
+          description: 5-digit zipcode. Use "00000" if address is outside the United States
+          pattern: ^[0-9]{5}$
+          minLength: 5
+          maxLength: 5
+        internationalPostalCode:
+          type: string
+          minLength: 1
+          maxLength: 16
+      required:
+      - addressLine1
+      - city
+      - countryCodeISO2
+      - zipCode5
     X-VA-NonVeteranClaimant-Middle-Initial:
       allOf:
       - description: middle initial
-      - $ref: '#/components/schemas/nonBlankString'
-    X-VA-NonVeteranClaimant-Last-Name:
-      allOf:
-      - description: last name
       - $ref: '#/components/schemas/nonBlankString'
     nodCreate:
       type: object
@@ -4604,79 +4475,135 @@ components:
       required:
       - data
       - included
-    nodEvidenceSubmissionResponse_2:
+    contestableIssue:
       type: object
+      description: A contestable issue (to contest this, you include it as a RequestIssue when creating a HigherLevelReview, SupplementalClaim, or Appeal)
       properties:
-        data:
+        type:
+          type: string
+          enum:
+          - contestableIssue
+        id:
+          type:
+          - string
+          - 'null'
+        attributes:
+          type: object
           properties:
-            id:
-              description: The document upload identifier
-              type: string
-              format: uuid
-              example: 6d8433c1-cd55-4c24-affd-f592287a7572
-            type:
-              description: JSON API type specification
-              type: string
-              example: evidenceSubmission
-            attributes:
-              properties:
-                status:
-                  type: string
-                  example: received
-                  enum:
-                  - received
-                  - processing
-                  - success
-                  - pending
-                  - uploaded
-                  - vbms
-                  - error
-                  - expired
-                code:
-                  type:
-                  - string
-                  - 'null'
-                detail:
-                  type:
-                  - string
-                  - 'null'
-                  description: Human readable error detail. Only present if status = "error"
-                appealType:
-                  description: Type of associated appeal
-                  type: string
-                  example: NoticeOfDisagreement
-                appealId:
-                  description: GUID of associated appeal
-                  type: string
-                  format: uuid
-                  example: 2926ad2a-9372-48cf-8ec1-69e08e4799ef
-                location:
-                  type:
-                  - string
-                  - 'null'
-                  description: Location to which to PUT document Payload
-                  format: uri
-                  example: https://sandbox-api.va.gov/example_path_here/6d8433c1-cd55-4c24-affd-f592287a7572
-                updateDate:
-                  description: The last time the submission was updated
-                  type: string
-                  format: date-time
-                  example: '2018-07-30T17:31:15.958Z'
-                createDate:
-                  description: The time the submission was created
-                  type: string
-                  format: date-time
-                  example: '2018-07-30T17:31:15.958Z'
-                finalStatus:
-                  description: Indicates whether the status of the submission is final. Submissions with a finalStatus of true will no longer update to a new status.
-                  type: boolean
-                  example: false
-          required:
-          - id
-          - type
-          - attributes
-      required:
-      - data
+            ratingIssueReferenceId:
+              type:
+              - string
+              - 'null'
+              description: RatingIssue ID
+              example: '2385'
+            ratingIssueProfileDate:
+              type:
+              - string
+              - 'null'
+              format: date
+              description: (yyyy-mm-dd) RatingIssue profile date
+              example: '2006-05-31'
+            ratingIssueDiagnosticCode:
+              type:
+              - string
+              - 'null'
+              description: RatingIssue diagnostic code
+              example: '5005'
+            ratingDecisionReferenceId:
+              type:
+              - string
+              - 'null'
+              description: The BGS ID for the contested rating decision. This may be populated while ratingIssueReferenceId is nil
+              example: null
+            decisionIssueId:
+              type:
+              - integer
+              - 'null'
+              description: DecisionIssue ID
+              example: null
+            approxDecisionDate:
+              type:
+              - string
+              - 'null'
+              format: date
+              description: (yyyy-mm-dd) Approximate decision date
+              example: '2006-11-27'
+            description:
+              type:
+              - string
+              - 'null'
+              description: Description
+              example: Service connection for hypertension is granted with an evaluation of 10 percent effective July 24, 2005.
+            rampClaimId:
+              type:
+              - string
+              - 'null'
+              description: RampClaim ID
+              example: null
+            titleOfActiveReview:
+              type:
+              - string
+              - 'null'
+              description: Title of DecisionReview that this issue is still active on
+              example: null
+            sourceReviewType:
+              type:
+              - string
+              - 'null'
+              description: The type of DecisionReview (HigherLevelReview, SupplementalClaim, Appeal) the issue was last decided on (if any)
+              example: null
+            timely:
+              type: boolean
+              description: An issue is timely if the receipt date is within 372 dates of the decision date.
+              example: false
+            activeReview:
+              type: boolean
+              description: Indicates whether this issue is already part of an active Decision Review that is being processed by VA. Submitting a Decision Review that includes a listed issue with an activeReview of true may result in VA rejecting the submission.
+              example: false
+            latestIssuesInChain:
+              type: array
+              description: Shows the chain of decision and rating issues that preceded this issue. Only the most recent issue can be contested (the object itself that contains the latestIssuesInChain attribute).
+              items:
+                type: object
+                properties:
+                  id:
+                    oneOf:
+                    - type:
+                      - string
+                      - 'null'
+                    - type: integer
+                    example: null
+                  approxDecisionDate:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    example: '2006-11-27'
+            ratingIssueSubjectText:
+              type:
+              - string
+              - 'null'
+              description: Short description of RatingIssue
+              example: Hypertension
+            ratingIssuePercentNumber:
+              type:
+              - string
+              - 'null'
+              description: Numerical rating for RatingIssue
+              example: '10'
+            isRating:
+              type: boolean
+              description: Whether or not this is a RatingIssue
+              example: true
+    X-VA-File-Number:
+      allOf:
+      - description: VA file number (c-file / css)
+      - maxLength: 9
+      - $ref: '#/components/schemas/nonBlankString'
+    X-VA-NonVeteranClaimant-Last-Name:
+      allOf:
+      - description: last name
+      - $ref: '#/components/schemas/nonBlankString'
     ssn:
       type: string
       description: Social Security Number
@@ -4789,13 +4716,413 @@ components:
       - city
       - countryCodeIso3
       - zipCode5
-    icn:
-      type: string
-      description: Veteran's Master Person Index (MPI) Integration Control Number (ICN)
-      pattern: ^[0-9]{10}V[0-9]{6}$
-      minLength: 17
-      maxLength: 17
-      example: 1012832025V743496
+    appealableIssue:
+      type: object
+      description: An appealable issue (to appeal this, you include it as a RequestIssue when creating a HigherLevelReview, SupplementalClaim, or Appeal)
+      properties:
+        type:
+          type: string
+          enum:
+          - appealableIssue
+        id:
+          type:
+          - string
+          - 'null'
+        attributes:
+          type: object
+          properties:
+            ratingIssueReferenceId:
+              type:
+              - string
+              - 'null'
+              description: RatingIssue ID
+              example: '2385'
+            ratingIssueProfileDate:
+              type:
+              - string
+              - 'null'
+              format: date
+              description: (yyyy-mm-dd) RatingIssue profile date
+              example: '2006-05-31'
+            ratingIssueDiagnosticCode:
+              type:
+              - string
+              - 'null'
+              description: RatingIssue diagnostic code
+              example: '5005'
+            ratingDecisionReferenceId:
+              type:
+              - string
+              - 'null'
+              description: The BGS ID for the appealable rating decision. This may be populated while ratingIssueReferenceId is nil
+              example: null
+            decisionIssueId:
+              type:
+              - integer
+              - 'null'
+              description: DecisionIssue ID
+              example: null
+            approxDecisionDate:
+              type:
+              - string
+              - 'null'
+              format: date
+              description: (yyyy-mm-dd) Approximate decision date
+              example: '2006-11-27'
+            description:
+              type:
+              - string
+              - 'null'
+              description: Description
+              example: Service connection for hypertension is granted with an evaluation of 10 percent effective July 24, 2005.
+            rampClaimId:
+              type:
+              - string
+              - 'null'
+              description: RampClaim ID
+              example: null
+            titleOfActiveReview:
+              type:
+              - string
+              - 'null'
+              description: Title of DecisionReview that this issue is still active on
+              example: null
+            sourceReviewType:
+              type:
+              - string
+              - 'null'
+              description: The type of DecisionReview (HigherLevelReview, SupplementalClaim, Appeal) the issue was last decided on (if any)
+              example: null
+            timely:
+              type: boolean
+              description: An issue is timely if the receipt date is within 372 dates of the decision date.
+              example: false
+            latestIssuesInChain:
+              type: array
+              description: Shows the chain of decision and rating issues that preceded this issue. Only the most recent issue can be appealed (the object itself that contains the latestIssuesInChain attribute).
+              items:
+                type: object
+                properties:
+                  id:
+                    oneOf:
+                    - type:
+                      - string
+                      - 'null'
+                    - type: integer
+                    example: null
+                  approxDecisionDate:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    example: '2006-11-27'
+            ratingIssueSubjectText:
+              type:
+              - string
+              - 'null'
+              description: Short description of RatingIssue
+              example: Hypertension
+            ratingIssuePercentNumber:
+              type:
+              - string
+              - 'null'
+              description: Numerical rating for RatingIssue
+              example: '10'
+            isRating:
+              type: boolean
+              description: Whether or not this is a RatingIssue
+              example: true
+    nodEvidenceSubmissionResponse_2:
+      type: object
+      properties:
+        data:
+          properties:
+            id:
+              description: The document upload identifier
+              type: string
+              format: uuid
+              example: 6d8433c1-cd55-4c24-affd-f592287a7572
+            type:
+              description: JSON API type specification
+              type: string
+              example: evidenceSubmission
+            attributes:
+              properties:
+                status:
+                  type: string
+                  example: received
+                  enum:
+                  - received
+                  - processing
+                  - success
+                  - pending
+                  - uploaded
+                  - vbms
+                  - error
+                  - expired
+                code:
+                  type:
+                  - string
+                  - 'null'
+                detail:
+                  type:
+                  - string
+                  - 'null'
+                  description: Human readable error detail. Only present if status = "error"
+                appealType:
+                  description: Type of associated appeal
+                  type: string
+                  example: NoticeOfDisagreement
+                appealId:
+                  description: GUID of associated appeal
+                  type: string
+                  format: uuid
+                  example: 2926ad2a-9372-48cf-8ec1-69e08e4799ef
+                location:
+                  type:
+                  - string
+                  - 'null'
+                  description: Location to which to PUT document Payload
+                  format: uri
+                  example: https://sandbox-api.va.gov/example_path_here/6d8433c1-cd55-4c24-affd-f592287a7572
+                updateDate:
+                  description: The last time the submission was updated
+                  type: string
+                  format: date-time
+                  example: '2018-07-30T17:31:15.958Z'
+                createDate:
+                  description: The time the submission was created
+                  type: string
+                  format: date-time
+                  example: '2018-07-30T17:31:15.958Z'
+                finalStatus:
+                  description: Indicates whether the status of the submission is final. Submissions with a finalStatus of true will no longer update to a new status.
+                  type: boolean
+                  example: false
+          required:
+          - id
+          - type
+          - attributes
+      required:
+      - data
+    nodCreate_2:
+      type: object
+      description: JSON Schema for VA Form 10182
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - noticeOfDisagreement
+            attributes:
+              type: object
+              properties:
+                veteran:
+                  type: object
+                  properties:
+                    ssn:
+                      allOf:
+                      - $ref: '#/components/schemas/ssn'
+                      - description: Veteran's SSN
+                    icn:
+                      $ref: '#/components/schemas/icn'
+                    firstName:
+                      allOf:
+                      - description: Veteran's first name
+                        minLength: 1
+                        maxLength: 255
+                      - $comment: can be whitespace, to accommodate those with 1 legal name
+                      - $ref: '#/components/schemas/nonBlankString'
+                    middleInitial:
+                      allOf:
+                      - description: Veteran's middle initial
+                        minLength: 1
+                        maxLength: 1
+                      - $ref: '#/components/schemas/nonBlankString'
+                    lastName:
+                      allOf:
+                      - description: Veteran's last name
+                        minLength: 1
+                        maxLength: 255
+                      - $ref: '#/components/schemas/nonBlankString'
+                    fileNumber:
+                      $ref: '#/components/schemas/fileNumber'
+                    birthDate:
+                      description: Veteran's birth date
+                      type: string
+                      format: date
+                    homeless:
+                      type: boolean
+                    address:
+                      $ref: '#/components/schemas/address_2'
+                    phone:
+                      $ref: '#/components/schemas/phone'
+                      $comment: the phone fields must not exceed 20 chars, when concatenated
+                    email:
+                      type: string
+                      format: email
+                      minLength: 6
+                      maxLength: 255
+                    timezone:
+                      description: Veteran's timezone. Used for adding the current date to the signature according to the veteran's local time. If not specified, the current UTC date will be used for the signature (which may be ahead or behind the local date).
+                      $ref: '#/components/schemas/timezone_2'
+                  required:
+                  - icn
+                  - fileNumber
+                  - firstName
+                  - lastName
+                  - birthDate
+                  - homeless
+                  - phone
+                  - email
+                  if:
+                    properties:
+                      homeless:
+                        const: false
+                  then:
+                    required:
+                    - address
+                claimant:
+                  type: object
+                  description: If the claimant is a non-Veteran, claimant information is required. Without this information, we will be unable to identify the claimant. If you're a healthcare provider or an employee of a healthcare provider requesting review of a VA payment decision, you must identify the healthcare provider as the claimant and complete all relevant information in the claimant object.
+                  properties:
+                    firstName:
+                      allOf:
+                      - description: Non-Veteran claimant's first name
+                        minLength: 1
+                        maxLength: 255
+                      - $ref: '#/components/schemas/nonBlankString'
+                      - $comment: Can be whitespace to accommodate those with 1 legal name
+                    middleInitial:
+                      allOf:
+                      - description: Non-Veteran Claimant's middle initial
+                        minLength: 1
+                        maxLength: 1
+                      - $ref: '#/components/schemas/nonBlankString'
+                    lastName:
+                      allOf:
+                      - description: Non-Veteran Claimant's last name
+                        minLength: 1
+                        maxLength: 255
+                      - $ref: '#/components/schemas/nonBlankString'
+                    birthDate:
+                      description: Non-Veteran claimant's birth date
+                      type: string
+                      format: date
+                    homeless:
+                      type: boolean
+                    address:
+                      $ref: '#/components/schemas/address_2'
+                    phone:
+                      $ref: '#/components/schemas/phone'
+                      $comment: the phone fields must not exceed 20 chars, when concatenated
+                    email:
+                      type: string
+                      format: email
+                      minLength: 6
+                      maxLength: 255
+                    timezone:
+                      description: Veteran's timezone. Used for adding the current date to the signature according to the veteran's local time. If not specified, the current UTC date will be used for the signature (which may be ahead or behind the local date).
+                      $ref: '#/components/schemas/timezone_2'
+                  required:
+                  - homeless
+                  - phone
+                  - email
+                  if:
+                    properties:
+                      homeless:
+                        const: false
+                  then:
+                    required:
+                    - address
+                representative:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      minLength: 1
+                      maxLength: 120
+                boardReviewOption:
+                  type: string
+                  enum:
+                  - direct_review
+                  - evidence_submission
+                  - hearing
+                hearingTypePreference:
+                  type: string
+                  enum:
+                  - virtual_hearing
+                  - video_conference
+                  - central_office
+                requestingExtension:
+                  type: boolean
+                  description: Set to true to request a filing extension. An extensionReason must be provided if true.
+                extensionReason:
+                  type: string
+                  minLength: 1
+                  maxLength: 2300
+                  description: Explanation why you believe there is good cause for the extension. If an extensionReason is provided, requestingExtension must be true.
+                appealingVhaDenial:
+                  type: boolean
+                  description: Set to true if you are appealing a denial of benefits by the Veterans Health Administration (VHA).
+              required:
+              - boardReviewOption
+              if:
+                properties:
+                  requestingExtension:
+                    const: true
+              then:
+                required:
+                - extensionReason
+          required:
+          - type
+          - attributes
+        included:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - appealableIssue
+              attributes:
+                type: object
+                properties:
+                  issue:
+                    type: string
+                    minLength: 1
+                    maxLength: 180
+                  decisionDate:
+                    type: string
+                    format: date
+                  decisionIssueId:
+                    type: integer
+                  ratingIssueReferenceId:
+                    type: string
+                    minLength: 1
+                    maxLength: 255
+                  ratingDecisionReferenceId:
+                    type: string
+                    minLength: 1
+                    maxLength: 255
+                  disagreementArea:
+                    type: string
+                    maxLength: 90
+                required:
+                - issue
+                - decisionDate
+            required:
+            - type
+            - attributes
+          minItems: 1
+          maxItems: 100
+          uniqueItems: true
+      required:
+      - data
+      - included
     nodCreateResponse_2:
       description: Successful response of a 10182 form submission
       type: object
@@ -4839,12 +5166,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/appealableIssue'
-    fileNumber:
-      description: Veteran's VA file number (c-file / css)
-      type: string
-      minLength: 7
-      maxLength: 9
-      example: '987654321'
     timezone_2:
       type: string
       enum:
@@ -5446,6 +5767,19 @@ components:
       - W-SU
       - WET
       - Zulu
+    fileNumber:
+      description: Veteran's VA file number (c-file / css)
+      type: string
+      minLength: 7
+      maxLength: 9
+      example: '987654321'
+    icn:
+      type: string
+      description: Veteran's Master Person Index (MPI) Integration Control Number (ICN)
+      pattern: ^[0-9]{10}V[0-9]{6}$
+      minLength: 17
+      maxLength: 17
+      example: 1012832025V743496
     nodShowResponse_2:
       type: object
       properties:
@@ -5486,340 +5820,6 @@ components:
           - attributes
       required:
       - data
-    appealableIssue:
-      type: object
-      description: An appealable issue (to appeal this, you include it as a RequestIssue when creating a HigherLevelReview, SupplementalClaim, or Appeal)
-      properties:
-        type:
-          type: string
-          enum:
-          - appealableIssue
-        id:
-          type:
-          - string
-          - 'null'
-        attributes:
-          type: object
-          properties:
-            ratingIssueReferenceId:
-              type:
-              - string
-              - 'null'
-              description: RatingIssue ID
-              example: '2385'
-            ratingIssueProfileDate:
-              type:
-              - string
-              - 'null'
-              format: date
-              description: (yyyy-mm-dd) RatingIssue profile date
-              example: '2006-05-31'
-            ratingIssueDiagnosticCode:
-              type:
-              - string
-              - 'null'
-              description: RatingIssue diagnostic code
-              example: '5005'
-            ratingDecisionReferenceId:
-              type:
-              - string
-              - 'null'
-              description: The BGS ID for the appealable rating decision. This may be populated while ratingIssueReferenceId is nil
-              example: null
-            decisionIssueId:
-              type:
-              - integer
-              - 'null'
-              description: DecisionIssue ID
-              example: null
-            approxDecisionDate:
-              type:
-              - string
-              - 'null'
-              format: date
-              description: (yyyy-mm-dd) Approximate decision date
-              example: '2006-11-27'
-            description:
-              type:
-              - string
-              - 'null'
-              description: Description
-              example: Service connection for hypertension is granted with an evaluation of 10 percent effective July 24, 2005.
-            rampClaimId:
-              type:
-              - string
-              - 'null'
-              description: RampClaim ID
-              example: null
-            titleOfActiveReview:
-              type:
-              - string
-              - 'null'
-              description: Title of DecisionReview that this issue is still active on
-              example: null
-            sourceReviewType:
-              type:
-              - string
-              - 'null'
-              description: The type of DecisionReview (HigherLevelReview, SupplementalClaim, Appeal) the issue was last decided on (if any)
-              example: null
-            timely:
-              type: boolean
-              description: An issue is timely if the receipt date is within 372 dates of the decision date.
-              example: false
-            latestIssuesInChain:
-              type: array
-              description: Shows the chain of decision and rating issues that preceded this issue. Only the most recent issue can be appealed (the object itself that contains the latestIssuesInChain attribute).
-              items:
-                type: object
-                properties:
-                  id:
-                    oneOf:
-                    - type:
-                      - string
-                      - 'null'
-                    - type: integer
-                    example: null
-                  approxDecisionDate:
-                    type:
-                    - string
-                    - 'null'
-                    format: date
-                    example: '2006-11-27'
-            ratingIssueSubjectText:
-              type:
-              - string
-              - 'null'
-              description: Short description of RatingIssue
-              example: Hypertension
-            ratingIssuePercentNumber:
-              type:
-              - string
-              - 'null'
-              description: Numerical rating for RatingIssue
-              example: '10'
-            isRating:
-              type: boolean
-              description: Whether or not this is a RatingIssue
-              example: true
-    nodCreate_2:
-      type: object
-      description: JSON Schema for VA Form 10182
-      properties:
-        data:
-          type: object
-          properties:
-            type:
-              type: string
-              enum:
-              - noticeOfDisagreement
-            attributes:
-              type: object
-              properties:
-                veteran:
-                  type: object
-                  properties:
-                    ssn:
-                      allOf:
-                      - $ref: '#/components/schemas/ssn'
-                      - description: Veteran's SSN
-                    icn:
-                      $ref: '#/components/schemas/icn'
-                    firstName:
-                      allOf:
-                      - description: Veteran's first name
-                        minLength: 1
-                        maxLength: 255
-                      - $comment: can be whitespace, to accommodate those with 1 legal name
-                      - $ref: '#/components/schemas/nonBlankString'
-                    middleInitial:
-                      allOf:
-                      - description: Veteran's middle initial
-                        minLength: 1
-                        maxLength: 1
-                      - $ref: '#/components/schemas/nonBlankString'
-                    lastName:
-                      allOf:
-                      - description: Veteran's last name
-                        minLength: 1
-                        maxLength: 255
-                      - $ref: '#/components/schemas/nonBlankString'
-                    fileNumber:
-                      $ref: '#/components/schemas/fileNumber'
-                    birthDate:
-                      description: Veteran's birth date
-                      type: string
-                      format: date
-                    homeless:
-                      type: boolean
-                    address:
-                      $ref: '#/components/schemas/address_2'
-                    phone:
-                      $ref: '#/components/schemas/phone'
-                      $comment: the phone fields must not exceed 20 chars, when concatenated
-                    email:
-                      type: string
-                      format: email
-                      minLength: 6
-                      maxLength: 255
-                    timezone:
-                      description: Veteran's timezone. Used for adding the current date to the signature according to the veteran's local time. If not specified, the current UTC date will be used for the signature (which may be ahead or behind the local date).
-                      $ref: '#/components/schemas/timezone_2'
-                  required:
-                  - icn
-                  - fileNumber
-                  - firstName
-                  - lastName
-                  - birthDate
-                  - homeless
-                  - phone
-                  - email
-                  if:
-                    properties:
-                      homeless:
-                        const: false
-                  then:
-                    required:
-                    - address
-                claimant:
-                  type: object
-                  description: If the claimant is a non-Veteran, claimant information is required. Without this information, we will be unable to identify the claimant. If you're a healthcare provider or an employee of a healthcare provider requesting review of a VA payment decision, you must identify the healthcare provider as the claimant and complete all relevant information in the claimant object.
-                  properties:
-                    firstName:
-                      allOf:
-                      - description: Non-Veteran claimant's first name
-                        minLength: 1
-                        maxLength: 255
-                      - $ref: '#/components/schemas/nonBlankString'
-                      - $comment: Can be whitespace to accommodate those with 1 legal name
-                    middleInitial:
-                      allOf:
-                      - description: Non-Veteran Claimant's middle initial
-                        minLength: 1
-                        maxLength: 1
-                      - $ref: '#/components/schemas/nonBlankString'
-                    lastName:
-                      allOf:
-                      - description: Non-Veteran Claimant's last name
-                        minLength: 1
-                        maxLength: 255
-                      - $ref: '#/components/schemas/nonBlankString'
-                    birthDate:
-                      description: Non-Veteran claimant's birth date
-                      type: string
-                      format: date
-                    homeless:
-                      type: boolean
-                    address:
-                      $ref: '#/components/schemas/address_2'
-                    phone:
-                      $ref: '#/components/schemas/phone'
-                      $comment: the phone fields must not exceed 20 chars, when concatenated
-                    email:
-                      type: string
-                      format: email
-                      minLength: 6
-                      maxLength: 255
-                    timezone:
-                      description: Veteran's timezone. Used for adding the current date to the signature according to the veteran's local time. If not specified, the current UTC date will be used for the signature (which may be ahead or behind the local date).
-                      $ref: '#/components/schemas/timezone_2'
-                  required:
-                  - homeless
-                  - phone
-                  - email
-                  if:
-                    properties:
-                      homeless:
-                        const: false
-                  then:
-                    required:
-                    - address
-                representative:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      minLength: 1
-                      maxLength: 120
-                boardReviewOption:
-                  type: string
-                  enum:
-                  - direct_review
-                  - evidence_submission
-                  - hearing
-                hearingTypePreference:
-                  type: string
-                  enum:
-                  - virtual_hearing
-                  - video_conference
-                  - central_office
-                requestingExtension:
-                  type: boolean
-                  description: Set to true to request a filing extension. An extensionReason must be provided if true.
-                extensionReason:
-                  type: string
-                  minLength: 1
-                  maxLength: 2300
-                  description: Explanation why you believe there is good cause for the extension. If an extensionReason is provided, requestingExtension must be true.
-                appealingVhaDenial:
-                  type: boolean
-                  description: Set to true if you are appealing a denial of benefits by the Veterans Health Administration (VHA).
-              required:
-              - boardReviewOption
-              if:
-                properties:
-                  requestingExtension:
-                    const: true
-              then:
-                required:
-                - extensionReason
-          required:
-          - type
-          - attributes
-        included:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                enum:
-                - appealableIssue
-              attributes:
-                type: object
-                properties:
-                  issue:
-                    type: string
-                    minLength: 1
-                    maxLength: 180
-                  decisionDate:
-                    type: string
-                    format: date
-                  decisionIssueId:
-                    type: integer
-                  ratingIssueReferenceId:
-                    type: string
-                    minLength: 1
-                    maxLength: 255
-                  ratingDecisionReferenceId:
-                    type: string
-                    minLength: 1
-                    maxLength: 255
-                  disagreementArea:
-                    type: string
-                    maxLength: 90
-                required:
-                - issue
-                - decisionDate
-            required:
-            - type
-            - attributes
-          minItems: 1
-          maxItems: 100
-          uniqueItems: true
-      required:
-      - data
-      - included
   securitySchemes:
     apikey:
       type: apiKey
